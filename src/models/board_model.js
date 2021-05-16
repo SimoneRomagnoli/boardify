@@ -14,5 +14,5 @@ module.exports = (mongoose) => {
             comment: String
         }]
     })
-    return mongoose.model("Board", board_schema)
+    return mongoose.model("Board", board_schema, "boards")
 }
