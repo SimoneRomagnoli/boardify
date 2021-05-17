@@ -1,14 +1,13 @@
 var mongoose = require('mongoose');
 User = require("../models/user_model")(mongoose);
 
-exports.show_index = function(req, res) {
+exports.show_index = (req, res) => {
 	res.sendFile(appRoot  + '/www/index.html');
 };
 
-exports.list_users = function(req, res) {
-	User.find({}, function(err, user) {
-		if (err)
-			res.send(err);
-		res.json(user);
+exports.list_users = (req, res) => {
+	User.find({}, (err, user) => {
+		if (err) { res.send(err); }
+		else { res.json(user); }
 	});
 };

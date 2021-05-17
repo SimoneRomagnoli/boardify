@@ -4,6 +4,6 @@ module.exports = function(app) {
 	app.route('/')
 		.get(usersController.show_index);
 
-	app.route('/users')
+	app.route('/api/users')
 		.get(usersController.list_users);
 };

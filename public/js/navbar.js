@@ -3,7 +3,7 @@ const NavButton = {
   template: 
   `
   <li class="nav-item">
-    <router-link class="nav-link" :to="{name:route}">{{text}}</router-link>
+    <router-link class="nav-link" :to="route">{{text}}</router-link>
   </li>
   `
 }
