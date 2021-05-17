@@ -1,24 +1,28 @@
-var express = require('express');
-var app = express();
-var mongoose = require('mongoose');
-var path = require('path');
+require('dotenv').config()
+const express = require('express');
+const app = express();
+const database = require('./src/config/database');
+const path = require('path');
+const passport = require('passport')
+
 global.appRoot = path.resolve(__dirname);
 
 app.use('/static', express.static(__dirname + '/public'));
 
-var uri = 'mongodb+srv://admin:Boardify2021!@boardifycluster.8hl3a.mongodb.net/boardify?retryWrites=true&w=majority'
-mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true});
-mongoose.set('useFindAndModify', true);
+// Passport authentication middleware
+require('./src/config/passport')(passport);
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 var routes = require('./src/routes/usersRoutes');
 routes(app);
 
-app.use(function(req, res) {
+app.use((req, res) => {
     res.status(404).send({url: req.originalUrl + ' not found'})
 });
 
-app.listen(3000, function (){
+app.listen(3000, () => {
     console.log('Listening on port 3000')
 })

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt')
-User = require("../models/user_model")(mongoose);
+const User = require('../config/database').User
 
 exports.show_index = (req, res) => {
 	res.sendFile(appRoot  + '/www/index.html');

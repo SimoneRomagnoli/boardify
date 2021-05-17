@@ -25,7 +25,9 @@ const Users = {
         }
     },
     methods: {
-        //funzione getUsers
+        init() {
+            this.listUsers();
+        },
         listUsers() {
             axios.get("http://localhost:3000/api/users")
             .then( response => {
@@ -37,6 +39,6 @@ const Users = {
         }
     },
     mounted: function(){
-        this.listUsers();
+        this.init();
     }
 }
