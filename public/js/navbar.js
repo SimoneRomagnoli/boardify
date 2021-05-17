@@ -18,6 +18,7 @@ const Navbar = {
       <ul class="navbar-nav">
         <navbutton text="Home" route="/"></navbutton>
         <navbutton text="Users" route="/users"></navbutton>
+        <navbutton text="Sign Up" route="/signup"></navbutton>
       </ul>
     </div>
   </nav>
