@@ -52,7 +52,7 @@ exports.register_user = (req, res) => {
 exports.login_user = (req, res, next) => {
 	passport.authenticate('local', (err, user, info) => {
 		if (err) { return next(err); }
-		if (!user) { return res.redirect('/signin'); }
+		if (!user) { return res.redirect("/"); }
 		req.logIn(user, (err) => {
 			if (err) { return next(err); }
 			req.session.user = user;
