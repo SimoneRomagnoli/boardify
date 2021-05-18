@@ -20,7 +20,9 @@ const Sidebar = {
                     <hr/>
                     <sidebutton text="About" route="/about"></sidebutton>
                     <sidebutton text="Settings" route="/settings"></sidebutton>
-                    <sidebutton text="Logout" route="/logout"></sidebutton>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
                 </ul>
             </div>
             <h1>Hi, {{session_user.username}}!</h1>

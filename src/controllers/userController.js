@@ -6,6 +6,14 @@ exports.show_index = (req, res) => {
 	res.sendFile(appRoot  + '/www/index.html');
 };
 
+exports.show_signin = (req, res) => {
+	res.sendFile(appRoot  + '/www/signin.html');
+};
+
+exports.show_signup = (req, res) => {
+	res.sendFile(appRoot  + '/www/signup.html');
+};
+
 exports.list_users = (req, res) => {
 	User.find({}, (err, user) => {
 		if (err) { res.send(err); }
@@ -14,8 +22,8 @@ exports.list_users = (req, res) => {
 };
 
 exports.get_session_user = (req, res) => {
-	if(req.session.user) res.json(req.session.user)
-	else res.send({})
+	if (req.session.user) { res.json(req.session.user); }
+	else { res.send({}); }
 }
 
 exports.register_user = (req, res) => {
@@ -36,7 +44,7 @@ exports.register_user = (req, res) => {
 		});
 		newUser.save((err,doc) => {
 			if (err) { res.send(err); }
-			else { res.send(doc); }
+			else { res.redirect('/signin'); }
 		})
 	})
 }
@@ -51,4 +59,9 @@ exports.login_user = (req, res, next) => {
 			return res.redirect('/');
 		})
 	})(req, res, next)
+}
+
+exports.logout = (req, res) => {
+	req.logout();
+	res.redirect("/signin");
 }
