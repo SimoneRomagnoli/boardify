@@ -23,4 +23,7 @@ module.exports = function(app) {
 
 	app.route('/api/signin')
 		.post(usersController.login_user);
+
+	app.route('/session/user')
+		.get(usersController.get_session_user);
 };

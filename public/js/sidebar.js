@@ -23,6 +23,29 @@ const Sidebar = {
                     <sidebutton text="Logout" route="/logout"></sidebutton>
                 </ul>
             </div>
+            <h1>Hi, {{session_user.username}}!</h1>
         </div>
-  `
+    `,
+    data: function() {
+        return {
+            session_user: {}
+        }
+    },
+    methods: {
+        init() {
+            this.getSessionUser();
+        },
+        getSessionUser() {
+            axios.get("http://localhost:3000/session/user")
+            .then( response => {
+                this.session_user = response.data;
+            })
+        },
+        replaceByDefault(e){
+            e.target.src = "https://icon-library.net//images/not-found-icon/not-found-icon-4.jpg"
+        }
+    },
+    mounted: function(){
+        this.init();
+    }
 }

@@ -13,6 +13,11 @@ exports.list_users = (req, res) => {
 	});
 };
 
+exports.get_session_user = (req, res) => {
+	if(req.session.user) res.json(req.session.user)
+	else res.send({})
+}
+
 exports.register_user = (req, res) => {
 	const {
 		username, email, password, confirm_password
@@ -42,6 +47,7 @@ exports.login_user = (req, res, next) => {
 		if (!user) { return res.redirect('/signin'); }
 		req.logIn(user, (err) => {
 			if (err) { return next(err); }
+			req.session.user = user;
 			return res.redirect('/');
 		})
 	})(req, res, next)
