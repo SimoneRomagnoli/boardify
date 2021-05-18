@@ -1,1 +1,11 @@
-const Home = { template: '<div>Homepage</div>' }
+const Home = {
+    components: {
+        'sidebar': Sidebar
+    },
+    template: `
+    <div>
+        <sidebar></sidebar>
+        <div>Homepage</div>
+    </div>
+    `
+ }
