@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
 const bcrypt = require('bcrypt')
 const User = require('../config/database').User
+const passport = require('passport')
 
 exports.show_index = (req, res) => {
 	res.sendFile(appRoot  + '/www/index.html');
@@ -36,6 +36,13 @@ exports.register_user = (req, res) => {
 	})
 }
 
-exports.login_user = (req, res) => {
-	
+exports.login_user = (req, res, next) => {
+	passport.authenticate('local', (err, user, info) => {
+		if (err) { return next(err); }
+		if (!user) { return res.redirect('/signin'); }
+		req.logIn(user, (err) => {
+			if (err) { return next(err); }
+			return res.redirect('/');
+		})
+	})(req, res, next)
 }

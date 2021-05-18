@@ -19,6 +19,7 @@ const Navbar = {
         <navbutton text="Home" route="/"></navbutton>
         <navbutton text="Users" route="/users"></navbutton>
         <navbutton text="Sign Up" route="/signup"></navbutton>
+        <navbutton text="Sign In" route="/signin"></navbutton>
       </ul>
     </div>
   </nav>
