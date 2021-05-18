@@ -19,7 +19,7 @@ const Signin = {
                 </form>
                 <hr />
                 <div class="text-center text-small text-muted">
-                    <span>Don't have an account yet? <router-link to="/signin">Sign up</router-link>
+                    <span>Don't have an account yet? <router-link to="/signup">Sign up</router-link>
                     </span>
                 </div>
                 </div>

@@ -13,7 +13,7 @@ const Navbar = {
     'navbutton': NavButton
   },
   template: `
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-primary">
     <div id="navbarNav">
       <ul class="navbar-nav">
         <navbutton text="Home" route="/"></navbutton>
