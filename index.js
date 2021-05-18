@@ -31,8 +31,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
 // Define routes
-var routes = require('./src/routes/usersRoutes');
-routes(app);
+var userRoutes = require('./src/routes/usersRoutes');
+userRoutes(app);
+
+var boardRoutes = require('./src/routes/boardsRoutes');
+boardRoutes(app);
 
 app.use((req, res) => {
     res.status(404).send({url: req.originalUrl + ' not found'})
