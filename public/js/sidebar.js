@@ -1,7 +1,7 @@
 const Sidebutton = {
     props: ["text", "route"],
     template: `
-        <li class="nav-item">
+        <li class="nav-item border border-primary mb-2">
             <router-link class="nav-link" :to="route">{{text}}</router-link>
         </li>
   `
@@ -12,22 +12,24 @@ const Sidebar = {
         'sidebutton': Sidebutton
     },
     template: `
-        <div id="sidebarNav" class="row">
-            <div class="col-sm-3">
-                <ul class="nav flex-column bg-white">
+        <div class="row">
+            <div class="col mx-3 px-3">
+                <ul class="nav flex-column bg-white p-2 border border-primary">
                     <sidebutton text="Dashboard" route="/"></sidebutton>
                     <sidebutton text="New Project" route="/project"></sidebutton>
                     <hr/>
                     <sidebutton text="About" route="/about"></sidebutton>
                     <sidebutton text="Settings" route="/settings"></sidebutton>
-                    <li class="nav-item">
+                    <li class="nav-item border border-primary">
                         <a class="nav-link" href="/logout">Logout</a>
                     </li>
                 </ul>
             </div>
-            <h1>Hi, {{session_user.username}}!</h1>
         </div>
-    `,
+    `
+}
+/*
+* ,
     data: function() {
         return {
             session_user: {}
@@ -50,4 +52,4 @@ const Sidebar = {
     mounted: function(){
         this.init();
     }
-}
+* */

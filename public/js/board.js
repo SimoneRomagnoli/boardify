@@ -4,7 +4,7 @@ const HeadersRow = {
     `
     <tr>
         <th></th>
-        <th v-for="topic in topics" :key="topic">{{topic}}</th>
+        <th class="text-center" v-for="topic in topics" :key="topic">{{topic}}</th>
     </tr>
     `
 }
@@ -14,7 +14,7 @@ const TasksRow = {
     template: 
     `
     <tr>
-        <td>Available Tasks</td>
+        <td class="text-center">Available Tasks</td>
         <td v-for="topic in topics" :key="topic">
             <p v-for="task in tasks" :key="task" v-if="task.user==null && task.topic==topic">{{ task.name }}</p>
         </td>
@@ -43,10 +43,10 @@ const Board = {
     },
     template: 
     `
-    <div class="bg-white">
+    <div class="bg-white p-3">
         <h1>{{ board.title }}</h1>
         <p>{{ board.description }}</p>
-        <table style="width:100%">
+        <table class="table table-bordered">
             <headers :topics="board.topics"></headers>
             <tasks :tasks="board.tasks" :topics="board.topics"></tasks>
             <row v-for="member in board.members" :key="member" :member="member" :tasks="board.tasks" :topics="board.topics"></row>

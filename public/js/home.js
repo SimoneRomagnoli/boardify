@@ -5,9 +5,8 @@ const Home = {
     },
     template: `
     <div>
-        <sidebar></sidebar>
+        <sidebar class="float-left"></sidebar>
         <dashboard></dashboard>
-        <div>Homepage</div>
     </div>
     `
  }
