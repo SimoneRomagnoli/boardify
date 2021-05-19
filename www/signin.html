@@ -91,10 +91,10 @@
         },
         methods: {
           login() {
-            console.log(this.user)
             axios.post("http://localhost:3000/api/signin", this.user)
             .then(response => {
-              this.msg = response.data["error"];
+              this.msg = response.data["message"];
+              if(this.msg == null) location.reload();
             });
           }
         }

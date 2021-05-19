@@ -24,7 +24,7 @@ const Dashboard = {
                 <div class="card">
                     <div class="row no-gutters">
                         <div v-for="project in projects" v-bind:key="project._id">
-                            <project-header :title="project.title" :owner="project.owner" :members="project.members.length"></project-header>
+                            <project-header :title="project.title" :owner="project.owner" :members="project.members.length+1"></project-header>
                         </div>
                     </div>
                 </div>

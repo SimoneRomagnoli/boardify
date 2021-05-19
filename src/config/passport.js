@@ -11,10 +11,9 @@ initialize = passport => {
             PassportUser.find({ username:username }, (err, doc) => {
                 if (err) { return done(err); }
                 else if (doc.length <= 0) {
-                    return done(null, false, { message: "Incorrect username or password" });
+                    return done(null, false, { message: "Incorrect username" });
                 } else if (!bcrypt.compareSync(password, doc[0].password)) {
-                    console.log("Incorrect password");
-                    return done(null, false, { message: "Incorrect username or password" })
+                    return done(null, false, { message: "Incorrect password" })
                 } else { return done(null, doc[0]) }
             })
         })

@@ -16,7 +16,7 @@ const Sidebar = {
             <div class="col-sm-3">
                 <ul class="nav flex-column bg-white">
                     <sidebutton text="Dashboard" route="/"></sidebutton>
-                    <sidebutton text="New Project" route="/newproject"></sidebutton>
+                    <sidebutton text="New Project" route="/project"></sidebutton>
                     <hr/>
                     <sidebutton text="About" route="/about"></sidebutton>
                     <sidebutton text="Settings" route="/settings"></sidebutton>

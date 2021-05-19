@@ -3,4 +3,7 @@ module.exports = function(app) {
 
 	app.route('/api/projects')
 		.get(boardsController.get_projects);
+
+	app.route('/api/project')
+		.post(boardsController.create_project);
 };

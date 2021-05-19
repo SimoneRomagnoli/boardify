@@ -26,6 +26,16 @@ exports.get_session_user = (req, res) => {
 	else { res.send({}); }
 }
 
+exports.check_user = (req, res) => {
+	User.find({username: req.params.username}, (err, user) => {
+		if (err) { res.send(err); }
+		else {
+			if(user.length > 0) res.json({username: user[0].username})
+			else res.json({error: "This user does not exist"})
+		}
+	});
+}
+
 exports.register_user = (req, res) => {
 	const {
 		username, email, password, confirm_password
@@ -52,12 +62,13 @@ exports.register_user = (req, res) => {
 exports.login_user = (req, res, next) => {
 	passport.authenticate('local', (err, user, info) => {
 		if (err) { return next(err); }
-		if (!user) { return res.redirect("/"); }
+		if (!user) { return res.json({message: info.message}); }
 		req.logIn(user, (err) => {
 			if (err) { return next(err); }
 			req.session.user = user;
-			return res.redirect('/');
+			res.redirect("/");
 		})
+
 	})(req, res, next)
 }
 

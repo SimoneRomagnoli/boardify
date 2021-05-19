@@ -3,6 +3,7 @@ const router = new VueRouter({
     routes: [
         { path: "/", component: Home },
         { path: "/users", component: Users },
+        { path: "/project", component: BoardForm },
         { path: "/404", component: NotFound },
         { path: "*", redirect: "/404" }
     ]
