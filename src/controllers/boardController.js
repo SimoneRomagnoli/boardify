@@ -18,7 +18,7 @@ exports.create_project = (req, res) => {
 
 	Board.find({ $and: [ { owner:owner }, { title:title } ] }, async (err, boards) => {
 		if (err) { res.send(err); return }
-		else if (boards.length > 0) { res.send({ message: "You already have created this project" }); return }
+		else if (boards.length > 0) { res.send({ message: "You already have created this project before" }); return }
 
 		const newBoard = new Board({
 			owner: owner,

@@ -44,8 +44,8 @@ const BoardForm = {
                   </div>
                   <p v-if="error.present">{{error.message}}</p>
                   <ul class="list-group">
-                    <li class="list-group-item py-1 pr-0 pl-3 align-items-center" v-for="member in board.members" :key="member">
-                      <span>{{member}}</span>
+                    <li class="list-group-item py-1 pr-0 pl-3" v-for="member in board.members" :key="member">
+                      {{member}}
                       <button class="btn btn-danger float-right" @click.prevent="remove(member)">x</button>
                     </li>
                   </ul>
@@ -82,16 +82,20 @@ const BoardForm = {
                     if(response.data["error"]) {
                         this.error.present = true;
                         this.error.message = response.data["error"];
+                        this.member = "";
                     }
                     else if(response.data["username"]) {
                         this.error.present = false;
-                        if(!this.board.members.includes(this.member)) {this.board.members.push(this.member);}
+                        if(!this.board.members.includes(this.member)) {
+                            this.board.members.push(this.member);
+                        }
                         this.member = "";
                     }
                 });
         },
         remove(member) {
-            this.board.members.pop(member);
+            const index = this.board.members.indexOf(member);
+            this.board.members.splice(index,1);
         },
         create() {
             axios.post("http://localhost:3000/api/project", this.board)
