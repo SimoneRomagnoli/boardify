@@ -7,6 +7,13 @@ exports.get_projects = (req, res) => {
 	});
 };
 
+exports.get_board = (req, res) => {
+	Board.find({$and: [{owner:req.params.owner}, {title:req.params.title}]}, (err, board) => {
+		if (err) { res.send(err); }
+		else { res.json(board); }
+	});
+}
+
 exports.create_project = (req, res) => {
 	const {
 		title, members, description, tasks, topics
