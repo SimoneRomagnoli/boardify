@@ -1,5 +1,5 @@
 const ProjectHeader = {
-    props: ["title", "owner", "members"],
+    props: ["title", "owner", "members", "route"],
     template: 
     `
     <div class="col card-body">
@@ -7,6 +7,7 @@ const ProjectHeader = {
         <hr/>
         <h4 class="card-text">Owner: {{owner}}</h4>
         <h4 class="card-text">Members: {{members}}</h4>
+        <router-link class="nav-link" :to="route">Go</router-link>
     </div>
     `
 }
@@ -24,7 +25,7 @@ const Dashboard = {
                 <div class="card">
                     <div class="row no-gutters">
                         <div v-for="project in projects" v-bind:key="project._id">
-                            <project-header :title="project.title" :owner="project.owner" :members="project.members.length+1"></project-header>
+                            <project-header :title="project.title" :owner="project.owner" :members="project.members.length+1" :route="'/board'+'/'+project.owner+'/'+project.title"></project-header>
                         </div>
                     </div>
                 </div>
