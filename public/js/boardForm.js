@@ -40,13 +40,32 @@ const BoardForm = {
                         class="form-control"
                         v-model="member"
                     />
-                    <button class="btn btn-success input-group-btn ml-1" @click.prevent="add">+</button>
+                    <button class="btn btn-success input-group-btn ml-1" @click.prevent="addMember">+</button>
                   </div>
                   <p v-if="error.present">{{error.message}}</p>
                   <ul class="list-group">
-                    <li class="list-group-item py-1 pr-0 pl-3" v-for="member in board.members" :key="member">
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-1 pr-0 pl-3" v-for="member in board.members" :key="member">
                       {{member}}
-                      <button class="btn btn-danger float-right" @click.prevent="remove(member)">x</button>
+                      <a href="#" class="badge badge-danger float-right mr-2" @click.prevent="removeMember(member)">X</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="form-group mb-0 mt-2">
+                  <div class="input-group mb-2">
+                    <input
+                        type="text"
+                        name="topic"
+                        placeholder="Topic"
+                        id="topic"
+                        class="form-control"
+                        v-model="topic"
+                    />
+                    <button class="btn btn-success input-group-btn ml-1" @click.prevent="addTopic">+</button>
+                  </div>
+                  <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-1 pr-0 pl-3" v-for="topic in board.topics" :key="topic">
+                      {{topic}}
+                      <a href="#" class="badge badge-danger float-right mr-2" @click.prevent="removeTopic(topic)">X</a>
                     </li>
                   </ul>
                 </div>
@@ -65,9 +84,11 @@ const BoardForm = {
             board: {
                 title: "",
                 description: "",
-                members: []
+                members: [],
+                topics: []
             },
             member: "",
+            topic: "",
             error: {
                 present: false,
                 message: ""
@@ -76,7 +97,7 @@ const BoardForm = {
         }
     },
     methods: {
-        add() {
+        addMember() {
             axios.get(`http://localhost:3000/api/users/${this.member}`)
                 .then(response => {
                     if(response.data["error"]) {
@@ -93,9 +114,19 @@ const BoardForm = {
                     }
                 });
         },
-        remove(member) {
+        removeMember(member) {
             const index = this.board.members.indexOf(member);
             this.board.members.splice(index,1);
+        },
+        addTopic() {
+          if(!this.board.topics.includes(this.topic)) {
+            this.board.topics.push(this.topic);
+          }
+          this.topic = "";
+        },
+        removeTopic(topic) {
+          const index = this.board.topics.indexOf(topic);
+          this.board.topics.splice(index,1);
         },
         create() {
             axios.post("http://localhost:3000/api/project", this.board)
@@ -106,3 +137,4 @@ const BoardForm = {
         }
     }
 }
+//<button class="btn btn-danger float-right" @click.prevent="remove(member)">x</button>
