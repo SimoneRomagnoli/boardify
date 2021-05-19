@@ -1,7 +1,7 @@
 const Board = {
     template: 
     `
-    <div class="bg-white">
+    <div class="bg-white h-100">
         <h1>{{ $route.params.title }}</h1>
         <table>
             {{board}}
