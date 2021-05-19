@@ -14,6 +14,8 @@ exports.create_project = (req, res) => {
 
 	const owner = req.session.user.username;
 
+	if(title === "") {return res.send({message: "Missing project title"})}
+
 	Board.find({ $and: [ { owner:owner }, { title:title } ] }, async (err, boards) => {
 		if (err) { res.send(err); return }
 		else if (boards.length > 0) { res.send({ message: "You already have created this project" }); return }
@@ -29,6 +31,7 @@ exports.create_project = (req, res) => {
 
 		newBoard.save((err,doc) => {
 			if (err) { res.send(err); }
+			else { res.redirect('/'); }
 		})
 	})
 

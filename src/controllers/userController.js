@@ -30,7 +30,13 @@ exports.check_user = (req, res) => {
 	User.find({username: req.params.username}, (err, user) => {
 		if (err) { res.send(err); }
 		else {
-			if(user.length > 0) res.json({username: user[0].username})
+			if(user.length > 0) {
+				if(user[0].username === req.session.user.username) {
+					res.json({error: "You cannot add yourself"})
+				} else {
+					res.json({username: user[0].username})
+				}
+			}
 			else res.json({error: "This user does not exist"})
 		}
 	});

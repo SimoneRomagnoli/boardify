@@ -31,22 +31,24 @@ const BoardForm = {
                   ></textarea>
                 </div>
                 <div class="form-group mb-0">
-                  <div v-for="member in board.members" :key="member">
-                    <div>
-                      <p>{{member}}</p>
-                      <button @click.prevent="remove(member)">x</button>
-                    </div>
+                  <div class="input-group mb-2">
+                    <input
+                        type="text"
+                        name="member"
+                        placeholder="Member"
+                        id="member"
+                        class="form-control"
+                        v-model="member"
+                    />
+                    <button class="btn btn-success input-group-btn ml-1" @click.prevent="add">+</button>
                   </div>
-                  <input
-                    type="text"
-                    name="member"
-                    placeholder="Member"
-                    id="member"
-                    class="form-control mb-2"
-                    v-model="member"
-                  /> 
-                  <button @click.prevent="add">+</button>
                   <p v-if="error.present">{{error.message}}</p>
+                  <ul class="list-group">
+                    <li class="list-group-item py-1 pr-0 pl-3 align-items-center" v-for="member in board.members" :key="member">
+                      <span>{{member}}</span>
+                      <button class="btn btn-danger float-right" @click.prevent="remove(member)">x</button>
+                    </li>
+                  </ul>
                 </div>
                 <button @click.prevent="create" class="btn-block btn btn-success mt-2">
                   Create
@@ -83,7 +85,7 @@ const BoardForm = {
                     }
                     else if(response.data["username"]) {
                         this.error.present = false;
-                        this.board.members.push(this.member);
+                        if(!this.board.members.includes(this.member)) {this.board.members.push(this.member);}
                         this.member = "";
                     }
                 });
