@@ -4,7 +4,7 @@ const HeadersRow = {
     `
     <tr>
         <th></th>
-        <th class="text-center" v-for="topic in topics" :key="topic">{{topic}}</th>
+        <th class="text-center text-capitalize" v-for="topic in topics" :key="topic">{{topic}}</th>
     </tr>
     `
 }
@@ -14,9 +14,9 @@ const TasksRow = {
     template: 
     `
     <tr>
-        <td class="text-center">Available Tasks</td>
+        <td class="text-center font-weight-bold">Available Tasks</td>
         <td v-for="topic in topics" :key="topic">
-            <p v-for="task in tasks" :key="task" v-if="task.user==null && task.topic==topic">{{ task.name }}</p>
+            <p class="border rounded border-dark bg-danger text-capitalize" v-for="task in tasks" :key="task" v-if="task.user==null && task.topic==topic">{{ task.name }}</p>
         </td>
     </tr>
     `
@@ -27,9 +27,9 @@ const Row = {
     template: 
     `
     <tr>
-        <td>{{member}}</td>
+        <td style="vertical-align: middle">{{member}}</td>
         <td v-for="topic in topics" :key="topic">
-            <p v-for="task in tasks" :key="task" v-if="task.user==member && task.topic==topic">{{ task.name }}</p>
+          <p class="border rounded border-dark bg-danger text-capitalize" v-for="task in tasks" :key="task" v-if="task.user==member && task.topic==topic">{{ task.name }}</p>
         </td>
     </tr>
     `
@@ -69,6 +69,10 @@ const Board = {
             .then(response => {
                 this.board = response.data[0];
             });
+        },
+        assignTask(){
+            // aggiorna database aggiungendo il task all'utente
+            // richiama mountTable()
         }
     },
     mounted: function() {
