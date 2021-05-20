@@ -2,7 +2,7 @@ const NavButton = {
   props: ["text", "route"],
   template: 
   `
-  <li class="nav-item border rounded">
+  <li class="nav-item border rounded d-inline-flex mr-3">
     <router-link class="nav-link text-white" :to="route">{{text}}</router-link>
   </li>
   `
