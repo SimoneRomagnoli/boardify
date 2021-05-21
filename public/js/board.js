@@ -10,16 +10,39 @@ const HeadersRow = {
 }
 
 const TasksRow = {
-    props: ["topics", "tasks"],
+    props: ["topics", "tasks", "fun"],
     template: 
     `
     <tr>
         <td class="text-center font-weight-bold">Available Tasks</td>
         <td v-for="topic in topics" :key="topic">
-            <p class="border rounded border-dark bg-danger text-capitalize" v-for="task in tasks" :key="task" v-if="task.user==null && task.topic==topic">{{ task.name }}</p>
+            <p class="border rounded border-dark bg-danger text-capitalize" v-for="task in tasks" :key="task" v-if="task.user==null && task.topic==topic" @click.prevent="assignTask(task)" >{{ task.name }}</p>
         </td>
     </tr>
     `
+    ,
+    data: function() {
+        return {
+            params: null,
+            task: null
+        }
+    },
+    methods: {
+        init() {
+            this.params = this.$route.params;
+        },
+        assignTask(task) {
+            this.task = task;
+            axios.put("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title, this.task)
+            .then(response => {
+                this.task = null;
+                //location.reload();
+            });
+        }
+    },
+    mounted: function() {
+        this.init();
+    }
 }
 
 const Row = {
@@ -69,10 +92,6 @@ const Board = {
             .then(response => {
                 this.board = response.data[0];
             });
-        },
-        assignTask(){
-            // aggiorna database aggiungendo il task all'utente
-            // richiama mountTable()
         }
     },
     mounted: function() {

@@ -14,6 +14,18 @@ exports.get_board = (req, res) => {
 	});
 }
 
+exports.assign_task = (req, res) => {
+	const {
+		name, description, user, topic, state, comment
+	} = req.body;
+
+	Board.updateOne({$and: [{owner:req.params.owner}, {title:req.params.title}, {"tasks.name":name}]}, {$set: {"tasks.$[current]": {"user":req.session.user.username}}}, (err, board) => {
+		if (err) { res.send(err); }
+		else { res.json(board); }
+	});
+	
+}
+
 exports.create_project = (req, res) => {
 	const {
 		title, members, description, tasks, topics
