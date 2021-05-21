@@ -10,13 +10,13 @@ const HeadersRow = {
 }
 
 const TasksRow = {
-    props: ["topics", "tasks", "fun"],
+    props: ["topics", "tasks"],
     template: 
     `
     <tr>
         <td class="text-center font-weight-bold">Available Tasks</td>
         <td v-for="topic in topics" :key="topic">
-            <p class="border rounded border-dark bg-danger text-capitalize" v-for="task in tasks" :key="task" v-if="task.user==null && task.topic==topic" @click.prevent="assignTask(task)" >{{ task.name }}</p>
+            <p class="border rounded border-dark bg-danger text-capitalize text-center text-white" v-for="task in tasks" :key="task" v-if="task.user===null && task.topic===topic" @click.prevent="assignTask(task)">{{ task.name }}</p>
         </td>
     </tr>
     `
@@ -36,7 +36,7 @@ const TasksRow = {
             axios.put("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title, this.task)
             .then(response => {
                 this.task = null;
-                //location.reload();
+                location.replace("http://localhost:3000/"); // load home page but need to reload page
             });
         }
     },
@@ -52,7 +52,7 @@ const Row = {
     <tr>
         <td style="vertical-align: middle">{{member}}</td>
         <td v-for="topic in topics" :key="topic">
-          <p class="border rounded border-dark bg-danger text-capitalize" v-for="task in tasks" :key="task" v-if="task.user==member && task.topic==topic">{{ task.name }}</p>
+          <p class="border rounded border-dark bg-danger text-capitalize text-center text-white" v-for="task in tasks" :key="task" v-if="task.user===member && task.topic===topic">{{ task.name }}</p>
         </td>
     </tr>
     `
