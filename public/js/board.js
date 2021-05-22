@@ -10,35 +10,25 @@ const HeadersRow = {
 }
 
 const TaskModal = {
-    props: ["args", "task"],
+    props: ["task_watch"],
     template: `
-      <div class="card-body">{{task1}}
-          <!--<h3 class="mt-5">Task {{task.name}} // {{task.state}}</h3>
+      <div class="card-body">
+          <h3 class="mt-5">Task {{task.name}} // {{task.state}}</h3>
           <p>Topic: {{task.topic}}</p>
           <p>Description: {{task.description}}</p>
           <p>User: {{task.user}}</p>
-          <p>Comment: {{task.comment}}</p>-->
+          <p>Comment: {{task.comment}}</p>
       </div>
     `,
+    watch: {
+      task_watch: function (newVal, oldVal) {
+          this.task = newVal;
+      }
+    },
     data: function() {
         return {
-            params: this.args,
-            task1: this.task
+            task: {}
         }
-    },
-    methods: {
-        init() {
-            //this.mountTask();
-        },
-        mountTask() {
-            axios.get("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title+"/"+this.params.task)
-                .then(response => {
-                    this.task = response.data[0];
-                })
-        }
-    },
-    mounted: function() {
-        this.init();
     }
 }
 
@@ -132,7 +122,7 @@ const Board = {
                 </button>
               </div>
               <div class="modal-body">
-                <modal :args="params" :task="currentTask"></modal>
+                <modal :task_watch="currentTask"></modal>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -166,7 +156,7 @@ const Board = {
             });
         },
         fun(task) {
-            console.log(task);
+            //console.log(task);
             this.currentTask = task;
         }
     },
