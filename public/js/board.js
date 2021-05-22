@@ -12,13 +12,31 @@ const HeadersRow = {
 const TaskModal = {
     props: ["task_watch"],
     template: `
-      <div class="card-body">
-          <h3 class="mt-5">Task {{task.name}} // {{task.state}}</h3>
-          <p>Topic: {{task.topic}}</p>
-          <p>Description: {{task.description}}</p>
-          <p>User: {{task.user}}</p>
-          <p>Comment: {{task.comment}}</p>
+      <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-capitalize" id="modalLabel">{{task.name}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card-body">
+            <h3 class="mt-5">{{task.state}}</h3>
+            <p>Topic: {{task.topic}}</p>
+            <p>Description: {{task.description}}</p>
+            <p>User: {{task.user}}</p>
+            <p>Comment: {{task.comment}}</p>
+          </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
       </div>
+      </div>
+      
     `,
     watch: {
       task_watch: function (newVal, oldVal) {
@@ -63,7 +81,6 @@ const TasksRow = {
                 location.replace("http://localhost:3000/"); // load home page but need to reload page
             });
         }
-        //@click.prevent="assignTask(task)"
     },
     mounted: function() {
         this.init();
@@ -77,7 +94,11 @@ const Row = {
       <tr>
           <td class="text-center font-weight-bold" style="vertical-align: middle">{{member}}</td>
           <td v-for="topic in topics" :key="topic">
-            <button type="button" class="btn border rounded border-dark bg-danger text-capitalize text-center text-white" data-toggle="modal" data-target="#taskModal" v-for="task in tasks" :key="task" v-if="task.user===member && task.topic===topic" @click.prevent="fun(task)">{{ task.name }}</button>
+            <ul class="list-group">
+              <li class="list-group-item" v-for="task in tasks" :key="task" v-if="task.user===member && task.topic===topic">
+                <button type="button" class="btn border rounded border-dark bg-danger text-capitalize text-center text-white" data-toggle="modal" data-target="#taskModal" @click.prevent="fun(task)">{{ task.name }}</button>
+              </li>
+            </ul>
           </td>
       </tr>
     `,
@@ -113,23 +134,7 @@ const Board = {
         <h1>{{ board.title }}</h1>
         <p>{{ board.description }}</p>
         <div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="modalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <modal :task_watch="currentTask"></modal>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
-            </div>
-          </div>
+          <modal :task_watch="currentTask"></modal>
         </div>
         <table class="table table-bordered">
             <headers :topics="board.topics"></headers>
