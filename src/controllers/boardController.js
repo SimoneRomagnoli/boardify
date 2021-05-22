@@ -14,12 +14,36 @@ exports.get_board = (req, res) => {
 	});
 }
 
+exports.get_task = (req, res) => {
+	Board.find({$and: [{owner:req.params.owner}, {title:req.params.title}, {"tasks.name":req.params.task}]}, (err, board) => {
+		if (err) { res.send(err); }
+		else { 
+			const task = board[0].tasks.filter(t => {
+				return t.name == req.params.task
+			})
+			res.json(task); 
+		}
+	});
+}
+
 exports.assign_task = (req, res) => {
 	const {
 		name
 	} = req.body;
 
 	Board.updateOne({$and: [{owner: req.params.owner}, {title: req.params.title}, {"tasks.name":name}]}, {$set: {"tasks.$.user":req.session.user.username}}, (err, board) => {
+		if (err) { res.send(err); }
+		else { res.json(board); }
+	});
+	
+}
+
+exports.remove_task = (req, res) => {
+	const {
+		name
+	} = req.body;
+
+	Board.updateOne({$and: [{owner: req.params.owner}, {title: req.params.title}, {"tasks.name":name}]}, {$set: {"tasks.$.user":null}}, (err, board) => {
 		if (err) { res.send(err); }
 		else { res.json(board); }
 	});
