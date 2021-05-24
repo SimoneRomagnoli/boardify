@@ -8,6 +8,7 @@ const session = require('express-session')
 
 global.appRoot = path.resolve(__dirname);
 app.use('/static', express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
 
 // Session handling
 app.use(
