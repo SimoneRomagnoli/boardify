@@ -1,19 +1,31 @@
-.bfy-red { 
-    background-color: #e76f51; 
+.bfy-red {
+    background-color: #e76f51;
 }
 
-.bfy-orange { 
-    background-color: #f4a261; 
+.bfy-orange {
+    background-color: #f4a261;
 }
 
-.bfy-yellow { 
-    background-color: #e9c46a; 
+.bfy-yellow {
+    background-color: #e9c46a;
 }
 
-.bfy-green { 
-    background-color: #2a9d8f; 
+.bfy-green {
+    background-color: #2a9d8f;
 }
 
-.bfy-dark-green { 
-    background-color: #264653; 
+.bfy-dark-green {
+    background-color: #264653;
+}
+
+.bfy-bg-light {
+    background-color: #caf0f8;
+}
+
+.bfy-bg-dark {
+    background-color: #292f36;
+}
+
+.bfy-bg-button {
+    background-color: #16425b;
 }
