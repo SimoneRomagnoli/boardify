@@ -22,10 +22,22 @@
     background-color: #caf0f8;
 }
 
+/*
+https://coolors.co/001219-005f73-0a9396-94d2bd-e9d8a6-ee9b00-ca6702-bb3e03-ae2012-9b2226
+*/
+
 .bfy-bg-dark {
-    background-color: #292f36;
+    background-color: #001219;
 }
 
 .bfy-bg-button {
-    background-color: #16425b;
+    background-color: #005f73;
+}
+
+.bfy-bg-body {
+    background-color: #e9ecef;
+}
+
+.bfy-bg-sidebar {
+    background-image: linear-gradient(to right, black , #212529);
 }
