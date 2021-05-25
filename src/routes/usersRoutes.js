@@ -6,17 +6,11 @@ module.exports = function(app) {
 	app.route('/')
 		.get(ensureAuthenticated, usersController.show_index);
 
-	/*app.route('/users')
-		.get(usersController.show_index);*/
-
 	app.route('/signup')
 		.get(forwardAuthenticated, usersController.show_signup);
 
 	app.route('/signin')
 		.get(forwardAuthenticated, usersController.show_signin);
-
-	/*app.route('/api/users')
-		.get(usersController.list_users);*/
 
 	app.route('/api/users/:username')
 		.get(usersController.check_user);

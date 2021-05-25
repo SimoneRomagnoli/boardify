@@ -80,9 +80,7 @@ const TaskModal = {
             axios.put("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title+"/assign", this.task)
             .then(_ => {
                 this.task = null;
-                this.$router.resolve({path: `/board/${this.params.owner}/${this.params.title}`});
-                //this.$router.push({path: `/board/${this.params.owner}/${this.params.title}`});
-                //location.replace("http://localhost:3000/"); // load home page but need to reload page
+                this.$router.go();
             });
         }
     },

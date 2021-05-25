@@ -1,5 +1,9 @@
 const Board = require('../config/database').Board
 
+exports.show_index = (req, res) => {
+	res.sendFile(appRoot  + '/www/index.html');
+};
+
 exports.get_projects = (req, res) => {
 	Board.find({$or: [{owner:req.session.user.username}, {members:req.session.user.username}]}, (err, boards) => {
 		if (err) { res.send(err); }
