@@ -53,10 +53,10 @@ const TaskModal = {
           
         </div>
         <div class="modal-footer">
-          <button v-if="task.state === 'TODO' && task.user != null && task.user !== ''" type="button" class="btn btn-warning">Start task</button>
-          <button v-if="task.state === 'TODO' && (task.user == null || task.user === '')" type="button" class="btn btn-info">Take task</button>
-          <button v-if="task.state === 'RUNNING'" type="button" class="btn btn-success">Task finished</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+          <button v-if="task.state === 'TODO' && task.user != null && task.user !== '' && currentUser === task.user" type="button" class="btn btn-warning">Start task</button>
+          <button v-if="task.state === 'TODO' && (task.user == null || task.user === '')" type="button" class="btn btn-info" @click.prevent="assignTask(task)">Take task</button>
+          <button v-if="task.state === 'RUNNING' && currentUser === task.user" type="button" class="btn btn-success">Task finished</button>
+          <button v-if="currentUser === task.user" type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
         </div>
       </div>
       </div>
@@ -70,18 +70,27 @@ const TaskModal = {
     data: function() {
         return {
             task: {},
-            params: this.$route.params
+            params: this.$route.params,
+            currentUser: null
         }
     },
     methods: {
         assignTask(task) {
             this.task = task;
             axios.put("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title+"/assign", this.task)
-            .then(response => {
+            .then(_ => {
                 this.task = null;
-                location.replace("http://localhost:3000/"); // load home page but need to reload page
+                this.$router.resolve({path: `/board/${this.params.owner}/${this.params.title}`});
+                //this.$router.push({path: `/board/${this.params.owner}/${this.params.title}`});
+                //location.replace("http://localhost:3000/"); // load home page but need to reload page
             });
         }
+    },
+    mounted: function() {
+        axios.get("http://localhost:3000/session/user")
+        .then(response => {
+            this.currentUser = response.data.username;
+        });
     }
 }
 
