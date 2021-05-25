@@ -42,6 +42,18 @@ exports.assign_task = (req, res) => {
 	
 }
 
+exports.save_comment = (req, res) => {
+	const {
+		name, comment
+	} = req.body;
+
+	Board.updateOne({$and: [{owner: req.params.owner}, {title: req.params.title}, {"tasks.name":name}]}, {$set: {"tasks.$.comment":comment}}, (err, board) => {
+		if (err) { res.send(err); }
+		else { res.json(board); }
+	});
+	
+}
+
 exports.remove_task = (req, res) => {
 	const {
 		name

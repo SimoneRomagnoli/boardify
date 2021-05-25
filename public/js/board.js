@@ -46,6 +46,7 @@ const TaskModal = {
                 <div class="col-12">
                     <label for="comment"><strong>Comment:</strong></label>
                     <textarea class="w-100 rounded" id="comment" name="comment">{{task.comment}}</textarea>
+                    <button v-if="currentUser === task.user" type="button" class="btn btn-primary" data-dismiss="modal" @click.prevent="saveComment(task)">Save</button>
                 </div>
             </div>
             </div>
@@ -53,10 +54,10 @@ const TaskModal = {
           
         </div>
         <div class="modal-footer">
+          <button v-if="currentUser === task.user" type="button" class="btn btn-info" @click.prevent="removeTask(task)">Remove task</button>
           <button v-if="task.state === 'TODO' && task.user != null && task.user !== '' && currentUser === task.user" type="button" class="btn btn-warning">Start task</button>
           <button v-if="task.state === 'TODO' && (task.user == null || task.user === '')" type="button" class="btn btn-info" @click.prevent="assignTask(task)">Take task</button>
           <button v-if="task.state === 'RUNNING' && currentUser === task.user" type="button" class="btn btn-success">Task finished</button>
-          <button v-if="currentUser === task.user" type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
         </div>
       </div>
       </div>
@@ -81,6 +82,22 @@ const TaskModal = {
             .then(_ => {
                 this.task = null;
                 this.$router.go();
+            });
+        },
+        removeTask(task) {
+            this.task = task;
+            axios.put("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title+"/remove", this.task)
+            .then(_ => {
+                this.task = null;
+                this.$router.go();
+            });
+        },
+        saveComment(task) {
+            this.task = task;
+            this.task.comment = document.getElementById("comment").value;
+            axios.put("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title+"/comment", this.task)
+            .then(_ => {
+                
             });
         }
     },
@@ -126,7 +143,7 @@ const TasksRow = {
 }
 
 const Row = {
-    props: ["member", "topics", "tasks", "args", "currentTask", "setCurrentTask"],
+    props: ["member", "topics", "tasks", "args", "setCurrentTask"],
     template: 
     `
       <tr>
@@ -145,18 +162,7 @@ const Row = {
     data: function() {
         return {
             task: null,
-            params: this.args,
-            currentTask1: this.currentTask
-        }
-    },
-    methods: {
-        removeTask(task) {
-            this.task = task;
-            axios.put("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title+"/remove", this.task)
-            .then(response => {
-                this.task = null;
-                location.replace("http://localhost:3000/"); // load home page but need to reload page
-            });
+            params: this.args
         }
     }
 }
@@ -178,7 +184,7 @@ const Board = {
         </div>
         <table class="table table-bordered">
             <headers :topics="board.topics"></headers>
-            <tasks :tasks="board.tasks" :topics="board.topics" :args="params" :currentTask="currentTask" :setCurrentTask="setCurrentTask"></tasks>
+            <tasks :tasks="board.tasks" :topics="board.topics" :args="params" :setCurrentTask="setCurrentTask"></tasks>
             <row v-for="member in board.members" :key="member" :member="member" :tasks="board.tasks" :topics="board.topics" :args="params" :setCurrentTask="setCurrentTask"></row>
         </table>
     </div>

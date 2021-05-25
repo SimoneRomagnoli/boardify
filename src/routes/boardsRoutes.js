@@ -16,6 +16,9 @@ module.exports = function(app) {
 	app.route('/api/board/:owner/:title/remove')	
 		.put(boardsController.remove_task);
 
+	app.route('/api/board/:owner/:title/comment')	
+		.put(boardsController.save_comment);
+
 	app.route('/api/projects')
 		.get(boardsController.get_projects);
 
