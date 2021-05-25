@@ -4,9 +4,33 @@ const HeadersRow = {
     `
     <tr>
         <th></th>
-        <th class="text-center text-capitalize" v-for="topic in topics" :key="topic">{{topic}}</th>
+        <th class="text-center text-capitalize" v-for="topic in topics" :key="topic">
+            {{topic}}
+            <button v-if="currentUser === params.owner" class="btn btn-primary input-group-btn" @click.prevent="">+</button>
+        </th>
     </tr>
-    `
+    `,
+    data: function() {
+        return {
+            currentUser: null,
+            params: this.$route.params
+        }
+    },
+    methods: {
+        init() {
+            axios.get("http://localhost:3000/session/user")
+                .then(response => {
+                this.currentUser = response.data.username;
+            });
+        }
+    },
+    mounted: function() {
+        this.init()
+    }
+}
+
+const newTaskModal = {
+
 }
 
 const TaskModal = {
