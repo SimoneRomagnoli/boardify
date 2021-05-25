@@ -31,13 +31,17 @@ https://coolors.co/001219-005f73-0a9396-94d2bd-e9d8a6-ee9b00-ca6702-bb3e03-ae201
 }
 
 .bfy-bg-button {
-    background-color: #005f73;
+    background-color: #3f37c9;
+}
+
+.bfy-bg-card-button {
+    background-color: #dfe7fd;
 }
 
 .bfy-bg-body {
-    background-color: #e9ecef;
+    background-color: #dfe7fd;
 }
 
 .bfy-bg-sidebar {
-    background-image: linear-gradient(to right, black , #212529);
+    background-image: linear-gradient(to right, black , #360568);
 }

@@ -1,8 +1,11 @@
+
+const { forwardAuthenticated, ensureAuthenticated } = require('../config/authentication')
+
 module.exports = function(app) {
 	var boardsController = require('../controllers/boardController');
 
 	app.route('/board/:owner/:title')
-		.get(boardsController.show_index);
+		.get(ensureAuthenticated, boardsController.show_index);
 
 	app.route('/api/board/:owner/:title')
 		.get(boardsController.get_board);

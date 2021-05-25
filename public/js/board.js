@@ -200,7 +200,7 @@ const Board = {
     },
     template: 
     `
-    <div class="bg-white p-3">
+    <div class="bg-white p-3 vh-100">
         <h1>{{ board.title }}</h1>
         <p>{{ board.description }}</p>
         <div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
