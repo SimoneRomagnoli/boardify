@@ -200,13 +200,13 @@ const Board = {
     },
     template: 
     `
-    <div class="bg-white p-3 vh-100">
+    <div class="p-3 vh-100">
         <h1>{{ board.title }}</h1>
         <p>{{ board.description }}</p>
         <div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
           <modal :task_watch="currentTask"></modal>
         </div>
-        <table class="table table-bordered">
+        <table class="table table-bordered bg-white shadow">
             <headers :topics="board.topics"></headers>
             <tasks :tasks="board.tasks" :topics="board.topics" :args="params" :setCurrentTask="setCurrentTask"></tasks>
             <row v-for="member in board.members" :key="member" :member="member" :tasks="board.tasks" :topics="board.topics" :args="params" :setCurrentTask="setCurrentTask"></row>
