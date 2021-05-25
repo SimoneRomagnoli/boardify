@@ -20,19 +20,43 @@ const TaskModal = {
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <div class="card-body">
-            <h3 class="mt-5">{{task.state}}</h3>
-            <p>Topic: {{task.topic}}</p>
-            <p>Description: {{task.description}}</p>
-            <p>User: {{task.user}}</p>
-            <p>Comment: {{task.comment}}</p>
+        <div class="modal-body p-0">
+          <div class="card-body container-fluid px-1">
+            <div class="row px-3">
+                <div class="col-8 align-middle py-3">
+                    <div>
+                        <p class="my-2"><strong>Topic:</strong> {{task.topic}}</p>
+                        <p class="my-2"><strong>User:</strong> {{task.user}}</p>
+                    </div>
+                </div>
+                <div class="col-4 align-self-center text-center">
+                    <span v-if="task.state === 'TODO'" class="badge badge-danger p-3">{{task.state}}</span>
+                    <span v-if="task.state === 'RUNNING'" class="badge badge-warning p-3">{{task.state}}</span>
+                    <span v-if="task.state === 'DONE'" class="badge badge-success p-3">{{task.state}}</span>
+                </div>
+            </div>
+            <div class="bg bg-light py-2 rounded container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <strong>Description:</strong>
+                    <p>{{task.description}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label for="comment"><strong>Comment:</strong></label>
+                    <textarea class="w-100 rounded" id="comment" name="comment">{{task.comment}}</textarea>
+                </div>
+            </div>
+            </div>
           </div>
           
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button v-if="task.state === 'TODO' && task.user != null && task.user !== ''" type="button" class="btn btn-warning">Start task</button>
+          <button v-if="task.state === 'TODO' && (task.user == null || task.user === '')" type="button" class="btn btn-info">Take task</button>
+          <button v-if="task.state === 'RUNNING'" type="button" class="btn btn-success">Task finished</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
         </div>
       </div>
       </div>
@@ -45,34 +69,11 @@ const TaskModal = {
     },
     data: function() {
         return {
-            task: {}
-        }
-    }
-}
-
-const TasksRow = {
-    props: ["topics", "tasks", "args", "currentTask"],
-    template: 
-    `
-    <tr>
-        <td class="text-center font-weight-bold">Available Tasks</td>
-        <td v-for="topic in topics" :key="topic" class="p-2">
-          <a href="" class="border rounded border-dark bg-danger text-capitalize text-white m-2" v-for="task in tasks" :key="task" v-if="task.user===null && task.topic===topic" @click.prevent="currentTask1 = task">{{ task.name }}</a>
-        </td>
-    </tr>
-    `
-    ,
-    data: function() {
-        return {
-            params: this.args,
-            currentTask1: this.currentTask,
-            task: null
+            task: {},
+            params: this.$route.params
         }
     },
     methods: {
-        init() {
-            this.params = this.$route.params;
-        },
         assignTask(task) {
             this.task = task;
             axios.put("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title+"/assign", this.task)
@@ -81,6 +82,36 @@ const TasksRow = {
                 location.replace("http://localhost:3000/"); // load home page but need to reload page
             });
         }
+    }
+}
+
+const TasksRow = {
+    props: ["topics", "tasks", "args", "currentTask", "setCurrentTask"],
+    template: 
+    `
+    <tr>
+        <td class="font-weight-bold" style="vertical-align: middle">Available Tasks</td>
+        <td v-for="topic in topics" :key="topic">
+            <ul class="m-0 p-0" style="list-style: none;">
+                <li class="my-1" v-for="task in tasks" :key="task" v-if="(task.user===null || task.user==='') && task.topic===topic">
+                    <button type="button" v-if="task.state === 'TODO'" class="btn rounded bg-danger text-capitalize text-center text-white w-100" data-toggle="modal" data-target="#taskModal" @click.prevent="setCurrentTask(task)">{{ task.name }}</button>
+                </li>
+            </ul>
+        </td>
+    </tr>
+    `
+    ,
+    data: function() {
+        return {
+            params: this.args,
+            currentTask: this.currentTask,
+            myTask: null
+        }
+    },
+    methods: {
+        init() {
+            this.params = this.$route.params;
+        }
     },
     mounted: function() {
         this.init();
@@ -88,15 +119,17 @@ const TasksRow = {
 }
 
 const Row = {
-    props: ["member", "topics", "tasks", "args", "currentTask", "fun"],
+    props: ["member", "topics", "tasks", "args", "currentTask", "setCurrentTask"],
     template: 
     `
       <tr>
-          <td class="text-center font-weight-bold" style="vertical-align: middle">{{member}}</td>
+          <td style="vertical-align: middle">{{member}}</td>
           <td v-for="topic in topics" :key="topic">
-            <ul class="list-group">
-              <li class="list-group-item" v-for="task in tasks" :key="task" v-if="task.user===member && task.topic===topic">
-                <button type="button" class="btn border rounded border-dark bg-danger text-capitalize text-center text-white" data-toggle="modal" data-target="#taskModal" @click.prevent="fun(task)">{{ task.name }}</button>
+            <ul class="m-0 p-0" style="list-style: none;">
+              <li class="my-1" v-for="task in tasks" :key="task" v-if="task.user===member && task.topic===topic">
+                <button type="button" v-if="task.state === 'TODO'" class="btn rounded bg-danger text-capitalize text-center text-white w-100" data-toggle="modal" data-target="#taskModal" @click.prevent="setCurrentTask(task)">{{ task.name }}</button>
+                <button type="button" v-if="task.state === 'RUNNING'" class="btn rounded bg-warning text-capitalize text-center w-100" data-toggle="modal" data-target="#taskModal" @click.prevent="setCurrentTask(task)">{{ task.name }}</button>
+                <button type="button" v-if="task.state === 'DONE'" class="btn rounded bg-success text-capitalize text-center text-white w-100" data-toggle="modal" data-target="#taskModal" @click.prevent="setCurrentTask(task)">{{ task.name }}</button>
               </li>
             </ul>
           </td>
@@ -138,8 +171,8 @@ const Board = {
         </div>
         <table class="table table-bordered">
             <headers :topics="board.topics"></headers>
-            <tasks :tasks="board.tasks" :topics="board.topics" :args="params" :currentTask="currentTask"></tasks>
-            <row v-for="member in board.members" :key="member" :member="member" :tasks="board.tasks" :topics="board.topics" :args="params" :fun="fun"></row>
+            <tasks :tasks="board.tasks" :topics="board.topics" :args="params" :currentTask="currentTask" :setCurrentTask="setCurrentTask"></tasks>
+            <row v-for="member in board.members" :key="member" :member="member" :tasks="board.tasks" :topics="board.topics" :args="params" :setCurrentTask="setCurrentTask"></row>
         </table>
     </div>
     `,
@@ -160,7 +193,7 @@ const Board = {
                 this.board = response.data[0];
             });
         },
-        fun(task) {
+        setCurrentTask(task) {
             //console.log(task);
             this.currentTask = task;
         }
