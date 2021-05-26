@@ -63,6 +63,15 @@ exports.remove_task = (req, res) => {
 		if (err) { res.send(err); }
 		else { res.json(board); }
 	});
+}
+
+exports.create_task = (req, res) => {
+	const task = req.body;
+
+	Board.updateOne({$and: [{owner: req.params.owner}, {title: req.params.title}]}, {$push: {"tasks":task}}, (err, board) => {
+		if (err) { res.send(err); }
+		else { res.json(board); }
+	});
 	
 }
 

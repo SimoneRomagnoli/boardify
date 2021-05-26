@@ -1,109 +1,5 @@
-const newTaskModal = {
-
-}
-
-const TaskModal = {
-    props: ["task_watch"],
-    template: `
-      <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title text-capitalize" id="modalLabel">{{task.name}}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body p-0">
-          <div class="card-body container-fluid px-1">
-            <div class="row px-3">
-                <div class="col-8 align-middle py-3">
-                    <div>
-                        <p class="my-2"><strong>Topic:</strong> {{task.topic}}</p>
-                        <p class="my-2"><strong>User:</strong> {{task.user}}</p>
-                    </div>
-                </div>
-                <div class="col-4 align-self-center text-center">
-                    <span v-if="task.state === 'TODO'" class="badge badge-danger p-3">{{task.state}}</span>
-                    <span v-if="task.state === 'RUNNING'" class="badge badge-warning p-3">{{task.state}}</span>
-                    <span v-if="task.state === 'DONE'" class="badge badge-success p-3">{{task.state}}</span>
-                </div>
-            </div>
-            <div class="bg bg-light py-2 rounded container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <strong>Description:</strong>
-                    <p>{{task.description}}</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <label for="comment"><strong>Comment:</strong></label>
-                    <textarea class="w-100 rounded" id="comment" name="comment">{{task.comment}}</textarea>
-                    <button v-if="currentUser === task.user" type="button" class="btn btn-primary" data-dismiss="modal" @click.prevent="saveComment(task)">Save</button>
-                </div>
-            </div>
-            </div>
-          </div>
-          
-        </div>
-        <div class="modal-footer">
-          <button v-if="currentUser === task.user" type="button" class="btn btn-info" @click.prevent="removeTask(task)">Remove task</button>
-          <button v-if="task.state === 'TODO' && task.user != null && task.user !== '' && currentUser === task.user" type="button" class="btn btn-warning">Start task</button>
-          <button v-if="task.state === 'TODO' && (task.user == null || task.user === '')" type="button" class="btn btn-info" @click.prevent="assignTask(task)">Take task</button>
-          <button v-if="task.state === 'RUNNING' && currentUser === task.user" type="button" class="btn btn-success">Task finished</button>
-        </div>
-      </div>
-      </div>
-      
-    `,
-    watch: {
-      task_watch: function (newVal, oldVal) {
-          this.task = newVal;
-      }
-    },
-    data: function() {
-        return {
-            task: {},
-            params: this.$route.params,
-            currentUser: null
-        }
-    },
-    methods: {
-        assignTask(task) {
-            this.task = task;
-            axios.put("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title+"/assign", this.task)
-            .then(_ => {
-                this.task = null;
-                this.$router.go();
-            });
-        },
-        removeTask(task) {
-            this.task = task;
-            axios.put("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title+"/remove", this.task)
-            .then(_ => {
-                this.task = null;
-                this.$router.go();
-            });
-        },
-        saveComment(task) {
-            this.task = task;
-            this.task.comment = document.getElementById("comment").value;
-            axios.put("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title+"/comment", this.task)
-            .then(_ => {
-                
-            });
-        }
-    },
-    mounted: function() {
-        axios.get("http://localhost:3000/session/user")
-        .then(response => {
-            this.currentUser = response.data.username;
-        });
-    }
-}
-
 const TopicsRow = {
-    props: ["topics"],
+    props: ["topics", "setCurrentTopic"],
     template: 
     `
     <div class="row mx-1">
@@ -112,7 +8,7 @@ const TopicsRow = {
         </div>
         <div class="col text-center text-capitalize bfy-bg-table-cell rounded-lg py-2 m-2 font-weight-bold" v-for="topic in topics" :key="topic">
             {{topic}}
-            <button v-if="currentUser === params.owner" class="rounded border-0 align-self-center bfy-bg-card-button text-white font-weight-bold pull-right" @click.prevent="">+</button>
+            <button v-if="currentUser === params.owner" class="rounded border-0 align-self-center bfy-bg-card-button text-white font-weight-bold pull-right" data-toggle="modal" data-target="#newTaskModal" @click.prevent="setCurrentTopic(topic)">+</button>
         </div>
     </div>
     `,
@@ -200,7 +96,8 @@ const Board = {
         'topics': TopicsRow,
         'tasks': TasksRow,
         'row': Row,
-        'modal': TaskModal
+        'task-modal': TaskModal,
+        'new-task-modal': NewTaskModal
     },
     template: 
     `
@@ -208,10 +105,13 @@ const Board = {
         <h1 class="px-0">{{board.title}}</h1>
         <p>{{board.description}}</p>
         <div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-          <modal :task_watch="currentTask"></modal>
+          <task-modal :task_watch="currentTask"></task-modal>
+        </div>
+        <div class="modal fade" id="newTaskModal" tabindex="-1" aria-labelledby="newTaskModalLabel" aria-hidden="true">
+          <new-task-modal :topic_watch="currentTopic"></new-task-modal>
         </div>
         <div class="container-fluid bg-white shadow rounded-lg p-2">
-            <topics :topics="board.topics"></topics>
+            <topics :topics="board.topics" :setCurrentTopic="setCurrentTopic"></topics>
             <tasks :tasks="board.tasks" :topics="board.topics" :args="params" :setCurrentTask="setCurrentTask"></tasks>
             <row v-for="member in board.members" :key="member" :member="member" :tasks="board.tasks" :topics="board.topics" :args="params" :setCurrentTask="setCurrentTask"></row>
         </div>
@@ -221,6 +121,7 @@ const Board = {
         return {
             params: this.$route.params,
             currentTask: {},
+            currentTopic: null,
             board: {}
         }
     },
@@ -235,8 +136,10 @@ const Board = {
             });
         },
         setCurrentTask(task) {
-            //console.log(task);
             this.currentTask = task;
+        },
+        setCurrentTopic(topic) {
+            this.currentTopic = topic;
         }
     },
     mounted: function() {
