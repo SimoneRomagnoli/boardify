@@ -7,7 +7,7 @@ const ProjectHeader = {
         <hr/>
         <p class="card-text">Owner: {{owner}}</p>
         <p class="card-text">Members: {{members}}</p>
-        <router-link class="nav-link w-100 bfy-bg-card-button text-dark font-weight-bold rounded px-5" :to="route">Open board</router-link>
+        <router-link class="nav-link w-100 bfy-bg-card-button text-white font-weight-bold rounded px-5" :to="route">Open board</router-link>
     </div>
     `
 }

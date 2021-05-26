@@ -29,8 +29,10 @@ const Sidebar = {
                 <sidebutton text="About" route="/about" icon="fa fa-info-circle"></sidebutton>
                 <sidebutton text="Settings" route="/settings" icon="fa fa-gear"></sidebutton>
                 <li class="nav-item rounded bfy-bg-button mb-2 row">
-                    <i class="fa fa-sign-out text-white align-self-center p-2"></i>
-                    <a class="nav-link text-white px-0 mx-0" href="/logout">Logout</a>
+                    <a class="nav-link text-white px-0 mx-0 w-100" href="/logout">
+                        <i class="fa fa-sign-out text-white align-self-center px-2"></i>
+                        Logout
+                    </a>
                 </li>
             </ul>
         </div>
