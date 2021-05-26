@@ -16,9 +16,9 @@ const Sidebar = {
     },
     template: `
     <div class="d-flex flex-column flex-shrink-0 bfy-bg-sidebar p-2">
-        <a href="/" class="d-flex align-items-center text-white p-2 mt-2">
-            <h2>Boardify</h2>
-        </a>
+        <div class="row">
+            <img class="col-10" src="/static/img/boardify-logo.png" alt="Boardify">
+        </div>
         <ul class="mb-auto rounded nav nav-pills flex-column p-3">
             <sidebutton text="Dashboard" route="/" icon="fa fa-tachometer"></sidebutton>
             <sidebutton text="New Project" route="/project" icon="fa fa-plus-square"></sidebutton>
