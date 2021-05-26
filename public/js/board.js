@@ -42,7 +42,9 @@ const TasksRow = {
         <div class="col" v-for="topic in topics" :key="topic">
             <ul class="m-0 p-0" style="list-style: none;">
                 <li class="py-0 my-2" v-for="task in tasks" :key="task" v-if="(task.user===null || task.user==='') && task.topic===topic">
-                    <button type="button" v-if="task.state === 'TODO'" class="btn rounded bg-danger text-capitalize text-center text-white w-100" data-toggle="modal" data-target="#taskModal" @click.prevent="setCurrentTask(task)">{{ task.name }}</button>
+                    <button type="button" v-if="task.state === 'TODO'" class="btn btn-light text-capitalize w-100 d-flex align-items-center" data-toggle="modal" data-target="#taskModal" @click.prevent="setCurrentTask(task)">
+                        {{task.name}}<div class="bg-danger ml-auto text-danger rounded-circle p-3"></div>
+                    </button>
                 </li>
             </ul>
         </div>
@@ -75,9 +77,15 @@ const Row = {
           <div class="col" v-for="topic in topics" :key="topic">
             <ul class="m-0 p-0" style="list-style: none;">
               <li class="py-0 my-2" v-for="task in tasks" :key="task" v-if="task.user===member && task.topic===topic">
-                <button type="button" v-if="task.state === 'TODO'" class="btn rounded bg-danger text-capitalize text-center text-white w-100" data-toggle="modal" data-target="#taskModal" @click.prevent="setCurrentTask(task)">{{ task.name }}</button>
-                <button type="button" v-if="task.state === 'RUNNING'" class="btn rounded bg-warning text-capitalize text-center w-100" data-toggle="modal" data-target="#taskModal" @click.prevent="setCurrentTask(task)">{{ task.name }}</button>
-                <button type="button" v-if="task.state === 'DONE'" class="btn rounded bg-success text-capitalize text-center text-white w-100" data-toggle="modal" data-target="#taskModal" @click.prevent="setCurrentTask(task)">{{ task.name }}</button>
+                <button type="button" v-if="task.state === 'TODO'" class="btn btn-light text-capitalize w-100 d-flex align-items-center" data-toggle="modal" data-target="#taskModal" @click.prevent="setCurrentTask(task)">
+                    {{task.name}}<div class="bg-danger ml-auto rounded-circle p-3"></div>
+                </button>
+                <button type="button" v-if="task.state === 'RUNNING'" class="btn btn-light text-capitalize w-100 d-flex align-items-center" data-toggle="modal" data-target="#taskModal" @click.prevent="setCurrentTask(task)">
+                    {{task.name}}<div class="bg-warning ml-auto rounded-circle p-3"></div>
+                </button>
+                <button type="button" v-if="task.state === 'DONE'" class="btn btn-light text-capitalize w-100 d-flex align-items-center" data-toggle="modal" data-target="#taskModal" @click.prevent="setCurrentTask(task)">
+                    {{task.name}}<div class="bg-success ml-auto rounded-circle p-3"></div>
+                </button>
               </li>
             </ul>
           </div>
