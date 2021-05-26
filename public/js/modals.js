@@ -1,3 +1,51 @@
+const NewTopicModal = {
+    template: `
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title text-capitalize" id="newTopicModalLabel">New Topic</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="card-body container-fluid px-1">
+                    <div class="bg bg-light py-2 rounded container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <label for="topic-name"><strong>Name:</strong></label>
+                                <input type="text" class="w-100 rounded border" id="topic-name" name="topic-name"><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="bfy-bg-card-button text-white rounded-lg border-0 p-2" data-dismiss="modal" @click.prevent="createTopic()">Create Topic</button>
+            </div>
+        </div>
+      </div>
+    `,
+    data: function() {
+        return {
+            params: this.$route.params
+        }
+    },
+    methods: {
+        createTopic() {
+            const topic = {
+                name: document.getElementById("topic-name").value
+            }
+                
+            axios.put("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title+"/newTopic", topic)
+            .then(_ => {
+                this.$router.go();
+            });
+        }
+    }
+}
+
+
 const NewTaskModal = {
     props: ["topic_watch"],
     template: `
@@ -108,7 +156,6 @@ const TaskModal = {
             </div>
             </div>
           </div>
-          
         </div>
         <div class="modal-footer">
           <button v-if="currentUser === task.user" type="button" class="btn btn-info" @click.prevent="removeTask(task)">Remove task</button>

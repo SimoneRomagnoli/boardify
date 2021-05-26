@@ -75,6 +75,16 @@ exports.create_task = (req, res) => {
 	
 }
 
+exports.create_topic = (req, res) => {
+	const topic = req.body.name;
+
+	Board.updateOne({$and: [{owner: req.params.owner}, {title: req.params.title}]}, {$push: {"topics":topic}}, (err, board) => {
+		if (err) { res.send(err); }
+		else { res.json(board); }
+	});
+}
+
+
 exports.create_project = (req, res) => {
 	const {
 		title, members, description, tasks, topics

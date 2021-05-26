@@ -4,7 +4,7 @@ const TopicsRow = {
     `
     <div class="row mx-1">
         <div class="col font-weight-bold py-2 rounded-lg m-2">
-            <button v-if="currentUser === params.owner" class="rounded border-0 align-self-center bfy-bg-card-button text-white pull-right" @click.prevent="">Add Topic</button>
+            <button v-if="currentUser === params.owner" class="rounded border-0 align-self-center bfy-bg-card-button text-white pull-right" data-toggle="modal" data-target="#newTopicModal">Add Topic</button>
         </div>
         <div class="col text-center text-capitalize bfy-bg-table-cell rounded-lg py-2 m-2 font-weight-bold" v-for="topic in topics" :key="topic">
             {{topic}}
@@ -97,7 +97,8 @@ const Board = {
         'tasks': TasksRow,
         'row': Row,
         'task-modal': TaskModal,
-        'new-task-modal': NewTaskModal
+        'new-task-modal': NewTaskModal,
+        'new-topic-modal': NewTopicModal
     },
     template: 
     `
@@ -109,6 +110,9 @@ const Board = {
         </div>
         <div class="modal fade" id="newTaskModal" tabindex="-1" aria-labelledby="newTaskModalLabel" aria-hidden="true">
           <new-task-modal :topic_watch="currentTopic"></new-task-modal>
+        </div>
+        <div class="modal fade" id="newTopicModal" tabindex="-1" aria-labelledby="newTopicModalLabel" aria-hidden="true">
+          <new-topic-modal></new-task-modal>
         </div>
         <div class="container-fluid bg-white shadow rounded-lg p-2">
             <topics :topics="board.topics" :setCurrentTopic="setCurrentTopic"></topics>
