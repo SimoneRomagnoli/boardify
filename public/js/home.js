@@ -20,7 +20,7 @@ const Dashboard = {
     template: `
     <div>
         <h1 class="mt-3">Hi, {{session_user.username}}!</h1>
-        <h3 class="mt-5">Your projects</h3>
+        <h3 class="mt-5">Your boards</h3>
         <div class="row">
             <div class="col mt-3">
                 <div class="card-body p-0">

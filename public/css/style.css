@@ -38,6 +38,14 @@ https://coolors.co/001219-005f73-0a9396-94d2bd-e9d8a6-ee9b00-ca6702-bb3e03-ae201
     background-color: #499652;
 }
 
+.bfy-bg-success {
+    background-color: #499652;
+}
+
+.bfy-bg-danger {
+    background-color: #e76f51;
+}
+
 .bfy-bg-table-cell {
     background-color: #ebebed;
 }

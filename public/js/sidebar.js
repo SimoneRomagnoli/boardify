@@ -21,8 +21,8 @@ const Sidebar = {
         </div>
         <ul class="mb-auto rounded nav nav-pills flex-column p-3">
             <sidebutton text="Dashboard" route="/" icon="fa fa-tachometer"></sidebutton>
+            <sidebutton text="Profile" :route="profile_path" icon="fa fa-user"></sidebutton>
             <sidebutton text="New Project" route="/project" icon="fa fa-plus-square"></sidebutton>
-            <sidebutton text="Profile" route="/profile" icon="fa fa-user"></sidebutton>
         </ul>
         <div class="dropdown">
             <ul class="rounded nav nav-pills flex-column p-3">
@@ -37,5 +37,26 @@ const Sidebar = {
             </ul>
         </div>
     </div>
-    `
+    `,
+    data: function() {
+        return {
+            session_user: {},
+            profile_path: ""
+        }
+    },
+    methods: {
+        init() {
+            this.getSessionUser();
+        },
+        getSessionUser() {
+            axios.get("http://localhost:3000/session/user")
+                .then( response => {
+                    this.session_user = response.data.username;
+                    this.profile_path = "/profile/"+this.session_user;
+                })
+        }
+    },
+    mounted: function(){
+        this.init();
+    }
 }

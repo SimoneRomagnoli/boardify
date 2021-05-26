@@ -26,6 +26,20 @@ exports.get_session_user = (req, res) => {
 	else { res.send({}); }
 }
 
+exports.get_user = (req, res) => {
+	User.find({username: req.params.username}, (err, users) => {
+		if (err) { res.send(err); }
+		else {
+			if(users.length > 0) {
+				res.json(users[0])
+			}
+			else { 
+				res.json({error: "This user does not exist"})
+			}
+		}
+	});
+}
+
 exports.check_user = (req, res) => {
 	User.find({username: req.params.username}, (err, user) => {
 		if (err) { res.send(err); }
