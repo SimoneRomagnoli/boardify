@@ -3,7 +3,7 @@ const TopicsRow = {
     template: 
     `
     <tr>
-        <th class="font-weight-bold" style="width: auto; vertical-align: middle">
+        <th class="font-weight-bold" style="vertical-align: middle">
             Topics
             <button v-if="currentUser === params.owner" class="rounded border-0 align-self-center bfy-bg-card-button text-white font-weight-bold pull-right" @click.prevent="">+</button>
         </th>
@@ -141,7 +141,7 @@ const TasksRow = {
     template: 
     `
     <tr>
-        <th class="font-weight-bold" style="width: auto; vertical-align: middle">Available Tasks</th>
+        <th class="font-weight-bold" style="vertical-align: middle">Available Tasks</th>
         <td v-for="topic in topics" :key="topic">
             <ul class="m-0 p-0" style="list-style: none;">
                 <li class="my-1" v-for="task in tasks" :key="task" v-if="(task.user===null || task.user==='') && task.topic===topic">
@@ -174,7 +174,7 @@ const Row = {
     template: 
     `
       <tr>
-          <td style="vertical-align: middle; width: auto;">{{member}}</td>
+          <td style="vertical-align: middle">{{member}}</td>
           <td v-for="topic in topics" :key="topic">
             <ul class="m-0 p-0" style="list-style: none;">
               <li class="my-1" v-for="task in tasks" :key="task" v-if="task.user===member && task.topic===topic">
