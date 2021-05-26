@@ -72,6 +72,7 @@ exports.create_project = (req, res) => {
 	} = req.body;
 
 	const owner = req.session.user.username;
+	members.unshift(owner);
 
 	if(title === "") {return res.send({message: "Missing project title"})}
 

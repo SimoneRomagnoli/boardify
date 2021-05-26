@@ -1,37 +1,3 @@
-const TopicsRow = {
-    props: ["topics"],
-    template: 
-    `
-    <tr>
-        <th class="font-weight-bold" style="vertical-align: middle">
-            Topics
-            <button v-if="currentUser === params.owner" class="rounded border-0 align-self-center bfy-bg-card-button text-white font-weight-bold pull-right" @click.prevent="">+</button>
-        </th>
-        <th class="text-center text-capitalize" v-for="topic in topics" :key="topic">
-            {{topic}}
-            <button v-if="currentUser === params.owner" class="rounded border-0 align-self-center bfy-bg-card-button text-white font-weight-bold pull-right" @click.prevent="">+</button>
-        </th>
-    </tr>
-    `,
-    data: function() {
-        return {
-            currentUser: null,
-            params: this.$route.params
-        }
-    },
-    methods: {
-        init() {
-            axios.get("http://localhost:3000/session/user")
-                .then(response => {
-                this.currentUser = response.data.username;
-            });
-        }
-    },
-    mounted: function() {
-        this.init()
-    }
-}
-
 const newTaskModal = {
 
 }
@@ -136,20 +102,55 @@ const TaskModal = {
     }
 }
 
+const TopicsRow = {
+    props: ["topics"],
+    template: 
+    `
+    <div class="row mx-1">
+        <div class="col font-weight-bold py-2 rounded-lg m-2">
+            <button v-if="currentUser === params.owner" class="rounded border-0 align-self-center bfy-bg-card-button text-white pull-right" @click.prevent="">Add Topic</button>
+        </div>
+        <div class="col text-center text-capitalize bfy-bg-table-cell rounded-lg py-2 m-2 font-weight-bold" v-for="topic in topics" :key="topic">
+            {{topic}}
+            <button v-if="currentUser === params.owner" class="rounded border-0 align-self-center bfy-bg-card-button text-white font-weight-bold pull-right" @click.prevent="">+</button>
+        </div>
+    </div>
+    `,
+    data: function() {
+        return {
+            currentUser: null,
+            params: this.$route.params
+        }
+    },
+    methods: {
+        init() {
+            axios.get("http://localhost:3000/session/user")
+                .then(response => {
+                this.currentUser = response.data.username;
+            });
+        }
+    },
+    mounted: function() {
+        this.init()
+    }
+}
+
 const TasksRow = {
     props: ["topics", "tasks", "args", "currentTask", "setCurrentTask"],
     template: 
     `
-    <tr>
-        <th class="font-weight-bold" style="vertical-align: middle">Available Tasks</th>
-        <td v-for="topic in topics" :key="topic">
+    <div class="row mx-1 my-1">
+        <div class="col font-weight-bold py-2 rounded-lg my-2 bfy-bg-table-cell d-flex align-items-center">
+            Available Tasks
+        </div>
+        <div class="col" v-for="topic in topics" :key="topic">
             <ul class="m-0 p-0" style="list-style: none;">
-                <li class="my-1" v-for="task in tasks" :key="task" v-if="(task.user===null || task.user==='') && task.topic===topic">
+                <li class="py-0 my-2" v-for="task in tasks" :key="task" v-if="(task.user===null || task.user==='') && task.topic===topic">
                     <button type="button" v-if="task.state === 'TODO'" class="btn rounded bg-danger text-capitalize text-center text-white w-100" data-toggle="modal" data-target="#taskModal" @click.prevent="setCurrentTask(task)">{{ task.name }}</button>
                 </li>
             </ul>
-        </td>
-    </tr>
+        </div>
+    </div>
     `
     ,
     data: function() {
@@ -173,18 +174,18 @@ const Row = {
     props: ["member", "topics", "tasks", "args", "setCurrentTask"],
     template: 
     `
-      <tr>
-          <td style="vertical-align: middle">{{member}}</td>
-          <td v-for="topic in topics" :key="topic">
+      <div class="row mx-1 my-1">
+          <div class="col py-2 rounded-lg my-2 bfy-bg-table-cell d-flex align-items-center" style="vertical-align: middle">{{member}}</div>
+          <div class="col" v-for="topic in topics" :key="topic">
             <ul class="m-0 p-0" style="list-style: none;">
-              <li class="my-1" v-for="task in tasks" :key="task" v-if="task.user===member && task.topic===topic">
+              <li class="py-0 my-2" v-for="task in tasks" :key="task" v-if="task.user===member && task.topic===topic">
                 <button type="button" v-if="task.state === 'TODO'" class="btn rounded bg-danger text-capitalize text-center text-white w-100" data-toggle="modal" data-target="#taskModal" @click.prevent="setCurrentTask(task)">{{ task.name }}</button>
                 <button type="button" v-if="task.state === 'RUNNING'" class="btn rounded bg-warning text-capitalize text-center w-100" data-toggle="modal" data-target="#taskModal" @click.prevent="setCurrentTask(task)">{{ task.name }}</button>
                 <button type="button" v-if="task.state === 'DONE'" class="btn rounded bg-success text-capitalize text-center text-white w-100" data-toggle="modal" data-target="#taskModal" @click.prevent="setCurrentTask(task)">{{ task.name }}</button>
               </li>
             </ul>
-          </td>
-      </tr>
+          </div>
+      </div>
     `,
     data: function() {
         return {
@@ -209,11 +210,11 @@ const Board = {
         <div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
           <modal :task_watch="currentTask"></modal>
         </div>
-        <table class="table table-bordered bg-white shadow">
+        <div class="container-fluid bg-white shadow rounded-lg p-2">
             <topics :topics="board.topics"></topics>
             <tasks :tasks="board.tasks" :topics="board.topics" :args="params" :setCurrentTask="setCurrentTask"></tasks>
             <row v-for="member in board.members" :key="member" :member="member" :tasks="board.tasks" :topics="board.topics" :args="params" :setCurrentTask="setCurrentTask"></row>
-        </table>
+        </div>
     </div>
     `,
     data: function() {
