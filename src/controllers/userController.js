@@ -40,6 +40,19 @@ exports.get_user = (req, res) => {
 	});
 }
 
+exports.get_userinfo = (req, res) => {
+	User.find({username: req.body.members}, (err, users) => {
+		if (err) { res.send(err); }
+		else { 
+			let result = [];
+			users.forEach(u => {
+				result.push({username: u.username, firstname: u.firstname, lastname: u.lastname});
+			});
+			res.send(result);
+		}
+	});
+}
+
 exports.check_user = (req, res) => {
 	User.find({username: req.params.username}, (err, user) => {
 		if (err) { res.send(err); }
@@ -58,7 +71,7 @@ exports.check_user = (req, res) => {
 
 exports.register_user = (req, res) => {
 	const {
-		username, email, password, confirm_password
+		firstname, lastname, username, email, password, confirm_password
 	} = req.body;
 
 	User.find({ $or: [ { email:email }, { username:username } ] }, async (err, users) => {
@@ -68,6 +81,8 @@ exports.register_user = (req, res) => {
 
 		const hashedPassword = await bcrypt.hash(password, 10);
 		const newUser = new User({
+			firstname: firstname,
+			lastname: lastname,
 			username: username,
 			email: email,
 			password: hashedPassword

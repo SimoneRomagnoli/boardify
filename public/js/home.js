@@ -25,7 +25,7 @@ const Dashboard = {
             <div class="col mt-3">
                 <div class="card-body p-0">
                     <div class="row no-gutters">
-                        <div class="col-3" v-for="project in projects" :key="project._id">
+                        <div class="col-xs-3" v-for="project in projects" :key="project._id">
                             <project-header :title="project.title" :owner="project.owner" :members="project.members.length" :route="'/board'+'/'+project.owner+'/'+project.title"></project-header>
                         </div>
                     </div>

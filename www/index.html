@@ -21,7 +21,7 @@
 			<router-view class="col-sm-10"></router-view>
 
 			<div class="m-2" aria-live="polite" aria-atomic="true" style="position: absolute; top: 0; right: 0; min-height: 200px;">
-				<div v-for="notification in notifications" :key="notification" class="toast fade show" style="min-width: 350px;">
+				<div class="toast fade show" style="min-width: 350px;">
 					<div class="toast-header">
 						<strong class="mr-auto"><i class="fa fa-globe"></i> Hello, world!</strong>
 						<small class="text-muted">just now</small>
@@ -73,8 +73,8 @@
 			}
 		},
 		mounted() {
-			this.getNotifications();
-			setInterval(this.getNotifications, 10000);
+			//this.getNotifications();
+			//setInterval(this.getNotifications, 10000);
 		},
 	  });
 </script>

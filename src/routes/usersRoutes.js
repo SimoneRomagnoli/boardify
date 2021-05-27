@@ -18,6 +18,9 @@ module.exports = app => {
 	app.route('/api/profile/:username')
 		.get(usersController.get_user);
 
+	app.route('/api/usersinfo')
+		.post(usersController.get_userinfo);
+
 	app.route('/api/signup')
 		.post(usersController.register_user);
 
