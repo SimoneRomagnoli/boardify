@@ -120,7 +120,7 @@ const Board = {
           <new-task-modal :topic_watch="currentTopic"></new-task-modal>
         </div>
         <div class="modal fade" id="newTopicModal" tabindex="-1" aria-labelledby="newTopicModalLabel" aria-hidden="true">
-          <new-topic-modal></new-task-modal>
+          <new-topic-modal></new-topic-modal>
         </div>
         <div class="container-fluid bg-white shadow rounded-lg p-2">
             <topics :topics="board.topics" :setCurrentTopic="setCurrentTopic"></topics>
