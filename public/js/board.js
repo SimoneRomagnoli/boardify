@@ -115,15 +115,18 @@ const ColumnChart = {
                 series: [
                     {
                         name: 'TODO',
-                        points: todo
+                        points: todo,
+                        color: '#d9534f'
                     },
                     {
                         name: 'RUNNING',
-                        points: running
+                        points: running,
+                        color: '#f0ad4e'
                     },
                     {
                         name: 'DONE',
-                        points: done
+                        points: done,
+                        color: '#5cb85c'
                     }
                 ]
             });
@@ -155,9 +158,9 @@ const PieChart = {
     methods: {
         fillChart() {
             let points = [];
-            points.push({x: "TODO", y: this.tasks.filter(t => t.state === 'TODO').length});
-            points.push({x: "RUNNING", y: this.tasks.filter(t => t.state === 'RUNNING').length});
-            points.push({x: "DONE", y: this.tasks.filter(t => t.state === 'DONE').length});
+            points.push({x: "TODO", y: this.tasks.filter(t => t.state === 'TODO').length, color: '#d9534f'});
+            points.push({x: "RUNNING", y: this.tasks.filter(t => t.state === 'RUNNING').length, color: '#f0ad4e'});
+            points.push({x: "DONE", y: this.tasks.filter(t => t.state === 'DONE').length, color: '#5cb85c'});
             JSC.Chart('pieChart', {
                 type: 'pie',
                 series: [
@@ -210,7 +213,7 @@ const Board = {
             <tasks :tasks="board.tasks" :topics="board.topics" :setCurrentTask="setCurrentTask"></tasks>
             <row v-for="member in members" :key="member" :member="member" :tasks="board.tasks" :topics="board.topics" :setCurrentTask="setCurrentTask"></row>
         </div>
-        <div class="container-fluid p-2 shadow mt-5">
+        <div class="container p-2 shadow mt-5 rounded-lg bg-white">
           <div class="row">
             <div class="col-8">
               <strong>Users Tasks Progress</strong>
