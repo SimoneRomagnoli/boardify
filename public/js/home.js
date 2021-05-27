@@ -2,12 +2,12 @@ const ProjectHeader = {
     props: ["title", "owner", "members", "route"],
     template: 
     `
-    <div class="card shadow-lg rounded p-2 mr-3">
+    <div class="card shadow-lg rounded p-3 mr-3">
         <h4 class="card-title my-1">{{title}}</h4>
         <hr/>
         <p class="card-text">Owner: {{owner}}</p>
         <p class="card-text">Members: {{members}}</p>
-        <router-link class="nav-link w-100 bfy-bg-card-button text-white font-weight-bold rounded px-5" :to="route">Open board</router-link>
+        <router-link class="nav-link w-100 bfy-bg-card-button text-white font-weight-bold rounded px-5 text-center" :to="route">Open board</router-link>
     </div>
     `
 }
@@ -25,7 +25,7 @@ const Dashboard = {
             <div class="col mt-3">
                 <div class="card-body p-0">
                     <div class="row no-gutters">
-                        <div v-for="project in projects" :key="project._id">
+                        <div class="col-3" v-for="project in projects" :key="project._id">
                             <project-header :title="project.title" :owner="project.owner" :members="project.members.length" :route="'/board'+'/'+project.owner+'/'+project.title"></project-header>
                         </div>
                     </div>

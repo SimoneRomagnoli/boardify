@@ -23,6 +23,7 @@ const Sidebar = {
             <sidebutton text="Dashboard" route="/" icon="fa fa-tachometer"></sidebutton>
             <sidebutton text="Profile" :route="profile_path" icon="fa fa-user"></sidebutton>
             <sidebutton text="New Project" route="/project" icon="fa fa-plus-square"></sidebutton>
+            <sidebutton text="Notifications" route="/notifications" icon="fa fa-bell"></sidebutton>
         </ul>
         <div class="dropdown">
             <ul class="rounded nav nav-pills flex-column p-3">
