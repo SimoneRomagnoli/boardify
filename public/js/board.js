@@ -32,7 +32,7 @@ const TopicsRow = {
 }
 
 const TasksRow = {
-    props: ["topics", "tasks", "args", "currentTask", "setCurrentTask"],
+    props: ["topics", "tasks", "currentTask", "setCurrentTask"],
     template: 
     `
     <div class="row mx-1 my-1">
@@ -53,23 +53,15 @@ const TasksRow = {
     ,
     data: function() {
         return {
-            params: this.args,
+            params: this.$route.params,
             currentTask: this.currentTask,
             myTask: null
         }
-    },
-    methods: {
-        init() {
-            this.params = this.$route.params;
-        }
-    },
-    mounted: function() {
-        this.init();
     }
 }
 
 const Row = {
-    props: ["member", "topics", "tasks", "args", "setCurrentTask"],
+    props: ["member", "topics", "tasks", "setCurrentTask"],
     template: 
     `
       <div class="row mx-1 my-1">
@@ -94,8 +86,97 @@ const Row = {
     data: function() {
         return {
             task: null,
-            params: this.args
+            params: this.$route.params
         }
+    }
+}
+
+const ColumnChart = {
+    template: `
+      <div id="columnChart"></div>
+    `,
+    data: function () {
+        return {
+            params: this.$route.params,
+            tasks: null,
+            members: null
+        }
+    },
+    methods: {
+        fillChart() {
+            let todo = [];
+            let running = [];
+            let done = [];
+            this.members.forEach(m => todo.push({x: m, y: this.tasks.filter(t => t.user === m && t.state === 'TODO').length}));
+            this.members.forEach(m => running.push({x: m, y: this.tasks.filter(t => t.user === m && t.state === 'RUNNING').length}));
+            this.members.forEach(m => done.push({x: m, y: this.tasks.filter(t => t.user === m && t.state === 'DONE').length}));
+            JSC.Chart('columnChart', {
+                type: 'horizontal column',
+                series: [
+                    {
+                        name: 'TODO',
+                        points: todo
+                    },
+                    {
+                        name: 'RUNNING',
+                        points: running
+                    },
+                    {
+                        name: 'DONE',
+                        points: done
+                    }
+                ]
+            });
+        },
+        getTasks() {
+            axios.get("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title)
+            .then(response => {
+                this.tasks = response.data[0].tasks;
+                this.members = response.data[0].members;
+                this.fillChart();
+            });
+        }
+    },
+    mounted: function () {
+        this.getTasks();
+    }
+}
+
+const PieChart = {
+    template: `
+      <div id="pieChart"></div>
+    `,
+    data: function () {
+        return {
+            params: this.$route.params,
+            tasks: null
+        }
+    },
+    methods: {
+        fillChart() {
+            let points = [];
+            points.push({x: "TODO", y: this.tasks.filter(t => t.state === 'TODO').length});
+            points.push({x: "RUNNING", y: this.tasks.filter(t => t.state === 'RUNNING').length});
+            points.push({x: "DONE", y: this.tasks.filter(t => t.state === 'DONE').length});
+            JSC.Chart('pieChart', {
+                type: 'pie',
+                series: [
+                    {
+                        points: points
+                    }
+                ]
+            });
+        },
+        getTasks() {
+            axios.get("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title)
+                .then(response => {
+                    this.tasks = response.data[0].tasks;
+                    this.fillChart();
+                });
+        }
+    },
+    mounted: function () {
+        this.getTasks();
     }
 }
 
@@ -106,7 +187,9 @@ const Board = {
         'row': Row,
         'task-modal': TaskModal,
         'new-task-modal': NewTaskModal,
-        'new-topic-modal': NewTopicModal
+        'new-topic-modal': NewTopicModal,
+        'column-chart': ColumnChart,
+        'pie-chart': PieChart
     },
     template: 
     `
@@ -124,8 +207,20 @@ const Board = {
         </div>
         <div class="container-fluid bg-white shadow rounded-lg p-2">
             <topics :topics="board.topics" :setCurrentTopic="setCurrentTopic"></topics>
-            <tasks :tasks="board.tasks" :topics="board.topics" :args="params" :setCurrentTask="setCurrentTask"></tasks>
-            <row v-for="member in board.members" :key="member" :member="member" :tasks="board.tasks" :topics="board.topics" :args="params" :setCurrentTask="setCurrentTask"></row>
+            <tasks :tasks="board.tasks" :topics="board.topics" :setCurrentTask="setCurrentTask"></tasks>
+            <row v-for="member in board.members" :key="member" :member="member" :tasks="board.tasks" :topics="board.topics" :setCurrentTask="setCurrentTask"></row>
+        </div>
+        <div class="container-fluid p-2 shadow mt-5">
+          <div class="row">
+            <div class="col-8">
+              <strong>Users Tasks Progress</strong>
+              <column-chart></column-chart>
+            </div>
+            <div class="col-4">
+              <strong>Global Project Progress</strong>
+              <pie-chart></pie-chart>
+            </div>
+          </div>
         </div>
     </div>
     `,
