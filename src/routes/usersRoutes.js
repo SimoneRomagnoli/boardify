@@ -1,7 +1,7 @@
 const { forwardAuthenticated, ensureAuthenticated } = require('../config/authentication')
 
-module.exports = function(app) {
-	var usersController = require('../controllers/userController');
+module.exports = app => {
+	const usersController = require('../controllers/userController');
 		
 	app.route('/')
 		.get(ensureAuthenticated, usersController.show_index);
@@ -17,6 +17,9 @@ module.exports = function(app) {
 
 	app.route('/api/profile/:username')
 		.get(usersController.get_user);
+
+	app.route('/api/usersinfo')
+		.post(usersController.get_userinfo);
 
 	app.route('/api/signup')
 		.post(usersController.register_user);

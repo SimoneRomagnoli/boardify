@@ -43,7 +43,7 @@ const TasksRow = {
             <ul class="m-0 p-0" style="list-style: none;">
                 <li class="py-0 my-2" v-for="task in tasks" :key="task" v-if="(task.user===null || task.user==='') && task.topic===topic">
                     <button type="button" v-if="task.state === 'TODO'" class="btn btn-light text-capitalize w-100 d-flex align-items-center" data-toggle="modal" data-target="#taskModal" @click.prevent="setCurrentTask(task)">
-                        {{task.name}}<div class="bg-danger ml-auto text-danger rounded-circle p-3"></div>
+                        {{task.name}}<div class="bg-danger ml-auto text-danger rounded-circle p-2"></div>
                     </button>
                 </li>
             </ul>
@@ -65,18 +65,18 @@ const Row = {
     template: 
     `
       <div class="row mx-1 my-1">
-          <div class="col py-2 rounded-lg my-2 bfy-bg-table-cell d-flex align-items-center" style="vertical-align: middle">{{member}}</div>
+          <div class="col py-2 rounded-lg my-2 bfy-bg-table-cell d-flex align-items-center" style="vertical-align: middle">{{member.firstname}} {{member.lastname}}</div>
           <div class="col" v-for="topic in topics" :key="topic">
             <ul class="m-0 p-0" style="list-style: none;">
-              <li class="py-0 my-2" v-for="task in tasks" :key="task" v-if="task.user===member && task.topic===topic">
+              <li class="py-0 my-2" v-for="task in tasks" :key="task" v-if="task.user===member.username && task.topic===topic">
                 <button type="button" v-if="task.state === 'TODO'" class="btn btn-light text-capitalize w-100 d-flex align-items-center" data-toggle="modal" data-target="#taskModal" @click.prevent="setCurrentTask(task)">
-                    {{task.name}}<div class="bg-danger ml-auto rounded-circle p-3"></div>
+                    {{task.name}}<div class="bg-danger ml-auto rounded-circle p-2"></div>
                 </button>
                 <button type="button" v-if="task.state === 'RUNNING'" class="btn btn-light text-capitalize w-100 d-flex align-items-center" data-toggle="modal" data-target="#taskModal" @click.prevent="setCurrentTask(task)">
-                    {{task.name}}<div class="bg-warning ml-auto rounded-circle p-3"></div>
+                    {{task.name}}<div class="bg-warning ml-auto rounded-circle p-2"></div>
                 </button>
                 <button type="button" v-if="task.state === 'DONE'" class="btn btn-light text-capitalize w-100 d-flex align-items-center" data-toggle="modal" data-target="#taskModal" @click.prevent="setCurrentTask(task)">
-                    {{task.name}}<div class="bg-success ml-auto rounded-circle p-3"></div>
+                    {{task.name}}<div class="bg-success ml-auto rounded-circle p-2"></div>
                 </button>
               </li>
             </ul>
@@ -115,15 +115,18 @@ const ColumnChart = {
                 series: [
                     {
                         name: 'TODO',
-                        points: todo
+                        points: todo,
+                        color: '#d9534f'
                     },
                     {
                         name: 'RUNNING',
-                        points: running
+                        points: running,
+                        color: '#f0ad4e'
                     },
                     {
                         name: 'DONE',
-                        points: done
+                        points: done,
+                        color: '#5cb85c'
                     }
                 ]
             });
@@ -155,9 +158,9 @@ const PieChart = {
     methods: {
         fillChart() {
             let points = [];
-            points.push({x: "TODO", y: this.tasks.filter(t => t.state === 'TODO').length});
-            points.push({x: "RUNNING", y: this.tasks.filter(t => t.state === 'RUNNING').length});
-            points.push({x: "DONE", y: this.tasks.filter(t => t.state === 'DONE').length});
+            points.push({x: "TODO", y: this.tasks.filter(t => t.state === 'TODO').length, color: '#d9534f'});
+            points.push({x: "RUNNING", y: this.tasks.filter(t => t.state === 'RUNNING').length, color: '#f0ad4e'});
+            points.push({x: "DONE", y: this.tasks.filter(t => t.state === 'DONE').length, color: '#5cb85c'});
             JSC.Chart('pieChart', {
                 type: 'pie',
                 series: [
@@ -208,9 +211,9 @@ const Board = {
         <div class="container-fluid bg-white shadow rounded-lg p-2">
             <topics :topics="board.topics" :setCurrentTopic="setCurrentTopic"></topics>
             <tasks :tasks="board.tasks" :topics="board.topics" :setCurrentTask="setCurrentTask"></tasks>
-            <row v-for="member in board.members" :key="member" :member="member" :tasks="board.tasks" :topics="board.topics" :setCurrentTask="setCurrentTask"></row>
+            <row v-for="member in members" :key="member" :member="member" :tasks="board.tasks" :topics="board.topics" :setCurrentTask="setCurrentTask"></row>
         </div>
-        <div class="container-fluid p-2 shadow mt-5">
+        <div class="container p-2 shadow mt-5 rounded-lg bg-white">
           <div class="row">
             <div class="col-8">
               <strong>Users Tasks Progress</strong>
@@ -229,7 +232,8 @@ const Board = {
             params: this.$route.params,
             currentTask: {},
             currentTopic: null,
-            board: {}
+            board: {},
+            members: []
         }
     },
     methods: {
@@ -240,6 +244,10 @@ const Board = {
             axios.get("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title)
             .then(response => {
                 this.board = response.data[0];
+                axios.post("http://localhost:3000/api/usersinfo", {members: this.board.members})
+                .then(response => {
+                    this.members = response.data;
+                });
             });
         },
         setCurrentTask(task) {

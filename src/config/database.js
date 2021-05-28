@@ -6,3 +6,4 @@ mongoose.set('useFindAndModify', true);
 
 exports.User = require('../models/user_model')(mongoose)
 exports.Board = require('../models/board_model')(mongoose)
+exports.Notification = require('../models/notifications_model')(mongoose)
