@@ -1,6 +1,6 @@
 const UserData = {
     template: `
-    <div>
+    <!--<div>
         <h2 class="ml-2 mt-2">User</h2>
         <div class="row" id="username-row">
             <div class="col">
@@ -18,6 +18,26 @@ const UserData = {
                 <button v-if="session_user.username === profile_user.username" class="btn btn-danger rounded border-0 p-2">Change email</button>
             </div>
         </div>
+    </div>-->
+    <div class="container-fluid mt-5">
+      <div class="card border border-dark shadow-lg">
+        <div class="card-header text-center">
+          <div class="row">
+            <div class="col-2">
+              <button v-if="session_user.username === profile_user.username" class="btn btn-danger rounded border-0 p-2">Change username</button>
+            </div>
+            <div class="col">
+              <img class="card-img" src="/static/img/default_profile.png" alt="Profile">
+            </div>
+            <div class="col-2">
+              <button v-if="session_user.username === profile_user.username" class="btn btn-danger rounded border-0 p-2">Change email</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          corpo
+        </div>
+      </div>
     </div>
     `,
     data: function() {
