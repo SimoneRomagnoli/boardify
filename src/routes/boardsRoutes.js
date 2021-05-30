@@ -19,6 +19,9 @@ module.exports = app => {
 	app.route('/api/board/:owner/:title/newTopic')	
 		.put(boardsController.create_topic);
 
+	app.route('/api/board/:owner/:title/newUsers')	
+		.put(boardsController.add_users);
+
 	app.route('/api/board/:owner/:title/assign')	
 		.put(boardsController.assign_task);
 

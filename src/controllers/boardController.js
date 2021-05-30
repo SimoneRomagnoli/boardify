@@ -84,6 +84,14 @@ exports.create_topic = (req, res) => {
 	});
 }
 
+exports.add_users = (req, res) => {
+	const users = req.body;
+	
+	Board.updateOne({$and: [{owner: req.params.owner}, {title: req.params.title}]}, {$push: {"members":{ $each: users}}}, (err, board) => {
+		if (err) { res.send(err); }
+		else { res.json(board); }
+	})
+}
 
 exports.create_project = (req, res) => {
 	const {

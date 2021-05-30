@@ -1,3 +1,102 @@
+const NewUsersModal = {
+    template: `
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title text-capitalize" id="newUserModalLabel">New Users</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="card-body container-fluid px-1">
+                    <div class="bg bg-light py-2 rounded container-fluid">
+                        <div class="row">
+                            <div class="col form-group mb-0">
+                                <div class="input-group mb-2">
+                                    <input
+                                        type="text"
+                                        name="user"
+                                        placeholder="User"
+                                        id="user"
+                                        class="form-control"
+                                        v-model="member"
+                                    />
+                                    <button class="btn btn-success input-group-btn ml-1" @click.prevent="addMember">+</button>
+                                </div>
+                                <p v-if="error.present">{{error.message}}</p>
+                                <ul class="list-group">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center py-1 pr-0 pl-3" v-for="user in users" :key="user">
+                                        {{user}}
+                                        <a href="#" class="badge badge-danger float-right mr-2" @click.prevent="removeMember(user)">X</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="bfy-bg-card-button text-white rounded-lg border-0 p-2" data-dismiss="modal" @click.prevent="addToBoard()">Add</button>
+            </div>
+        </div>
+      </div>
+    `,
+    data: function() {
+        return {
+            params: this.$route.params,
+            boardMembers: [],
+            member: "",
+            users: [],
+            error: {
+                present: false,
+                message: ""
+            }
+        }
+    },
+    methods: {
+        addMember() {
+            if(this.boardMembers.includes(this.member)) {
+                this.error.present = true;
+                this.error.message = "This user is already present in this board.";
+                this.member = "";
+            } else {
+                axios.get(`http://localhost:3000/api/users/${this.member}`)
+                    .then(response => {
+                        if(response.data["error"]) {
+                            this.error.present = true;
+                            this.error.message = response.data["error"];
+                            this.member = "";
+                        }
+                        else if(response.data["username"]) {
+                            this.error.present = false;
+                            if(!this.users.includes(this.member)) {
+                                this.users.push(this.member);
+                            }
+                            this.member = "";
+                        }
+                    });
+            }
+        },
+        removeMember(member) {
+            const index = this.users.indexOf(member);
+            this.users.splice(index,1);
+        },
+        addToBoard() {                
+            axios.put("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title+"/newUsers", this.users)
+            .then(_ => {
+                this.$router.go();
+            });
+        }
+    },
+    mounted: function() {
+        axios.get("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title)
+            .then(response => { 
+                this.boardMembers = response.data[0].members;
+            });
+    }
+}
+
 const NewTopicModal = {
     template: `
       <div class="modal-dialog">
@@ -44,7 +143,6 @@ const NewTopicModal = {
         }
     }
 }
-
 
 const NewTaskModal = {
     props: ["topic_watch"],

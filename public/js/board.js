@@ -4,6 +4,7 @@ const TopicsRow = {
     `
     <div class="row mx-1">
         <div class="col font-weight-bold py-2 rounded-lg m-2">
+            <button v-if="currentUser === params.owner" class="rounded border-0 align-self-center bfy-bg-card-button text-white pull-left" data-toggle="modal" data-target="#newUserModal">Add Users</button>
             <button v-if="currentUser === params.owner" class="rounded border-0 align-self-center bfy-bg-card-button text-white pull-right" data-toggle="modal" data-target="#newTopicModal">Add Topic</button>
         </div>
         <div class="col text-center text-capitalize bfy-bg-table-cell rounded-lg py-2 m-2 font-weight-bold" v-for="topic in topics" :key="topic">
@@ -191,6 +192,7 @@ const Board = {
         'task-modal': TaskModal,
         'new-task-modal': NewTaskModal,
         'new-topic-modal': NewTopicModal,
+        'new-user-modal': NewUsersModal,
         'column-chart': ColumnChart,
         'pie-chart': PieChart
     },
@@ -207,6 +209,9 @@ const Board = {
         </div>
         <div class="modal fade" id="newTopicModal" tabindex="-1" aria-labelledby="newTopicModalLabel" aria-hidden="true">
           <new-topic-modal></new-topic-modal>
+        </div>
+        <div class="modal fade" id="newUserModal" tabindex="-1" aria-labelledby="newUserModalLabel" aria-hidden="true">
+          <new-user-modal></new-user-modal>
         </div>
         <div class="container-fluid bg-white shadow rounded-lg p-2">
             <topics :topics="board.topics" :setCurrentTopic="setCurrentTopic"></topics>
