@@ -37,6 +37,7 @@ const NewUsersModal = {
                 </div>
             </div>
             <div class="modal-footer">
+                <button type="button" class="bfy-bg-button text-white rounded-lg border-0 p-2" data-dismiss="modal" @click.prevent="qr()">QR Code</button>
                 <button type="button" class="bfy-bg-card-button text-white rounded-lg border-0 p-2" data-dismiss="modal" @click.prevent="addToBoard()">Add</button>
             </div>
         </div>
@@ -87,6 +88,22 @@ const NewUsersModal = {
             .then(_ => {
                 this.$router.go();
             });
+        },
+        qr() {
+            var element = document.getElementById('qr-here');
+            var opt = {
+            margin:       1,
+            filename:     this.params.owner+"/"+this.params.title,
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            
+            // New Promise-based usage:
+            html2pdf().set(opt).from(element).save();
+            
+            // Old monolithic-style usage:
+            html2pdf(element, opt);
         }
     },
     mounted: function() {

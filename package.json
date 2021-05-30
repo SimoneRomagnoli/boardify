@@ -19,10 +19,12 @@
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "html-to-pdf-js": "^0.9.3",
     "mongoose": "^5.12.9",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "saslprep": "^1.0.3",
-    "vue": "^2.6.12"
+    "vue": "^2.6.12",
+    "vue-qrcode": "^0.4.0"
   }
 }
