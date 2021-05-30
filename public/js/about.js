@@ -1,24 +1,177 @@
+const ExampleBoard = {
+    props: ["firstname", "lastname"],
+    template: `
+    <div class="p-3 vh-100">
+        <h1 class="px-0">Camping</h1>
+        <p>Let's prepare everything within a week!</p>
+        <div class="container-fluid bg-white shadow rounded-lg p-2">
+            <div class="row mx-1">
+                <div class="col font-weight-bold py-2 rounded-lg m-2">
+                    <button class="rounded border-0 align-self-center bfy-bg-card-button text-white pull-right">Add Topic</button>
+                </div>
+                <div class="col text-center text-capitalize bfy-bg-table-cell rounded-lg py-2 m-2 font-weight-bold">
+                    Food
+                    <button class="rounded border-0 align-self-center bfy-bg-card-button text-white font-weight-bold pull-right">+</button>
+                </div>
+                <div class="col text-center text-capitalize bfy-bg-table-cell rounded-lg py-2 m-2 font-weight-bold">
+                    Tents
+                    <button class="rounded border-0 align-self-center bfy-bg-card-button text-white font-weight-bold pull-right">+</button>
+                </div>
+                <div class="col text-center text-capitalize bfy-bg-table-cell rounded-lg py-2 m-2 font-weight-bold">
+                    Games
+                    <button class="rounded border-0 align-self-center bfy-bg-card-button text-white font-weight-bold pull-right">+</button>
+                </div>
+            </div>
+            <div class="row mx-1 my-1">
+                <div class="col font-weight-bold py-2 rounded-lg my-2 bfy-bg-table-cell d-flex align-items-center">
+                    Available Tasks
+                </div>
+                <div class="col">
+                    <ul class="m-0 p-0" style="list-style: none;">
+                        <li class="py-0 my-2">
+                            <button type="button" class="btn btn-light text-capitalize w-100 d-flex align-items-center">
+                                Buy meat<div class="bg-danger ml-auto text-danger rounded-circle p-2"></div>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <ul class="m-0 p-0" style="list-style: none;">
+                        <li class="py-0 my-2">
+                            <button type="button" class="btn btn-light text-capitalize w-100 d-flex align-items-center">
+                                Train building tents<div class="bg-danger ml-auto text-danger rounded-circle p-2"></div>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <ul class="m-0 p-0" style="list-style: none;">
+                        <li class="py-0 my-2">
+                            <button type="button" class="btn btn-light text-capitalize w-100 d-flex align-items-center">
+                                Morning game ideas<div class="bg-danger ml-auto text-danger rounded-circle p-2"></div>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row mx-1 my-1">
+                <div class="col py-2 rounded-lg my-2 bfy-bg-table-cell d-flex align-items-center" style="vertical-align: middle">
+                {{firstname}} {{lastname}}
+                </div>
+                <div class="col">
+                    <ul class="m-0 p-0" style="list-style: none;">
+                        <li class="py-0 my-2">
+                            <button type="button" class="btn btn-light text-capitalize w-100 d-flex align-items-center">
+                            Buy water<div class="bg-warning ml-auto rounded-circle p-2"></div>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <ul class="m-0 p-0" style="list-style: none;">
+                    </ul>
+                </div>
+                <div class="col">
+                    <ul class="m-0 p-0" style="list-style: none;">
+                        <li class="py-0 my-2">
+                            <button type="button" class="btn btn-light text-capitalize w-100 d-flex align-items-center">
+                            Afternoon game ideas<div class="bg-warning ml-auto rounded-circle p-2"></div>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row mx-1 my-1">
+                <div class="col py-2 rounded-lg my-2 bfy-bg-table-cell d-flex align-items-center" style="vertical-align: middle">
+                Bob Williams
+                </div>
+                <div class="col">
+                    <ul class="m-0 p-0" style="list-style: none;">
+                        <li class="py-0 my-2">
+                            <button type="button" class="btn btn-light text-capitalize w-100 d-flex align-items-center">
+                            Buy dishes<div class="bg-success ml-auto rounded-circle p-2"></div>
+                            </button>
+                        </li>
+                        <li class="py-0 my-2">
+                            <button type="button" class="btn btn-light text-capitalize w-100 d-flex align-items-center">
+                            Buy pasta<div class="bg-danger ml-auto rounded-circle p-2"></div>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <ul class="m-0 p-0" style="list-style: none;">
+                        <li class="py-0 my-2">
+                            <button type="button" class="btn btn-light text-capitalize w-100 d-flex align-items-center">
+                            Buy tents<div class="bg-success ml-auto rounded-circle p-2"></div>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <ul class="m-0 p-0" style="list-style: none;">
+                    </ul>
+                </div>
+            </div>
+            <div class="row mx-1 my-1">
+                <div class="col py-2 rounded-lg my-2 bfy-bg-table-cell d-flex align-items-center" style="vertical-align: middle">
+                Alice Smith
+                </div>
+                <div class="col">
+                    <ul class="m-0 p-0" style="list-style: none;">
+                    </ul>
+                </div>
+                <div class="col">
+                    <ul class="m-0 p-0" style="list-style: none;">
+                        <li class="py-0 my-2">
+                            <button type="button" class="btn btn-light text-capitalize w-100 d-flex align-items-center">
+                            Call for tents' reservation<div class="bg-danger ml-auto rounded-circle p-2"></div>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <ul class="m-0 p-0" style="list-style: none;">
+                        <li class="py-0 my-2">
+                            <button type="button" class="btn btn-light text-capitalize w-100 d-flex align-items-center">
+                            Night game ideas<div class="bg-success ml-auto rounded-circle p-2"></div>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>    
+    </div>
+    `
+}
+
 const About = {
+    components: {
+        'example': ExampleBoard
+    },
     template: `
     <div>
-        <h2 class="ml-2 mt-2">What is Boardify?</h2>
         <div class="ml-2 mt-2">
-            <p>Boardify </p>
+            <h2 class="mt-2">What is Boardify?</h2>
+            <p>
+                Boardify is a web service that helps you encouraging a vertical vision of your projects and providing a tool for splitting work into topics and tasks.
+                <br>
+                Moreover, it improves a team's communication with a simple way of expressing progress.
+            </p>
         </div>
-        <div class="row" id="username-row">
-            <div class="col">
-                <p class="ml-2 mt-2">Username: {{profile_user.username}}</p>
-            </div>
-            <div class="col">
-                <button v-if="session_user.username === profile_user.username" class="btn btn-danger rounded border-0 p-2">Change username</button>
-            </div>
+        <div class="ml-2 mt-2">
+            <h4 class="mt-2">How does it work?</h4>
+            <p>
+                It is true that "team-work does the dream work", but it has to be efficient.
+                <br>
+                Suppose you are planning to go camping with your friends:
+                <br>
+                the best approach for effeciently preparing everything is to identify every task to be carried out and understand which topic it belongs to.
+            </p>
         </div>
-        <div class="row" id="email-row">
-            <div class="col">
-                <p class="ml-2 mt-1">Email: {{profile_user.email}}</p>
-            </div>
-            <div class="col">
-                <button v-if="session_user.username === profile_user.username" class="btn btn-danger rounded border-0 p-2">Change email</button>
+        <div class="mt-2 row">
+            <div class="col-sm-10">
+                <example :firstname="session_user.firstname" :lastname="session_user.lastname"></example>
             </div>
         </div>
     </div>

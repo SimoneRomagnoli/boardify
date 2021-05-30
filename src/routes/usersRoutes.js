@@ -6,6 +6,9 @@ module.exports = app => {
 	app.route('/')
 		.get(ensureAuthenticated, usersController.show_index);
 
+	app.route('/about')
+		.get(ensureAuthenticated, usersController.show_index);
+
 	app.route('/signup')
 		.get(forwardAuthenticated, usersController.show_signup);
 
