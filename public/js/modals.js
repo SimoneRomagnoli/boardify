@@ -90,20 +90,11 @@ const NewUsersModal = {
             });
         },
         qr() {
-            var element = document.getElementById('qr-here');
-            var opt = {
-            margin:       1,
-            filename:     this.params.owner+"/"+this.params.title,
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2 },
-            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-            };
-            
-            // New Promise-based usage:
-            html2pdf().set(opt).from(element).save();
-            
-            // Old monolithic-style usage:
-            html2pdf(element, opt);
+
+            axios.get("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title+"/qr")
+            .then(response => {
+                console.log(response.data);
+            });
         }
     },
     mounted: function() {

@@ -10,6 +10,9 @@ module.exports = app => {
 	app.route('/api/board/:owner/:title')
 		.get(boardsController.get_board);
 
+	app.route('/api/board/:owner/:title/qr')
+		.get(boardsController.get_board_qr);
+
 	app.route('/api/board/:owner/:title/:task')	
 		.get(boardsController.get_task);
 
@@ -18,6 +21,9 @@ module.exports = app => {
 		
 	app.route('/api/board/:owner/:title/newTopic')	
 		.put(boardsController.create_topic);
+
+	app.route('/api/board/:owner/:title/addSessionUser')	
+		.put(ensureAuthenticated, boardsController.add_session_user);
 
 	app.route('/api/board/:owner/:title/newUsers')	
 		.put(boardsController.add_users);
