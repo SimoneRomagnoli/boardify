@@ -2,7 +2,7 @@ const ProjectHeader = {
     props: ["title", "owner", "members", "route"],
     template: 
     `
-    <div class="card shadow-lg rounded p-3 mr-3">
+    <div class="card mt-3 shadow-lg rounded p-3 mr-3">
         <h4 class="card-title my-1">{{title}}</h4>
         <hr/>
         <p class="card-text">Owner: {{owner}}</p>
@@ -22,7 +22,7 @@ const Dashboard = {
         <h1 class="mt-3">Hi, {{session_user.username}}!</h1>
         <h3 class="mt-5">Your boards</h3>
         <div class="row">
-            <div class="col mt-3">
+            <div class="col">
                 <div class="card-body p-0">
                     <div class="row no-gutters">
                         <div class="col-xs-3" v-for="project in projects" :key="project._id">
