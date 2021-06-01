@@ -19,7 +19,7 @@ const Dashboard = {
     },
     template: `
     <div>
-        <h1 class="mt-3">Hi, {{session_user.username}}!</h1>
+        <h1 class="mt-3">Welcome to Boardify, {{session_user.username}}!</h1>
         <h3 class="mt-5">Your boards</h3>
         <div class="row">
             <div class="col">

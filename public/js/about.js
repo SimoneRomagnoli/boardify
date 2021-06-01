@@ -1,12 +1,13 @@
 const ExampleBoard = {
     props: ["firstname", "lastname"],
     template: `
-    <div class="p-3 vh-100">
+    <div class="p-3">
         <h1 class="px-0">Camping</h1>
         <p>Let's prepare everything within a week!</p>
         <div class="container-fluid bg-white shadow rounded-lg p-2">
             <div class="row mx-1">
                 <div class="col font-weight-bold py-2 rounded-lg m-2">
+                    <button class="rounded border-0 align-self-center bfy-bg-card-button text-white pull-left">Add Users</button>
                     <button class="rounded border-0 align-self-center bfy-bg-card-button text-white pull-right">Add Topic</button>
                 </div>
                 <div class="col text-center text-capitalize bfy-bg-table-cell rounded-lg py-2 m-2 font-weight-bold">
@@ -166,7 +167,21 @@ const About = {
                 <br>
                 Suppose you are planning to go camping with your friends:
                 <br>
-                the best approach for effeciently preparing everything is to identify every task to be carried out and understand which topic it belongs to.
+                the best approach for effeciently preparing everything is to identify every <strong>task</strong> to be carried out and understand which topic it belongs to.
+                <br>
+                First, you should identify your <strong>topics</strong>: general categories that classify the tasks;
+                <br>
+                if you are going camping fore some days, you should need different types of food, some tents and lots of game ideas to have fun.
+                <br>
+                Then, you can think about the main tasks you need to carry out for each topic. 
+                <br>
+                Once you created enough tasks, your fellow friends can "take" a task, leave comments and change their status:
+                <br>
+                the general workflow of a task is TODO <i class="fas fa-arrow-right"></i> RUNNING <i class="fas fa-arrow-right"></i> DONE.
+                <br>
+                You can also add users, topics and tasks in a second moment.
+                <br>
+                The result should be something like this:
             </p>
         </div>
         <div class="mt-2 row">
