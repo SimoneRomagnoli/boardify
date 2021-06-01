@@ -94,6 +94,11 @@ const NewUsersModal = {
             axios.get("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title+"/qr")
             .then(response => {
                 console.log(response.data);
+                const dataURL = response.data;
+                var a = document.createElement("a");
+                a.href = dataURL;
+                a.setAttribute("download", "qr-"+this.params.owner+"-"+this.params.title);
+                a.click();
             });
         }
     },
