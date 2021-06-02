@@ -9,6 +9,9 @@ module.exports = app => {
 	app.route('/about')
 		.get(ensureAuthenticated, usersController.show_index);
 
+	app.route('/settings')
+		.get(ensureAuthenticated, usersController.show_index);
+
 	app.route('/signup')
 		.get(forwardAuthenticated, usersController.show_signup);
 
@@ -18,8 +21,20 @@ module.exports = app => {
 	app.route('/api/users/:username')
 		.get(usersController.check_user);
 
-	app.route('/api/profile/:username')
-		.get(usersController.get_user);
+	app.route('/api/user/username')
+		.put(usersController.change_username);
+
+	app.route('/api/user/lastname')
+		.put(usersController.change_lastname);
+
+	app.route('/api/user/firstname')
+		.put(usersController.change_firstname);
+
+	app.route('/api/user/email')
+		.put(usersController.change_email);
+
+	//app.route('/api/user/password')
+	//	.put(usersController.change_password);
 
 	app.route('/api/usersinfo')
 		.post(usersController.get_userinfo);

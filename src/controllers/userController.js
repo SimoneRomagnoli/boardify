@@ -22,7 +22,19 @@ exports.list_users = (req, res) => {
 };
 
 exports.get_session_user = (req, res) => {
-	if (req.session.user) { res.json(req.session.user); }
+	if (req.session.user) { 
+		User.find({username: req.session.user.username}, (err, users) => {
+			if (err) { res.send(err); }
+			else {
+				if(users.length > 0) {
+					res.json(users[0])
+				}
+				else { 
+					res.json({error: "This user does not exist"})
+				}
+			}
+		});
+	 }
 	else { res.send({}); }
 }
 
@@ -66,6 +78,63 @@ exports.check_user = (req, res) => {
 			}
 			else res.json({error: "This user does not exist"})
 		}
+	});
+}
+
+exports.change_username = (req, res) => {
+	const {
+		username
+	} = req.body;
+	
+	User.find({username: username}, (err, user) => {
+		if (err) { res.send(err); }
+		else {
+			if(user.length > 0) {
+				res.json({error: "This user already exists."})
+			}
+			else {
+				User.updateOne({username:req.session.user.username}, {$set: {"username":username}}, (err, user) => {
+					if (err) { res.send(err); }
+					else { 
+						req.session.user.username = username;
+						res.json(user); 
+					}
+				});
+			}
+		}
+	});
+}
+
+exports.change_firstname = (req, res) => {
+	const {
+		firstname
+	} = req.body;
+
+	User.updateOne({username:req.session.user.username}, {$set: {"firstname":firstname}}, (err, user) => {
+		if (err) { res.send(err); }
+		else { res.json(user); }
+	});
+}
+
+exports.change_lastname = (req, res) => {
+	const {
+		lastname
+	} = req.body;
+	
+	User.updateOne({username:req.session.user.username}, {$set: {"lastname":lastname}}, (err, user) => {
+		if (err) { res.send(err); }
+		else { res.json(user); }
+	});
+}
+
+exports.change_email = (req, res) => {
+	const {
+		email
+	} = req.body;
+	
+	User.updateOne({username:req.session.user.username}, {$set: {"email":email}}, (err, user) => {
+		if (err) { res.send(err); }
+		else { res.json(user); }
 	});
 }
 
