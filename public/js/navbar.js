@@ -38,10 +38,6 @@ const Navbar = {
           <i class="fa fa-lg fa-user-circle text-white align-self-center bfy-navbar-icon"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right mt-2" aria-labelledby="navbarDropdownMenuLink">
-          <router-link class="dropdown-item" :to="profile_path">
-            <i class="fa fa-user align-self-center pr-1"></i>
-            Profile
-          </router-link>
           <router-link class="dropdown-item" to="/about">
             <i class="fa fa-info-circle align-self-center pr-1"></i>
             About

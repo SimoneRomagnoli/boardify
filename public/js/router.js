@@ -2,7 +2,7 @@ const router = new VueRouter({
     mode: 'history',
     routes: [
         { path: "/", component: Home },
-        { path: "/profile/:username", component: Profile},
+        { path: "/settings", component: Settings},
         { path: "/about", component: About},
         { path: "/board/:owner/:title", component: Board},
         { path: "/project", component: Project },
