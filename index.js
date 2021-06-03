@@ -47,6 +47,12 @@ app.use((req, res) => {
     res.status(404).send({url: req.originalUrl + ' not found'})
 });
 
+io.on('connection', socket => {
+    socket.on('notification', notification => {
+        socket.broadcast.emit('notification', notification);
+    });
+});
+
 http.listen(3000, () => {
     console.log('Listening on port 3000')
 })

@@ -158,7 +158,7 @@ const NewTopicModal = {
 }
 
 const NewTaskModal = {
-    props: ["topic_watch"],
+    props: ["topic_watch", "board"],
     template: `
       <div class="modal-dialog">
         <div class="modal-content">
@@ -202,7 +202,8 @@ const NewTaskModal = {
     data: function() {
         return {
             topic: {},
-            params: this.$route.params
+            params: this.$route.params,
+            board: this.board
         }
     },
     methods: {
@@ -215,6 +216,15 @@ const NewTaskModal = {
                 state: "TODO",
                 comment: ""
             }
+
+            const notification = {
+                to: this.board.members,
+                project: this.params.title,
+                message: "A new task was added",
+                read: false
+            }
+
+            this.$socket.emit('notification', notification);
 
             axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/newTask", task)
             .then(_ => {

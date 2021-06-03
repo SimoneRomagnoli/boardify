@@ -57,6 +57,8 @@
 
 <script>
     Vue.prototype.$host = "http://87.6.240.24/";
+    // Vue.prototype.$host = "http://localhost:3000/";
+    Vue.prototype.$socket = io();
 	const app = new Vue({
 		router,
 		el: "#app",
@@ -79,8 +81,7 @@
             }
 		},
 		mounted() {
-		    const socket = io();
-		    socket.on('notification', notification => {
+		    this.$socket.on('notification', notification => {
 		       if(notification.to.includes(this.currentUser)) {
 		           console.log(notification);
 		           this.notifications.push(notification);

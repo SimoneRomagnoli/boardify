@@ -205,7 +205,7 @@ const Board = {
           <task-modal :task_watch="currentTask"></task-modal>
         </div>
         <div class="modal fade" id="newTaskModal" tabindex="-1" aria-labelledby="newTaskModalLabel" aria-hidden="true">
-          <new-task-modal :topic_watch="currentTopic"></new-task-modal>
+          <new-task-modal :topic_watch="currentTopic" :board="board"></new-task-modal>
         </div>
         <div class="modal fade" id="newTopicModal" tabindex="-1" aria-labelledby="newTopicModalLabel" aria-hidden="true">
           <new-topic-modal></new-topic-modal>

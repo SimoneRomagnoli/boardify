@@ -84,16 +84,7 @@ exports.create_task = (req, res) => {
 
 	Board.updateOne({$and: [{owner: req.params.owner}, {title: req.params.title}]}, {$push: {"tasks":task}}, (err, board) => {
 		if (err) { res.send(err); }
-		else {
-			const notification = {
-				to: board.members,
-				project: board.title,
-				message: "A new task was added",
-				read: false
-			}
-			io.emit('notification', notification);
-			res.json(board);
-		}
+		else { res.json(board);	}
 	});
 }
 
