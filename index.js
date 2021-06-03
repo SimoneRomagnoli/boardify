@@ -6,7 +6,7 @@ const path = require('path');
 const passport = require('passport')
 const session = require('express-session')
 const http = require('http').Server(app);
-const io = require('./src/config/socket')(http);
+const io = require('socket.io')(http);
 
 global.appRoot = path.resolve(__dirname);
 app.use('/static', express.static(__dirname + '/public'));
@@ -48,8 +48,9 @@ app.use((req, res) => {
 });
 
 io.on('connection', socket => {
+    console.log(socket.id);
     socket.on('notification', notification => {
-        socket.broadcast.emit('notification', notification);
+        io.emit('notification', notification);
     });
 });
 
