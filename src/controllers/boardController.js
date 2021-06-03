@@ -1,5 +1,7 @@
 const Board = require('../config/database').Board
 const QRCode = require('qrcode');
+const host = "http://87.6.240.24/";
+const io = require('../config/socket');
 
 exports.show_index = (req, res) => {
 	res.sendFile(appRoot  + '/www/index.html');
@@ -21,7 +23,7 @@ exports.get_board = (req, res) => {
 
 exports.get_board_qr = (req, res) => {
 
-	QRCode.toDataURL("http://localhost:3000/api/board/"+req.params.owner+"/"+req.params.title+"/addSessionUser")
+	QRCode.toDataURL(this.host + "api/board/"+req.params.owner+"/"+req.params.title+"/addSessionUser")
 	.then(url => {
 		res.send(url)
 	})
@@ -82,9 +84,17 @@ exports.create_task = (req, res) => {
 
 	Board.updateOne({$and: [{owner: req.params.owner}, {title: req.params.title}]}, {$push: {"tasks":task}}, (err, board) => {
 		if (err) { res.send(err); }
-		else { res.json(board); }
+		else {
+			const notification = {
+				to: board.members,
+				project: board.title,
+				message: "A new task was added",
+				read: false
+			}
+			io.emit('notification', notification);
+			res.json(board);
+		}
 	});
-	
 }
 
 exports.create_topic = (req, res) => {

@@ -36,6 +36,7 @@
 	</div>
 </div>
 
+<script src="https://cdn.socket.io/4.1.1/socket.io.min.js" integrity="sha384-cdrFIqe3RasCMNE0jeFG9xJHog/tgOVC1E9Lzve8LQN1g5WUHo0Kvk1mawWjxX7a" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -65,20 +66,26 @@
 		},
 		data: function() {
 			return {
-				notifications: []
+				notifications: [],
+                currentUser: null
 			}
 		},
 		methods: {
-			getNotifications() {
-				axios.get(this.$host + "api/notifications")
-				.then(response => {
-					this.notifications = response.data;
-					console.log(this.notifications);
-				})
-			}
+            getSessionUser() {
+                axios.get(this.$host + "session/user")
+                    .then(response => {
+                        this.currentUser = response.data.username;
+                    });
+            }
 		},
 		mounted() {
-			this.getNotifications();
+		    const socket = io();
+		    socket.on('notification', notification => {
+		       if(notification.to.includes(this.currentUser)) {
+		           console.log(notification);
+		           this.notifications.push(notification);
+               }
+            });
 			//setInterval(this.getNotifications, 10000);
 		}
 	  });

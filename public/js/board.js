@@ -21,7 +21,7 @@ const TopicsRow = {
     },
     methods: {
         init() {
-            axios.get("http://localhost:3000/session/user")
+            axios.get(this.$host + "session/user")
                 .then(response => {
                 this.currentUser = response.data.username;
             });
@@ -133,7 +133,7 @@ const ColumnChart = {
             });
         },
         getTasks() {
-            axios.get("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title)
+            axios.get(this.$host + "api/board/"+this.params.owner+"/"+this.params.title)
             .then(response => {
                 this.tasks = response.data[0].tasks;
                 this.members = response.data[0].members;
@@ -172,7 +172,7 @@ const PieChart = {
             });
         },
         getTasks() {
-            axios.get("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title)
+            axios.get(this.$host + "api/board/"+this.params.owner+"/"+this.params.title)
                 .then(response => {
                     this.tasks = response.data[0].tasks;
                     this.fillChart();

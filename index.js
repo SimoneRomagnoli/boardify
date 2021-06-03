@@ -5,6 +5,8 @@ const database = require('./src/config/database');
 const path = require('path');
 const passport = require('passport')
 const session = require('express-session')
+const http = require('http').Server(app);
+const io = require('./src/config/socket')(http);
 
 global.appRoot = path.resolve(__dirname);
 app.use('/static', express.static(__dirname + '/public'));
@@ -45,6 +47,6 @@ app.use((req, res) => {
     res.status(404).send({url: req.originalUrl + ' not found'})
 });
 
-app.listen(3000, () => {
+http.listen(3000, () => {
     console.log('Listening on port 3000')
 })
