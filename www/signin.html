@@ -78,6 +78,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
+      Vue.prototype.$host = "http://87.6.240.24/";
       const app = new Vue({
         el: "#app",
         data: function() {
@@ -91,16 +92,14 @@
         },
         methods: {
           login() {
-            axios.post(this.http + "api/signin", this.user)
+            axios.post(this.$host + "api/signin", this.user)
             .then(response => {
               this.msg = response.data["message"];
               if(this.msg == null) location.reload();
             });
           }
         }
-      })
-
-      app.config.globalProperties.$http = "http://87.6.240.24/";
+      });
     </script>
 
   </body>

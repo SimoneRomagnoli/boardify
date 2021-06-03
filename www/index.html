@@ -55,6 +55,7 @@
 <script src="/static/js/router.js"></script>
 
 <script>
+    Vue.prototype.$host = "http://87.6.240.24/";
 	const app = new Vue({
 		router,
 		el: "#app",
@@ -69,7 +70,7 @@
 		},
 		methods: {
 			getNotifications() {
-				axios.get(this.http + "api/notifications")
+				axios.get(this.$host + "api/notifications")
 				.then(response => {
 					this.notifications = response.data;
 					console.log(this.notifications);
@@ -81,9 +82,6 @@
 			//setInterval(this.getNotifications, 10000);
 		}
 	  });
-
-    app.config.globalProperties.$http = "http://87.6.240.24/";
-
 </script>
 <script>
     $('body').on('click','.close',function(){
