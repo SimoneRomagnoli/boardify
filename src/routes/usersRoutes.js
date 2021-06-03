@@ -21,9 +21,6 @@ module.exports = app => {
 	app.route('/api/users/:username')
 		.get(usersController.check_user);
 
-	app.route('/api/user/username')
-		.put(usersController.change_username);
-
 	app.route('/api/user/lastname')
 		.put(usersController.change_lastname);
 
@@ -33,8 +30,8 @@ module.exports = app => {
 	app.route('/api/user/email')
 		.put(usersController.change_email);
 
-	//app.route('/api/user/password')
-	//	.put(usersController.change_password);
+	app.route('/api/user/password')
+		.put(usersController.change_password);
 
 	app.route('/api/usersinfo')
 		.post(usersController.get_userinfo);

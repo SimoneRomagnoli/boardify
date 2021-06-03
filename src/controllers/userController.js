@@ -81,30 +81,6 @@ exports.check_user = (req, res) => {
 	});
 }
 
-exports.change_username = (req, res) => {
-	const {
-		username
-	} = req.body;
-	
-	User.find({username: username}, (err, user) => {
-		if (err) { res.send(err); }
-		else {
-			if(user.length > 0) {
-				res.json({error: "This user already exists."})
-			}
-			else {
-				User.updateOne({username:req.session.user.username}, {$set: {"username":username}}, (err, user) => {
-					if (err) { res.send(err); }
-					else { 
-						req.session.user.username = username;
-						res.json(user); 
-					}
-				});
-			}
-		}
-	});
-}
-
 exports.change_firstname = (req, res) => {
 	const {
 		firstname
@@ -135,6 +111,32 @@ exports.change_email = (req, res) => {
 	User.updateOne({username:req.session.user.username}, {$set: {"email":email}}, (err, user) => {
 		if (err) { res.send(err); }
 		else { res.json(user); }
+	});
+}
+
+exports.change_password = (req, res) => {
+	const {
+		oldPassword, newPassword, repeatPassword
+	} = req.body;
+
+	User.find({username:req.session.user.username}, async (err, users) => {
+		if(err) {res.send(err); }
+		else {
+			if(!bcrypt.compareSync(oldPassword, users[0].password)) {
+				res.json({error: 'The old password is incorrect.'});
+			} else {
+				if(newPassword == "") {res.send({error:"Password cannot be empty."})}
+				if(newPassword !== repeatPassword) {
+					res.send({error: 'Error in repeating new password.'});
+				} else {
+					const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+					User.updateOne({username:req.session.user.username}, {$set: {password:hashedNewPassword}}, (err, user) => {
+						if(err) {res.send(err)}
+						else {res.json(user)}
+					});
+				}
+			}
+		}
 	});
 }
 

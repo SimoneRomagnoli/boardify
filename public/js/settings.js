@@ -19,7 +19,7 @@ const Settings = {
     components: {
         'settings-field': SettingsField,
         'settings-modal': SettingsModal,
-        //'password-modal': PasswordModal,
+        'password-modal': PasswordModal,
     },
     template: `
     <div class="p-3 vh-100">
@@ -32,6 +32,9 @@ const Settings = {
         </div>
         <div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
           <settings-modal field="email" :value="email" modalId="emailModalLabel"></settings-modal>
+        </div>
+        <div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="passwordModalLabel" aria-hidden="true">
+          <password-modal></password-modal>
         </div>
         <div class="container-fluid bg-white shadow rounded-lg p-2">
             <div class="row rounded-lg bfy-bg-table-cell m-2 p-2">
