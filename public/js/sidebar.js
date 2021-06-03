@@ -50,7 +50,7 @@ const Sidebar = {
             this.getSessionUser();
         },
         getSessionUser() {
-            axios.get("http://localhost:3000/session/user")
+            axios.get(this.$host + "session/user")
                 .then( response => {
                     this.session_user = response.data.username;
                     this.profile_path = "/profile/"+this.session_user;

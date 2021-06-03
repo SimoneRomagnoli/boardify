@@ -98,7 +98,7 @@ const Project = {
     },
     methods: {
         addMember() {
-            axios.get(`http://localhost:3000/api/users/${this.member}`)
+            axios.get(this.$host + `api/users/${this.member}`)
                 .then(response => {
                     if(response.data["error"]) {
                         this.error.present = true;
@@ -129,7 +129,7 @@ const Project = {
           this.board.topics.splice(index,1);
         },
         create() {
-            axios.post("http://localhost:3000/api/project", this.board)
+            axios.post(this.$host + "api/project", this.board)
             .then(response => {
                 this.msg = response.data["message"];
                 if(this.msg == null) location.replace("http://localhost:3000/");

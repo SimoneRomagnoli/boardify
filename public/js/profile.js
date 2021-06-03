@@ -52,13 +52,13 @@ const UserData = {
             this.getProfileUser();
         },
         getSessionUser() {
-            axios.get("http://localhost:3000/session/user")
+            axios.get(this.$host + "session/user")
                 .then( response => {
                   this.session_user = response.data;
                 })
         },
         getProfileUser() {
-            axios.get("http://localhost:3000/api/profile/"+this.$route.params.username)
+            axios.get(this.$host + "api/profile/"+this.$route.params.username)
                 .then( response => {
                     this.profile_user = response.data;
                 })

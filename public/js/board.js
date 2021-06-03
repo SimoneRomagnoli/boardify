@@ -246,10 +246,10 @@ const Board = {
             this.mountTable();
         },
         mountTable() {
-            axios.get("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title)
+            axios.get(this.$host + "api/board/"+this.params.owner+"/"+this.params.title)
             .then(response => {
                 this.board = response.data[0];
-                axios.post("http://localhost:3000/api/usersinfo", {members: this.board.members})
+                axios.post(this.$host + "api/usersinfo", {members: this.board.members})
                 .then(response => {
                     this.members = response.data;
                 });

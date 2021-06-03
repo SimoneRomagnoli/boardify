@@ -66,7 +66,7 @@ const Settings = {
             this.getSessionUser();
         },
         getSessionUser() {
-            axios.get('http://localhost:3000/session/user')
+            axios.get(this.$host + 'session/user')
             .then(response => {
                 const session_user = response.data;
                 this.username = session_user.username;

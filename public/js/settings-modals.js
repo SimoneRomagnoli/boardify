@@ -46,7 +46,7 @@ const SettingsModal = {
             const elem = {
                 [this.field]: document.getElementById(this.field).value
             }
-            axios.put("http://localhost:3000/api/user/"+this.field, elem)
+            axios.put(this.$host + "api/user/"+this.field, elem)
             .then(response => {
                 if(response.data.error) {
                     this.error.present = true;
@@ -123,7 +123,7 @@ const PasswordModal = {
                 newPassword: document.getElementById("new-password").value,
                 repeatPassword: document.getElementById("repeat-password").value
             }
-            axios.put("http://localhost:3000/api/user/password", body)
+            axios.put(this.$host + "api/user/password", body)
             .then(response => {
                 if(response.data.error) {
                     this.error.present = true;

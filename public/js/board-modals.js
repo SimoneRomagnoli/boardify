@@ -62,7 +62,7 @@ const NewUsersModal = {
                 this.error.message = "This user is already present in this board.";
                 this.member = "";
             } else {
-                axios.get(`http://localhost:3000/api/users/${this.member}`)
+                axios.get(this.$host + `api/users/${this.member}`)
                     .then(response => {
                         if(response.data["error"]) {
                             this.error.present = true;
@@ -84,14 +84,14 @@ const NewUsersModal = {
             this.users.splice(index,1);
         },
         addToBoard() {                
-            axios.put("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title+"/newUsers", this.users)
+            axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/newUsers", this.users)
             .then(_ => {
                 this.$router.go();
             });
         },
         qr() {
 
-            axios.get("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title+"/qr")
+            axios.get(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/qr")
             .then(response => {
                 console.log(response.data);
                 const dataURL = response.data;
@@ -103,7 +103,7 @@ const NewUsersModal = {
         }
     },
     mounted: function() {
-        axios.get("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title)
+        axios.get(this.$host + "api/board/"+this.params.owner+"/"+this.params.title)
             .then(response => { 
                 this.boardMembers = response.data[0].members;
             });
@@ -149,7 +149,7 @@ const NewTopicModal = {
                 name: document.getElementById("topic-name").value
             }
                 
-            axios.put("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title+"/newTopic", topic)
+            axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/newTopic", topic)
             .then(_ => {
                 this.$router.go();
             });
@@ -216,7 +216,7 @@ const NewTaskModal = {
                 comment: ""
             }
 
-            axios.put("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title+"/newTask", task)
+            axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/newTask", task)
             .then(_ => {
                 this.topic = null;
                 this.$router.go();
@@ -293,7 +293,7 @@ const TaskModal = {
     methods: {
         assignTask(task) {
             this.task = task;
-            axios.put("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title+"/assign", this.task)
+            axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/assign", this.task)
             .then(_ => {
                 this.task = null;
                 this.$router.go();
@@ -301,7 +301,7 @@ const TaskModal = {
         },
         removeTask(task) {
             this.task = task;
-            axios.put("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title+"/remove", this.task)
+            axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/remove", this.task)
             .then(_ => {
                 this.task = null;
                 this.$router.go();
@@ -310,14 +310,14 @@ const TaskModal = {
         saveComment(task) {
             this.task = task;
             this.task.comment = document.getElementById("comment").value;
-            axios.put("http://localhost:3000/api/board/"+this.params.owner+"/"+this.params.title+"/comment", this.task)
+            axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/comment", this.task)
             .then(_ => {
                 
             });
         }
     },
     mounted: function() {
-        axios.get("http://localhost:3000/session/user")
+        axios.get(this.$host + "session/user")
         .then(response => {
             this.currentUser = response.data.username;
         });

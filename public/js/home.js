@@ -46,13 +46,13 @@ const Dashboard = {
             this.getSessionUser();
         },
         getProjects() {
-            axios.get("http://localhost:3000/api/projects")
+            axios.get(this.$host + "api/projects")
             .then(response => {
                 this.projects = response.data;
             })
         },
         getSessionUser() {
-            axios.get("http://localhost:3000/session/user")
+            axios.get(this.$host + "session/user")
                 .then( response => {
                     this.session_user = response.data;
                 })
