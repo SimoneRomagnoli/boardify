@@ -69,7 +69,7 @@
 		},
 		methods: {
 			getNotifications() {
-				axios.get("http://localhost:3000/api/notifications")
+				axios.get(this.http + "api/notifications")
 				.then(response => {
 					this.notifications = response.data;
 					console.log(this.notifications);
@@ -79,8 +79,11 @@
 		mounted() {
 			this.getNotifications();
 			//setInterval(this.getNotifications, 10000);
-		},
+		}
 	  });
+
+    app.config.globalProperties.$http = "http://87.6.240.24/";
+
 </script>
 <script>
     $('body').on('click','.close',function(){

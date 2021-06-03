@@ -91,7 +91,7 @@
         },
         methods: {
           login() {
-            axios.post("http://localhost:3000/api/signin", this.user)
+            axios.post(this.http + "api/signin", this.user)
             .then(response => {
               this.msg = response.data["message"];
               if(this.msg == null) location.reload();
@@ -99,6 +99,8 @@
           }
         }
       })
+
+      app.config.globalProperties.$http = "http://87.6.240.24/";
     </script>
 
   </body>

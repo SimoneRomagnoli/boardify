@@ -30,8 +30,8 @@ const Navbar = {
     
     <div class="nav-item pull-right row">
       <ul class="navbar-nav">
-        <navbutton route="/notifications" icon="fa fa-bell"></navbutton>
-        <navbutton route="/project" icon="fa fa-plus-square"></navbutton>
+        <navbutton class="mr-3" route="/notifications" icon="fa fa-bell"></navbutton>
+        <navbutton class="mr-3" route="/project" icon="fa fa-plus-square"></navbutton>
       </ul>
       <div class="nav-item dropdown">
         <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
