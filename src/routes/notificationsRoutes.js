@@ -1,6 +1,6 @@
 module.exports = app => {
     const controller = require('../controllers/notificationsController');
 
-    app.route('/api/notifications')
-        .get(controller.get_notifications)
+    app.route('/api/notification')
+        .post(controller.new_notification)
 }

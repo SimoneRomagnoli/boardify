@@ -219,16 +219,23 @@ const NewTaskModal = {
 
             const notification = {
                 to: this.board.members,
-                project: this.params.title,
+                project: {
+                    title: this.params.title,
+                    owner: this.params.owner
+                },
                 message: "A new task was added",
                 read: false
             }
 
-            this.$socket.emit('notification', notification);
-
             axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/newTask", task)
             .then(_ => {
                 this.topic = null;
+
+                axios.post(this.$host + "api/notification", notification)
+                .then(_ => {
+                    this.$socket.emit('notification', notification);
+                });
+
                 this.$router.go();
             });
         }

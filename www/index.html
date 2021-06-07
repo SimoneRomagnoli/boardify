@@ -22,14 +22,16 @@
 
 			<div class="m-2" aria-live="polite" aria-atomic="true" style="position: absolute; top: 8%; right: 0; min-height: 200px;">
 				<div class="toast fade show" v-for="notification in notifications" :key="notification" style="min-width: 350px;">
-					<div class="toast-header">
-						<strong class="mr-auto"><i class="fa fa-globe"></i> {{notification.project}}</strong>
-						<small class="text-muted">just now</small>
-						<button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
-					</div>
-					<div class="toast-body">
-						{{notification.message}}
-					</div>
+					<a :href="'/board/'+notification.project.owner+'/'+notification.project.title">
+						<div class="toast-header">
+							<strong class="mr-auto"><i class="fa fa-globe"></i> {{notification.project.owner}} - {{notification.project.title}}</strong>
+							<small class="text-muted">just now</small>
+							<button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+						</div>
+						<div class="toast-body">
+							{{notification.message}}
+						</div>
+					</a>
 				</div>
 			</div>
 		</div>

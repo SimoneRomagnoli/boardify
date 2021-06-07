@@ -6,3 +6,14 @@ exports.get_notifications = (req, res) => {
         else { res.json(nots); }
     });
 }
+
+exports.new_notification = (req, res) => {
+    const notification = {
+        to, project, message, read
+    } = req.body;
+
+    new Notification(notification).save((err, doc) => {
+        if (err) { res.send(err); }
+        else { res.send(doc); }
+    });
+}
