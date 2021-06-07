@@ -22,7 +22,7 @@
 
 			<div class="m-2" aria-live="polite" aria-atomic="true" style="position: absolute; top: 8%; right: 0; min-height: 200px;">
 				<div class="toast fade show" v-for="notification in notifications" :key="notification" style="min-width: 350px;">
-					<a :href="'/board/'+notification.project.owner+'/'+notification.project.title">
+					<!-- <a :href="notification.url"> -->
 						<div class="toast-header">
 							<strong class="mr-auto"><i class="fa fa-globe"></i> {{notification.project.owner}} - {{notification.project.title}}</strong>
 							<small class="text-muted">just now</small>
@@ -30,8 +30,9 @@
 						</div>
 						<div class="toast-body">
 							{{notification.message}}
+							<a :href="notification.url" data-dismiss="toast">View</a>
 						</div>
-					</a>
+					<!-- </a> -->
 				</div>
 			</div>
 		</div>

@@ -224,7 +224,8 @@ const NewTaskModal = {
                     owner: this.params.owner
                 },
                 message: "A new task was added",
-                read: false
+                read: false,
+		url: `/board/${this.params.owner}/${this.params.title}`
             }
 
             axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/newTask", task)
@@ -233,11 +234,12 @@ const NewTaskModal = {
 
                 axios.post(this.$host + "api/notification", notification)
                 .then(_ => {
-                    this.$socket.emit('notification', notification);
+                    
                 });
 
                 this.$router.go();
             });
+	    this.$socket.emit('notification', notification);
         }
     }
 }

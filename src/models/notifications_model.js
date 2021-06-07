@@ -1,10 +1,13 @@
 module.exports = mongoose => {
     const notification_schema = mongoose.Schema({
         to: [String],
-        type: String,
-        project: String,
+        project: {
+	    title: String,
+	    owner: String
+	},
         message: String,
-        read: Boolean
+        read: Boolean,
+	url: String
     });
     return mongoose.model("Notification", notification_schema, "notifications");
 }

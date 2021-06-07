@@ -9,7 +9,7 @@ exports.get_notifications = (req, res) => {
 
 exports.new_notification = (req, res) => {
     const notification = {
-        to, project, message, read
+        to, project, message, read, url
     } = req.body;
 
     new Notification(notification).save((err, doc) => {
