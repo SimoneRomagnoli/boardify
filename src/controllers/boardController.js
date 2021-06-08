@@ -44,6 +44,13 @@ exports.get_task = (req, res) => {
 	});
 }
 
+exports.delete_task = (req, res) => {
+	Board.updateOne({$and: [{owner: req.params.owner}, {title: req.params.title}]}, {$pull: {tasks: {name: req.params.task}}}, (err, board) => {
+		if (err) {res.send(err); }
+		else { res.json(board); }
+	})
+}
+
 exports.assign_task = (req, res) => {
 	const {
 		name

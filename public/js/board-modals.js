@@ -288,6 +288,7 @@ const TaskModal = {
           </div>
         </div>
         <div class="modal-footer">
+          <button v-if="currentUser === params.owner" type="button" class="btn btn-danger mr-auto" @click.prevent="deleteTask(task)">Delete task</button>
           <button v-if="currentUser === task.user" type="button" class="btn btn-info" @click.prevent="removeTask(task)">Remove task</button>
           <button v-if="task.state === 'TODO' && task.user != null && task.user !== '' && currentUser === task.user" type="button" class="btn btn-warning">Start task</button>
           <button v-if="task.state === 'TODO' && (task.user == null || task.user === '')" type="button" class="btn btn-info" @click.prevent="assignTask(task)">Take task</button>
@@ -325,6 +326,15 @@ const TaskModal = {
                 this.task = null;
                 this.$router.go();
             });
+        },
+        deleteTask(task) {
+            this.task = task;
+
+            axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/"+this.task.name)
+            .then(_ => {
+                this.task = null;
+                this.$router.go();
+            })
         },
         saveComment(task) {
             this.task = task;

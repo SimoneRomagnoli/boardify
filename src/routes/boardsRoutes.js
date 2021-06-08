@@ -14,7 +14,8 @@ module.exports = app => {
 		.get(boardsController.get_board_qr);
 
 	app.route('/api/board/:owner/:title/:task')	
-		.get(boardsController.get_task);
+		.get(boardsController.get_task)
+		.put(boardsController.delete_task);
 
 	app.route('/api/board/:owner/:title/newTask')	
 		.put(boardsController.create_task);
