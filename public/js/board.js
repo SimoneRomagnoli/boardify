@@ -211,7 +211,7 @@ const Board = {
           <new-topic-modal></new-topic-modal>
         </div>
         <div class="modal fade" id="newUserModal" tabindex="-1" aria-labelledby="newUserModalLabel" aria-hidden="true">
-          <new-user-modal></new-user-modal>
+          <new-user-modal :board="board"></new-user-modal>
         </div>
         <div class="container-fluid bg-white shadow rounded-lg p-2">
             <topics :topics="board.topics" :setCurrentTopic="setCurrentTopic"></topics>

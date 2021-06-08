@@ -1,4 +1,5 @@
 const NewUsersModal = {
+    props: ["board"],
     template: `
       <div class="modal-dialog">
         <div class="modal-content">
@@ -52,7 +53,8 @@ const NewUsersModal = {
             error: {
                 present: false,
                 message: ""
-            }
+            },
+            board: this.board
         }
     },
     methods: {
@@ -77,6 +79,20 @@ const NewUsersModal = {
                             this.member = "";
                         }
                     });
+                    const notification = {
+                        to: [this.member],
+                        project: {
+                            title: this.params.title,
+                            owner: this.params.owner
+                        },
+                        message: "You were added to the board.",
+                        read: false,
+                        url: `/board/${this.params.owner}/${this.params.title}`
+                    }
+        
+                    axios.post(this.$host + "api/notification", notification)
+                        .then(_ => {});
+                    this.$socket.emit('notification', notification);
             }
         },
         removeMember(member) {
@@ -225,7 +241,7 @@ const NewTaskModal = {
                 },
                 message: "A new task was added",
                 read: false,
-		url: `/board/${this.params.owner}/${this.params.title}`
+		        url: `/board/${this.params.owner}/${this.params.title}`
             }
 
             axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/newTask", task)
@@ -239,7 +255,7 @@ const NewTaskModal = {
 
                 this.$router.go();
             });
-	    this.$socket.emit('notification', notification);
+	        this.$socket.emit('notification', notification);
         }
     }
 }
