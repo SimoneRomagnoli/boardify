@@ -97,16 +97,13 @@ const NewUsersModal = {
                 url: `/board/${this.params.owner}/${this.params.title}`
             }
 
-            console.log(this.$host)
-
-            axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/newUsers", {vaffa: this.users})
+            axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/newUsers", {users: this.users})
             .then(_ => {
-                //console.log(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/newUsers")
-                //this.$router.go();
+                this.$router.go();
             });
 
-            //axios.post(this.$host + "api/notification", notification);
-            //this.$socket.emit('notification', notification);
+            axios.post(this.$host + "api/notification", notification);
+            this.$socket.emit('notification', notification);
         },
         qr() {
 
@@ -170,7 +167,7 @@ const NewTopicModal = {
                 
             axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/newTopic", topic)
             .then(_ => {
-                //this.$router.go();
+                this.$router.go();
             });
         }
     }
