@@ -85,7 +85,7 @@ const NewUsersModal = {
             const index = this.users.indexOf(member);
             this.users.splice(index,1);
         },
-        addToBoard() {           
+        addToBoard() {          
             const notification = {
                 to: this.users,
                 project: {
@@ -97,14 +97,16 @@ const NewUsersModal = {
                 url: `/board/${this.params.owner}/${this.params.title}`
             }
 
-            axios.post(this.$host + "api/notification", notification);
-            this.$socket.emit('notification', notification);
+            console.log(this.$host)
 
-
-            axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/newUsers", this.users)
+            axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/newUsers", {vaffa: this.users})
             .then(_ => {
-                this.$router.go();
+                //console.log(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/newUsers")
+                //this.$router.go();
             });
+
+            //axios.post(this.$host + "api/notification", notification);
+            //this.$socket.emit('notification', notification);
         },
         qr() {
 
@@ -168,7 +170,7 @@ const NewTopicModal = {
                 
             axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/newTopic", topic)
             .then(_ => {
-                this.$router.go();
+                //this.$router.go();
             });
         }
     }
