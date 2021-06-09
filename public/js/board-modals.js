@@ -79,27 +79,28 @@ const NewUsersModal = {
                             this.member = "";
                         }
                     });
-                    const notification = {
-                        to: [this.member],
-                        project: {
-                            title: this.params.title,
-                            owner: this.params.owner
-                        },
-                        message: "You were added to the board.",
-                        read: false,
-                        url: `/board/${this.params.owner}/${this.params.title}`
-                    }
-        
-                    axios.post(this.$host + "api/notification", notification)
-                        .then(_ => {});
-                    this.$socket.emit('notification', notification);
             }
         },
         removeMember(member) {
             const index = this.users.indexOf(member);
             this.users.splice(index,1);
         },
-        addToBoard() {                
+        addToBoard() {           
+            const notification = {
+                to: this.users,
+                project: {
+                    title: this.params.title,
+                    owner: this.params.owner
+                },
+                message: "You were added to the board.",
+                read: false,
+                url: `/board/${this.params.owner}/${this.params.title}`
+            }
+
+            axios.post(this.$host + "api/notification", notification);
+            this.$socket.emit('notification', notification);
+
+
             axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/newUsers", this.users)
             .then(_ => {
                 this.$router.go();
