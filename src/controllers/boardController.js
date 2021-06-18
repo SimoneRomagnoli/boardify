@@ -74,6 +74,17 @@ exports.save_comment = (req, res) => {
 	
 }
 
+exports.remove_user = (req, res) => {
+	const {
+		username
+	} = req.body;
+
+	Board.updateOne({$and: [{owner: req.params.owner}, {title: req.params.title}]}, {$pull: {members:username}}, (err, board) => {
+		if (err) { res.send(err); }
+		else { res.json(board); }
+	});
+}
+
 exports.remove_task = (req, res) => {
 	const {
 		name

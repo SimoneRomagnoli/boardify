@@ -28,6 +28,9 @@ module.exports = app => {
 	app.route('/api/board/:owner/:title/assign')	
 		.put(boardsController.assign_task);
 
+	app.route('/api/board/:owner/:title/removeUser')	
+		.put(boardsController.remove_user);
+
 	app.route('/api/board/:owner/:title/remove')	
 		.put(boardsController.remove_task);
 

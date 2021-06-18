@@ -102,7 +102,10 @@ const Row = {
             });
         },
         removeMember(member) {
-            console.log(member);
+            axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/removeUser", member)
+            .then(_ => {
+                this.$router.go();
+            })
         }
     },
     mounted: function() {
