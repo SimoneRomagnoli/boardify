@@ -81,34 +81,16 @@ exports.check_user = (req, res) => {
 	});
 }
 
-exports.change_firstname = (req, res) => {
+exports.change = (req, res) => {
 	const {
-		firstname
-	} = req.body;
-
-	User.updateOne({username:req.session.user.username}, {$set: {"firstname":firstname}}, (err, user) => {
-		if (err) { res.send(err); }
-		else { res.json(user); }
-	});
-}
-
-exports.change_lastname = (req, res) => {
-	const {
-		lastname
-	} = req.body;
-	
-	User.updateOne({username:req.session.user.username}, {$set: {"lastname":lastname}}, (err, user) => {
-		if (err) { res.send(err); }
-		else { res.json(user); }
-	});
-}
-
-exports.change_email = (req, res) => {
-	const {
+		username,
+		firstname,
+		lastname,
 		email
 	} = req.body;
-	
-	User.updateOne({username:req.session.user.username}, {$set: {"email":email}}, (err, user) => {
+
+	console.log(req.body)
+	User.updateOne({username:username}, {$set: {"firstname":firstname, "lastname":lastname, "email":email}}, (err, user) => {
 		if (err) { res.send(err); }
 		else { res.json(user); }
 	});

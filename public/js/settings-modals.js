@@ -1,10 +1,10 @@
 const SettingsModal = {
-    props: ['field', 'value', 'modalId'],
+    props: ['user'],
     template: `
       <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title text-capitalize" :id="modalId">Change {{field}}</h5>
+            <h5 class="modal-title text-capitalize">Change user bio</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -14,10 +14,26 @@ const SettingsModal = {
                     <div class="bg bg-light py-2 rounded container-fluid">
                         <div class="row">
                             <div class="col-sm-2 p-2 my-0 mx-2">
-                                <label class="my-0 text-capitalize" :for="field">{{field}}:</label>
+                                <label class="my-0 text-capitalize" for="firstname">Firstname:</label>
                             </div>
                             <div class="col-sm p-2 my-0 mx-2">                            
-                                <input type="text" class="w-100 my-0 rounded border" :id="field" :name="field" :value="value">
+                                <input type="text" class="w-100 my-0 rounded border" id="firstname" name="firstname" :value="user.firstname">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 p-2 my-0 mx-2">
+                                <label class="my-0 text-capitalize" for="lastname">Lastname:</label>
+                            </div>
+                            <div class="col-sm p-2 my-0 mx-2">                            
+                                <input type="text" class="w-100 my-0 rounded border" id="lastname" name="lastname" :value="user.lastname">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 p-2 my-0 mx-2">
+                                <label class="my-0 text-capitalize" for="email">Email:</label>
+                            </div>
+                            <div class="col-sm p-2 my-0 mx-2">                            
+                                <input type="text" class="w-100 my-0 rounded border" id="email" name="email" :value="user.email">
                             </div>
                         </div>
                         <div v-if="error.present">
@@ -34,7 +50,7 @@ const SettingsModal = {
     `,
     data() {
         return {
-            field: this.field,
+            user: this.user,
             error: {
                 present: false,
                 message: ""
@@ -43,10 +59,13 @@ const SettingsModal = {
     },
     methods: {
         change() {
-            const elem = {
-                [this.field]: document.getElementById(this.field).value
+            const newUser = {
+                username: this.user.username,
+                firstname: $("#firstname").val(),
+                lastname: $("#lastname").val(),
+                email: $("#email").val()
             }
-            axios.put(this.$host + "api/user/"+this.field, elem)
+            axios.put(this.$host + "api/users/" + this.user.username, newUser)
             .then(response => {
                 if(response.data.error) {
                     this.error.present = true;

@@ -19,16 +19,8 @@ module.exports = app => {
 		.get(forwardAuthenticated, usersController.show_signin);
 
 	app.route('/api/users/:username')
-		.get(usersController.check_user);
-
-	app.route('/api/user/lastname')
-		.put(usersController.change_lastname);
-
-	app.route('/api/user/firstname')
-		.put(usersController.change_firstname);
-
-	app.route('/api/user/email')
-		.put(usersController.change_email);
+		.get(usersController.check_user)
+		.put(usersController.change);
 
 	app.route('/api/user/password')
 		.put(usersController.change_password);
