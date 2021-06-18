@@ -3,4 +3,5 @@ module.exports = app => {
 
     app.route('/api/notification')
         .post(controller.new_notification)
+        .get(controller.get_notifications)
 }
