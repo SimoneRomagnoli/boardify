@@ -3,9 +3,9 @@ const TopicsRow = {
     template: 
     `
     <div class="row mx-1">
-        <div class="col font-weight-bold py-2 rounded-lg m-2">
-            <button v-if="currentUser === params.owner" class="rounded border-0 align-self-center bfy-bg-card-button text-white pull-left" data-toggle="modal" data-target="#newUserModal">Add Users</button>
-            <button v-if="currentUser === params.owner" class="rounded border-0 align-self-center bfy-bg-card-button text-white pull-right" data-toggle="modal" data-target="#newTopicModal">Add Topic</button>
+        <div class="col font-weight-bold py-2 px-0 rounded-lg my-2 mr-5 inline-block">
+            <button v-if="currentUser === params.owner" class="rounded border-0 align-self-center bfy-bg-card-button text-white" data-toggle="modal" data-target="#newUserModal">Add Users</button>
+            <button v-if="currentUser === params.owner" class="rounded border-0 align-self-center bfy-bg-card-button text-white" data-toggle="modal" data-target="#newTopicModal">Add Topic</button>
         </div>
         <div class="col text-center text-capitalize bfy-bg-table-cell rounded-lg py-2 m-2 font-weight-bold" v-for="topic in topics" :key="topic">
             {{topic}}
@@ -66,7 +66,10 @@ const Row = {
     template: 
     `
       <div class="row mx-1 my-1">
-          <div class="col py-2 rounded-lg my-2 bfy-bg-table-cell d-flex align-items-center" style="vertical-align: middle">{{member.firstname}} {{member.lastname}}</div>
+          <div class="col py-2 rounded-lg my-2 bfy-bg-table-cell  align-items-center" style="vertical-align: middle">
+            {{member.firstname}} {{member.lastname}}
+            <button v-if="currentUser === params.owner" class="rounded border-0 btn-danger text-white font-weight-bold pull-right" @click.prevent="removeMember(member)">X</button>
+          </div>
           <div class="col" v-for="topic in topics" :key="topic">
             <ul class="m-0 p-0" style="list-style: none;">
               <li class="py-0 my-2" v-for="task in tasks" :key="task" v-if="task.user===member.username && task.topic===topic">
@@ -87,8 +90,23 @@ const Row = {
     data: function() {
         return {
             task: null,
-            params: this.$route.params
+            params: this.$route.params,
+            currentUser: null
         }
+    },
+    methods: {
+        init() {
+            axios.get(this.$host + "session/user")
+                .then(response => {
+                this.currentUser = response.data.username;
+            });
+        },
+        removeMember(member) {
+            console.log(member);
+        }
+    },
+    mounted: function() {
+        this.init()
     }
 }
 
@@ -213,12 +231,12 @@ const Board = {
         <div class="modal fade" id="newUserModal" tabindex="-1" aria-labelledby="newUserModalLabel" aria-hidden="true">
           <new-user-modal :board="board"></new-user-modal>
         </div>
-        <div class="container-fluid bg-white shadow rounded-lg p-2">
+        <div class="container-fluid bg-white shadow rounded-lg p-2 bfy-board">
             <topics :topics="board.topics" :setCurrentTopic="setCurrentTopic"></topics>
             <tasks :tasks="board.tasks" :topics="board.topics" :setCurrentTask="setCurrentTask"></tasks>
             <row v-for="member in members" :key="member" :member="member" :tasks="board.tasks" :topics="board.topics" :setCurrentTask="setCurrentTask"></row>
         </div>
-        <div class="container p-2 shadow mt-5 rounded-lg bg-white">
+        <div class="p-2 shadow mt-5 rounded-lg bg-white vh-25" id="charts-container">
           <div class="row">
             <div class="col-8">
               <strong>Users Tasks Progress</strong>

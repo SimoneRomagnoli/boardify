@@ -23,7 +23,7 @@ const NewUsersModal = {
                                         class="form-control"
                                         v-model="member"
                                     />
-                                    <button class="btn btn-success input-group-btn ml-1" @click.prevent="addMember">+</button>
+                                    <button class="btn btn-success input-group-btn ml-1" @click.prevent="addToMemberList">+</button>
                                 </div>
                                 <p v-if="error.present">{{error.message}}</p>
                                 <ul class="list-group">
@@ -39,7 +39,7 @@ const NewUsersModal = {
             </div>
             <div class="modal-footer">
                 <button type="button" class="bfy-bg-button text-white rounded-lg border-0 p-2" data-dismiss="modal" @click.prevent="qr()">QR Code</button>
-                <button type="button" class="bfy-bg-card-button text-white rounded-lg border-0 p-2" data-dismiss="modal" @click.prevent="addToBoard()">Add</button>
+                <button type="button" class="bfy-bg-card-button text-white rounded-lg border-0 p-2" data-dismiss="modal" @click.prevent="addMemberListToBoard()">Add</button>
             </div>
         </div>
       </div>
@@ -58,7 +58,7 @@ const NewUsersModal = {
         }
     },
     methods: {
-        addMember() {
+        addToMemberList() {
             if(this.boardMembers.includes(this.member)) {
                 this.error.present = true;
                 this.error.message = "This user is already present in this board.";
@@ -85,7 +85,7 @@ const NewUsersModal = {
             const index = this.users.indexOf(member);
             this.users.splice(index,1);
         },
-        addToBoard() {          
+        addMemberListToBoard() {          
             const notification = {
                 to: this.users,
                 project: {
