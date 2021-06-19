@@ -1,13 +1,15 @@
 module.exports = mongoose => {
     const notification_schema = mongoose.Schema({
-        to: [String],
+        to: [{
+            user: String,
+            read: Boolean
+        }],
         project: {
 	    title: String,
 	    owner: String
 	    },
         message: String,
         object: String,
-        read: Boolean,
 	    url: String,
         date: Date
     });

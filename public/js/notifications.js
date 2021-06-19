@@ -1,5 +1,5 @@
 const NotificationSummary = {
-    props: ["project", "message", "read", "url", "object", "date"],
+    props: ["project", "message", "url", "object", "date", "receivers", "sessionUser"],
     template: `
     <div class="row rounded-lg bfy-bg-table-cell m-2 p-2 d-flex">
         <div class="align-self-center">
@@ -13,14 +13,25 @@ const NotificationSummary = {
             {{message}}: {{object}}
         </div>
         <div class="p-2 ml-auto">
-        <router-link class="bfy-bg-card-button text-white rounded p-1 text-center border-0" :to="url" style="text-decoration: none">
+        <button class="bfy-bg-card-button text-white rounded p-1 text-center border-0" :to="url" style="text-decoration: none" @click.prevent="readNotifications(project)">
             Open board
-        </router-link>
+        </button>
         </div>
     </div>
     `,
+    data: function() {
+        return {
+            url: this.url,
+            read: this.receivers.filter(receiver => receiver.user === this.$sessionUser)[0].read
+        }
+    },
     methods: {
-
+        readNotifications(project) {
+            axios.put(this.$host + "api/notification", project)
+            .then(_ => {
+                this.$router.push(this.url);
+            });
+        }
     }
 }
 
@@ -35,7 +46,7 @@ const Notifications = {
             <h1 class="px-0">Notifications</h1>
             <div class="bg-white shadow rounded-lg p-2">
                 <notification-summary v-for="notification in notifications" :key="notification" 
-                    :project="notification.project" :message="notification.message" :object="notification.object" :read="notification.read" :url="notification.url" :date="notification.date">
+                    :project="notification.project" :message="notification.message" :object="notification.object" :url="notification.url" :date="notification.date" :receivers="notification.to">
                 </notification-summary>
             </div>
         <div>

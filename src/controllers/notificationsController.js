@@ -5,7 +5,7 @@ exports.show_index = (req, res) => {
 };
 
 exports.get_notifications = (req, res) => {
-    Notification.find({to:req.session.user.username}, (err, nots) => {
+    Notification.find({"to.user":req.session.user.username}, (err, nots) => {
         if (err) { res.send(err); }
         else { res.json(nots); }
     });
@@ -13,11 +13,20 @@ exports.get_notifications = (req, res) => {
 
 exports.new_notification = (req, res) => {
     const notification = {
-        to, project, message, object, read, url, date
+        to, project, message, object, url, date
     } = req.body;
 
     new Notification(notification).save((err, doc) => {
         if (err) { res.send(err); }
         else { res.send(doc); }
+    });
+}
+
+exports.read_notifications = (req, res) => {
+    const project = req.body;
+
+    Notification.updateMany({$and: [{"project.title": project.title}, {"project.owner": project.owner}, {"to.user":req.session.user.username}]}, {$set: {"to.$.read":true}}, (err, nots) => {
+        if (err) { res.send(err); }
+        else { res.json(nots); }
     });
 }

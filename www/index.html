@@ -77,12 +77,13 @@
 			}
 		},
 		methods: {
-	            getSessionUser() {
-        	        axios.get(this.$host + "session/user")
-                	.then(response => {
-                      	    this.currentUser = response.data.username;
-                   	});
-            	}
+			getSessionUser() {
+				axios.get(this.$host + "session/user")
+				.then(response => {
+					this.currentUser = response.data.username;
+					Vue.prototype.$sessionUser = response.data.username;
+				});
+			}
 		},
 		mounted() {
 		    this.getSessionUser();
@@ -92,7 +93,6 @@
 		           this.notifications.push(notification);
                }
             });
-			//setInterval(this.getNotifications, 10000);
 		}
 	  });
 </script>
