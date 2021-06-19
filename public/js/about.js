@@ -83,8 +83,9 @@ const ExampleBoard = {
                 </div>
             </div>
             <div class="row mx-1 my-1">
-                <div class="col py-2 rounded-lg my-2 bfy-bg-table-cell d-flex align-items-center" style="vertical-align: middle">
-                Bob Williams
+                <div class="col py-2 rounded-lg my-2 bfy-bg-table-cell align-items-center d-flex" style="vertical-align: middle">
+                    Bob Williams
+                    <button class="rounded border-0 btn-danger text-white font-weight-bold ml-auto">X</button>
                 </div>
                 <div class="col">
                     <ul class="m-0 p-0" style="list-style: none;">
@@ -115,8 +116,9 @@ const ExampleBoard = {
                 </div>
             </div>
             <div class="row mx-1 my-1">
-                <div class="col py-2 rounded-lg my-2 bfy-bg-table-cell d-flex align-items-center" style="vertical-align: middle">
-                Alice Smith
+                <div class="col py-2 rounded-lg my-2 bfy-bg-table-cell align-items-center d-flex" style="vertical-align: middle">
+                    Alice Smith
+                    <button class="rounded border-0 btn-danger text-white font-weight-bold ml-auto">X</button>
                 </div>
                 <div class="col">
                     <ul class="m-0 p-0" style="list-style: none;">

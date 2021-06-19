@@ -66,9 +66,9 @@ const Row = {
     template: 
     `
       <div class="row mx-1 my-1 flex-row flex-nowrap">
-          <div class="col-4 col-lg-2  py-2 rounded-lg my-2 bfy-bg-table-cell  align-items-center" style="vertical-align: middle">
+          <div class="col-4 col-lg-2  py-2 rounded-lg my-2 bfy-bg-table-cell d-flex align-items-center" style="vertical-align: middle">
             {{member.firstname}} {{member.lastname}}
-            <button v-if="currentUser === params.owner" class="rounded border-0 btn-danger text-white font-weight-bold pull-right" @click.prevent="removeMember(member)">X</button>
+            <button v-if="currentUser === params.owner && member.username !== params.owner" class="rounded border-0 btn-danger text-white font-weight-bold ml-auto" @click.prevent="removeMember(member)">X</button>
           </div>
           <div class="col-4 col-lg-2  mx-2" v-for="topic in topics" :key="topic">
             <ul class="m-0 p-0" style="list-style: none;">
@@ -273,6 +273,9 @@ const Board = {
                 axios.post(this.$host + "api/usersinfo", {members: this.board.members})
                 .then(response => {
                     this.members = response.data;
+                    const owner = this.members.filter(member => member.username === this.params.owner)[0];
+                    this.members = this.members.filter(member => member.username !== this.params.owner);
+                    this.members.unshift(owner);
                 });
             });
         },

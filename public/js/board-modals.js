@@ -281,9 +281,9 @@ const TaskModal = {
                     </div>
                 </div>
                 <div class="col-4 align-self-center text-center">
-                    <span v-if="task.state === 'TODO'" class="badge badge-danger p-3">{{task.state}}</span>
-                    <span v-if="task.state === 'RUNNING'" class="badge badge-warning p-3">{{task.state}}</span>
-                    <span v-if="task.state === 'DONE'" class="badge badge-success p-3">{{task.state}}</span>
+                    <span v-if="task.state === 'TODO'" class="badge badge-danger p-3 rounded-pill">{{task.state}}</span>
+                    <span v-if="task.state === 'RUNNING'" class="badge badge-warning p-3 rounded-pill">{{task.state}}</span>
+                    <span v-if="task.state === 'DONE'" class="badge badge-success p-3 rounded-pill">{{task.state}}</span>
                 </div>
             </div>
             <div class="bg bg-light py-2 rounded container-fluid">
