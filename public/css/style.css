@@ -25,17 +25,21 @@
 .bfy-bg-dark {
     background-color: #001219;
 }
-
+/*
 .bfy-bg-button {
     background-color: #283641;
 }
-
+*/
 .bfy-bg-card-button {
     background-color: #499652;
 }
 
 .bfy-bg-success {
     background-color: #499652;
+}
+
+.bfy-notification-color {
+    color: #499652;
 }
 
 .bfy-bg-danger {
