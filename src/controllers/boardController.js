@@ -62,6 +62,24 @@ exports.assign_task = (req, res) => {
 	
 }
 
+exports.change_task_state = (req, res) => {
+	const task = req.body;
+
+	if(task.state === 'TODO') {
+		Board.updateOne({$and: [{owner: req.params.owner}, {title: req.params.title}, {"tasks.name":task.name}]}, {$set: {"tasks.$.state":'RUNNING'}}, (err, board) => {
+			if (err) { res.send(err); }
+			else { res.json(board); }
+		});
+	}
+	if(task.state === 'RUNNING') {
+		Board.updateOne({$and: [{owner: req.params.owner}, {title: req.params.title}, {"tasks.name":task.name}]}, {$set: {"tasks.$.state":'DONE'}}, (err, board) => {
+			if (err) { res.send(err); }
+			else { res.json(board); }
+		});
+	}
+	
+}
+
 exports.save_comment = (req, res) => {
 	const {
 		name, comment

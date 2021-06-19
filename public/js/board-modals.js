@@ -306,9 +306,9 @@ const TaskModal = {
         <div class="modal-footer">
           <button v-if="currentUser === params.owner" type="button" class="btn btn-danger mr-auto" @click.prevent="deleteTask(task)">Delete task</button>
           <button v-if="currentUser === task.user" type="button" class="btn btn-info" @click.prevent="removeTask(task)">Remove task</button>
-          <button v-if="task.state === 'TODO' && task.user != null && task.user !== '' && currentUser === task.user" type="button" class="btn btn-warning">Start task</button>
+          <button v-if="task.state === 'TODO' && task.user != null && task.user !== '' && currentUser === task.user" type="button" class="btn btn-warning" @click.prevent="changeState(task)">Start task</button>
           <button v-if="task.state === 'TODO' && (task.user == null || task.user === '')" type="button" class="btn btn-info" @click.prevent="assignTask(task)">Take task</button>
-          <button v-if="task.state === 'RUNNING' && currentUser === task.user" type="button" class="btn btn-success">Task finished</button>
+          <button v-if="task.state === 'RUNNING' && currentUser === task.user" type="button" class="btn btn-success" @click.prevent="changeState(task)">Task finished</button>
         </div>
       </div>
       </div>
@@ -330,6 +330,14 @@ const TaskModal = {
         assignTask(task) {
             this.task = task;
             axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/assign", this.task)
+            .then(_ => {
+                this.task = null;
+                this.$router.go();
+            });
+        },
+        changeState(task) {
+            this.task = task;
+            axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/taskState", this.task)
             .then(_ => {
                 this.task = null;
                 this.$router.go();
