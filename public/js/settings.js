@@ -23,31 +23,33 @@ const Settings = {
     },
     template: `
     <div class="p-3 vh-100">
-        <h1 class="px-0">Settings</h1>
         <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
           <settings-modal :user="user" modalId="settingsModalLabel"></settings-modal>
         </div>
         <div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="passwordModalLabel" aria-hidden="true">
           <password-modal></password-modal>
         </div>
-        <div class="container-fluid bg-white shadow rounded-lg p-2">
-            <div class="row rounded-lg bfy-bg-table-cell m-2 p-2">
-                <div class="col-sm-2 p-2">
-                    <strong class="col-sm-2 p-2">Username: </strong>
-                </div>    
-                <div class="col-sm-6 p-2">
-                    {{user.username}}
+        <div class="container">
+            <h1 class="px-0">Settings</h1>
+            <div class="bg-white shadow rounded-lg p-2">
+                <div class="row rounded-lg bfy-bg-table-cell m-2 p-2">
+                    <div class="col-sm-2 p-2">
+                        <strong class="col-sm-2 p-2">Username: </strong>
+                    </div>    
+                    <div class="col-sm-6 p-2">
+                        {{user.username}}
+                    </div>
                 </div>
-            </div>
-            <settings-field field="Firstname" :content="user.firstname" target="#firstnameModal"></settings-field>
-            <settings-field field="Lastname" :content="user.lastname" target="#lastnameModal"></settings-field>
-            <settings-field field="Email" :content="user.email" target="#emailModal"></settings-field>
-            <settings-field field="Password" content="********" target="#passwordModal"></settings-field>
-        </div>
-        <div class="row mt-3">
-            <div class="col-3 offset-9">
-                <button class="rounded border-0 bfy-bg-card-button text-white font-weight-bold pull-right p-2" data-toggle="modal" data-target="#passwordModal">Change password</button>
-                <button class="rounded border-0 bfy-bg-card-button text-white font-weight-bold pull-right p-2 mr-2" data-toggle="modal" data-target="#settingsModal">Change bio</button>
+                <settings-field field="Firstname" :content="user.firstname" target="#firstnameModal"></settings-field>
+                <settings-field field="Lastname" :content="user.lastname" target="#lastnameModal"></settings-field>
+                <settings-field field="Email" :content="user.email" target="#emailModal"></settings-field>
+                <settings-field field="Password" content="********" target="#passwordModal"></settings-field>
+                <div class="row mt-2 p-2">
+                    <div class="col-4 offset-8">
+                        <button class="rounded border-0 bfy-bg-card-button text-white font-weight-bold pull-right p-2" data-toggle="modal" data-target="#passwordModal">Change password</button>
+                        <button class="rounded border-0 bfy-bg-card-button text-white font-weight-bold pull-right p-2 mr-2" data-toggle="modal" data-target="#settingsModal">Change bio</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
