@@ -4,10 +4,12 @@ module.exports = mongoose => {
         project: {
 	    title: String,
 	    owner: String
-	},
+	    },
         message: String,
+        object: String,
         read: Boolean,
-	url: String
+	    url: String,
+        date: Date
     });
     return mongoose.model("Notification", notification_schema, "notifications");
 }

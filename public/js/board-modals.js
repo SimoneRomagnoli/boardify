@@ -240,8 +240,10 @@ const NewTaskModal = {
                     owner: this.params.owner
                 },
                 message: "A new task was added",
+                object: task.name,
                 read: false,
-		        url: `/board/${this.params.owner}/${this.params.title}`
+		        url: `/board/${this.params.owner}/${this.params.title}`,
+                date: new Date()
             }
 
             axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/newTask", task)
