@@ -85,16 +85,22 @@ const NewUsersModal = {
             const index = this.users.indexOf(member);
             this.users.splice(index,1);
         },
-        addMemberListToBoard() {          
+        addMemberListToBoard() {         
             const notification = {
-                to: this.users,
+                to: this.users.map(user => {
+                    return {
+                        user:user,
+                        read:false
+                    }
+                }),
                 project: {
                     title: this.params.title,
                     owner: this.params.owner
                 },
-                message: "You were added to the board.",
-                read: false,
-                url: `/board/${this.params.owner}/${this.params.title}`
+                message: "You were added to the board",
+                object: this.params.title,
+                url: `/board/${this.params.owner}/${this.params.title}`,
+                date: new Date()
             }
 
             axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/newUsers", {users: this.users})
@@ -234,18 +240,21 @@ const NewTaskModal = {
             }
 
             const notification = {
-                to: this.board.members,
+                to: this.board.members.map(member => { 
+                    return {
+                        user:member, read:false
+                    }
+                }),
                 project: {
                     title: this.params.title,
                     owner: this.params.owner
                 },
                 message: "A new task was added",
                 object: task.name,
-                read: false,
 		        url: `/board/${this.params.owner}/${this.params.title}`,
                 date: new Date()
             }
-
+            
             axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/newTask", task)
             .then(_ => {
                 this.topic = null;
