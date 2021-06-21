@@ -4,6 +4,9 @@ const { forwardAuthenticated, ensureAuthenticated } = require('../config/authent
 module.exports = app => {
 	const boardsController = require('../controllers/boardController');
 
+	app.route('/project')
+		.get(ensureAuthenticated, boardsController.show_index);
+
 	app.route('/board/:owner/:title')
 		.get(ensureAuthenticated, boardsController.show_index);
 

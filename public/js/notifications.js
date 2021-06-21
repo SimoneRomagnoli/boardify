@@ -63,8 +63,8 @@ const Notifications = {
         init() {
             this.getSessionUser().then(response => {
                 this.sessionUser = response.data;
+                this.getNotifications();
             });
-            this.getNotifications();
         },
         getNotifications() {
             axios.get(this.$host + "api/notification")
