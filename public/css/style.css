@@ -10,10 +10,6 @@
     background-color: #e9c46a;
 }
 
-.bfy-green {
-    background-color: #2a9d8f;
-}
-
 .bfy-dark-green {
     background-color: #264653;
 }
@@ -25,11 +21,7 @@
 .bfy-bg-dark {
     background-color: #001219;
 }
-/*
-.bfy-bg-button {
-    background-color: #283641;
-}
-*/
+
 .bfy-bg-card-button {
     background-color: #499652;
 }
@@ -42,11 +34,23 @@
     color: #499652;
 }
 
+.bfy-green {
+    color: #499652;
+}
+
+.bfy-border-green {
+    border: 2px solid #499652; 
+}
+
 .bfy-bg-danger {
     background-color: #e76f51;
 }
 
 .bfy-bg-table-cell {
+    background-color: #ebebed;
+}
+
+.bfy-bg-hover:hover {
     background-color: #ebebed;
 }
 
