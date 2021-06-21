@@ -69,7 +69,7 @@ const Notifications = {
         getNotifications() {
             axios.get(this.$host + "api/notification")
             .then(response => {
-                this.notifications = response.data;
+                this.notifications = response.data.reverse();
             })
         }
     },
