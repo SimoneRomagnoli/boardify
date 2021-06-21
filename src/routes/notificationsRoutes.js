@@ -7,7 +7,7 @@ module.exports = app => {
 		.get(ensureAuthenticated, controller.show_index);
 
     app.route('/api/notification')
-        .post(controller.new_notification)
-        .get(controller.get_notifications)
-        .put(controller.read_notifications)
+        .post(ensureAuthenticated, controller.new_notification)
+        .get(ensureAuthenticated, controller.get_notifications)
+        .put(ensureAuthenticated, controller.read_notifications)
 }

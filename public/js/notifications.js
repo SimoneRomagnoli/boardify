@@ -6,10 +6,10 @@ const NotificationSummary = {
             <span v-if="!read" class="fa fa-circle bfy-notification-color ml-2"></span>
             <span v-else class="fa fa-circle-thin bfy-notification-color ml-2"></span>
         </div>
-        <div class="col-sm-4 p-2">
+        <div class="col-sm-4 p-2 align-self-center">
             <strong class="col-sm-2 p-2">{{project.owner}} - {{project.title}} </strong>
         </div>    
-        <div class="col-sm-4 p-2">
+        <div class="col-sm-4 p-2 align-self-center">
             {{message}}: {{object}}
         </div>
         <div class="p-2 ml-auto">
@@ -30,6 +30,7 @@ const NotificationSummary = {
             axios.put(this.$host + "api/notification", project)
             .then(_ => {
                 this.$router.push(this.url);
+                location.reload();
             });
         }
     }

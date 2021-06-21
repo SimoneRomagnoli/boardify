@@ -62,7 +62,7 @@
     //Vue.prototype.$host = "http://87.6.240.24/";
     Vue.prototype.$host = "http://localhost:3000/";
     Vue.prototype.$socket = io();
-
+	Vue.prototype.$notifications = false;
 	Vue.mixin({
 		data() {
 			return {
@@ -96,10 +96,10 @@
 		mounted() {
 		    this.getSessionUser();
 		    this.$socket.on('notification', notification => {
-		       console.log(notification);
-		       if(notification.to.includes(this.currentUser)) {
+		        if(notification.to.map(readMap => readMap.user).includes(this.currentUser)) {
 		           this.notifications.push(notification);
-               }
+				   this.$notifications = true;
+                }
             });
 		}
 	  });

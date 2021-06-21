@@ -1,10 +1,10 @@
 const NavButton = {
-  props: ["route", "icon"],
+  props: ["route", "icon", "badge"],
   template: 
   `
   <div class="nav-item rounded d-inline-flex p-0">
     <router-link class="nav-link" :to="route">
-      <i :class="icon" class="text-white bfy-navbar-icon align-self-center p-0"></i>
+      <i :class="icon" class="text-white bfy-navbar-icon align-self-center p-0"></i><span v-if="badge" class="bfy-notification-badge bg-danger"></span>
     </router-link>
   </div>
   `
@@ -23,10 +23,8 @@ const Navbar = {
     </div>
     
     <div class="nav-item ml-auto row">
-      
-        <navbutton  route="/notifications" icon="fa fa-bell"></navbutton>
-        <navbutton  route="/project" icon="fa fa-plus-square"></navbutton>
-      
+      <navbutton route="/notifications" icon="fa fa-bell" :badge="notifications"></navbutton>
+      <navbutton route="/project" icon="fa fa-plus-square" :badge="false"></navbutton>
       <div class="nav-item dropdown">
         <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fa fa-lg fa-user-circle text-white align-self-center bfy-navbar-icon"></i>
@@ -49,5 +47,31 @@ const Navbar = {
     </div>
     
   </nav>
-  `
+  `,
+  data() {
+    return {
+      notifications: this.$notifications
+    }
+  },
+  methods: {
+    init() {
+      this.getSessionUser()
+      .then(res => {
+        const sessionUser = res.data.username;
+        axios.get(this.$host + "api/notification")
+        .then(response => {
+          this.notifications = 
+            this.$notifications ||
+            response.data
+              .map(not => not.to)
+              .map(receivers => { return receivers.filter(receiver => receiver.user === sessionUser)[0] })
+              .map(readMap => readMap.read)
+              .some(read => !read);
+        });
+      });
+    }
+  },
+  mounted() {
+    this.init();
+  }
 }
