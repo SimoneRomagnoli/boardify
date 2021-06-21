@@ -4,7 +4,7 @@ const NavButton = {
   `
   <div class="nav-item rounded d-inline-flex p-0">
     <router-link class="nav-link" :to="route">
-      <i :class="icon" class="text-white bfy-navbar-icon align-self-center p-0"></i><span v-if="badge" class="bfy-notification-badge bg-danger"></span>
+      <i :class="icon" class="text-white bfy-icon align-self-center p-0"></i><span v-if="badge" class="bfy-notification-badge bg-danger"></span>
     </router-link>
   </div>
   `
@@ -15,7 +15,7 @@ const Navbar = {
     'navbutton': NavButton
   },
   template: `
-  <nav class="navbar navbar-expand-lg navbar-light bfy-bg-navbar">
+  <nav class="navbar navbar-expand-lg navbar-light bfy-bg-dark-gray">
     <div class="nav-item navbar-nav mx-3">
       <router-link to="/">
         <img class="logo" style="max-height: 50px;" src="/static/img/boardify-beaver-logo-big.png" alt="Boardify"></img>
@@ -27,7 +27,7 @@ const Navbar = {
       <navbutton route="/project" icon="fa fa-plus-square" :badge="false"></navbutton>
       <div class="nav-item dropdown">
         <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fa fa-lg fa-user-circle text-white align-self-center bfy-navbar-icon"></i>
+          <i class="fa fa-lg fa-user-circle text-white align-self-center bfy-icon"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right mt-2" aria-labelledby="navbarDropdownMenuLink">
           <router-link class="dropdown-item" to="/about">

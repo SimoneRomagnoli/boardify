@@ -7,24 +7,24 @@ const ExampleBoard = {
         <div class="container-fluid bg-white shadow rounded-lg p-2">
             <div class="row mx-1">
                 <div class="col font-weight-bold py-2 rounded-lg m-2">
-                    <button class="rounded border-0 align-self-center bfy-bg-card-button text-white pull-left">Add Users</button>
-                    <button class="rounded border-0 align-self-center bfy-bg-card-button text-white pull-right">Add Topic</button>
+                    <button class="rounded border-0 align-self-center bfy-bg-green text-white pull-left">Add Users</button>
+                    <button class="rounded border-0 align-self-center bfy-bg-green text-white pull-right">Add Topic</button>
                 </div>
-                <div class="col text-center text-capitalize bfy-bg-table-cell rounded-lg py-2 m-2 font-weight-bold">
+                <div class="col text-center text-capitalize bfy-bg-gray rounded-lg py-2 m-2 font-weight-bold">
                     Food
-                    <button class="rounded border-0 align-self-center bfy-bg-card-button text-white font-weight-bold pull-right">+</button>
+                    <button class="rounded border-0 align-self-center bfy-bg-green text-white font-weight-bold pull-right">+</button>
                 </div>
-                <div class="col text-center text-capitalize bfy-bg-table-cell rounded-lg py-2 m-2 font-weight-bold">
+                <div class="col text-center text-capitalize bfy-bg-gray rounded-lg py-2 m-2 font-weight-bold">
                     Tents
-                    <button class="rounded border-0 align-self-center bfy-bg-card-button text-white font-weight-bold pull-right">+</button>
+                    <button class="rounded border-0 align-self-center bfy-bg-green text-white font-weight-bold pull-right">+</button>
                 </div>
-                <div class="col text-center text-capitalize bfy-bg-table-cell rounded-lg py-2 m-2 font-weight-bold">
+                <div class="col text-center text-capitalize bfy-bg-gray rounded-lg py-2 m-2 font-weight-bold">
                     Games
-                    <button class="rounded border-0 align-self-center bfy-bg-card-button text-white font-weight-bold pull-right">+</button>
+                    <button class="rounded border-0 align-self-center bfy-bg-green text-white font-weight-bold pull-right">+</button>
                 </div>
             </div>
             <div class="row mx-1 my-1">
-                <div class="col font-weight-bold py-2 rounded-lg my-2 bfy-bg-table-cell d-flex align-items-center">
+                <div class="col font-weight-bold py-2 rounded-lg my-2 bfy-bg-gray d-flex align-items-center">
                     Available Tasks
                 </div>
                 <div class="col">
@@ -56,7 +56,7 @@ const ExampleBoard = {
                 </div>
             </div>
             <div class="row mx-1 my-1">
-                <div class="col py-2 rounded-lg my-2 bfy-bg-table-cell d-flex align-items-center" style="vertical-align: middle">
+                <div class="col py-2 rounded-lg my-2 bfy-bg-gray d-flex align-items-center" style="vertical-align: middle">
                 {{firstname}} {{lastname}}
                 </div>
                 <div class="col">
@@ -83,7 +83,7 @@ const ExampleBoard = {
                 </div>
             </div>
             <div class="row mx-1 my-1">
-                <div class="col py-2 rounded-lg my-2 bfy-bg-table-cell align-items-center d-flex" style="vertical-align: middle">
+                <div class="col py-2 rounded-lg my-2 bfy-bg-gray align-items-center d-flex" style="vertical-align: middle">
                     Bob Williams
                     <button class="rounded border-0 btn-danger text-white font-weight-bold ml-auto">X</button>
                 </div>
@@ -116,7 +116,7 @@ const ExampleBoard = {
                 </div>
             </div>
             <div class="row mx-1 my-1">
-                <div class="col py-2 rounded-lg my-2 bfy-bg-table-cell align-items-center d-flex" style="vertical-align: middle">
+                <div class="col py-2 rounded-lg my-2 bfy-bg-gray align-items-center d-flex" style="vertical-align: middle">
                     Alice Smith
                     <button class="rounded border-0 btn-danger text-white font-weight-bold ml-auto">X</button>
                 </div>

@@ -43,7 +43,7 @@ const SettingsModal = {
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="bfy-bg-card-button text-white rounded-lg border-0 p-2" @click.prevent="change">Change</button>
+                <button type="button" class="bfy-bg-green text-white rounded-lg border-0 p-2" @click.prevent="change">Change</button>
             </div>
         </div>
       </div>
@@ -122,7 +122,7 @@ const PasswordModal = {
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="bfy-bg-card-button text-white rounded-lg border-0 p-2" @click.prevent="changePassword()">Change</button>
+                <button type="button" class="bfy-bg-green text-white rounded-lg border-0 p-2" @click.prevent="changePassword()">Change</button>
             </div>
         </div>
       </div>

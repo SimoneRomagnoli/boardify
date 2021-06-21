@@ -1,10 +1,10 @@
 const NotificationSummary = {
     props: ["project", "message", "url", "object", "date", "receivers", "sessionUser"],
     template: `
-    <div class="row rounded-lg bfy-bg-table-cell m-2 p-2 d-flex">
+    <div class="row rounded-lg bfy-bg-gray m-2 p-2 d-flex">
         <div class="align-self-center">
-            <span v-if="!read" class="fa fa-circle bfy-notification-color ml-2"></span>
-            <span v-else class="fa fa-circle-thin bfy-notification-color ml-2"></span>
+            <span v-if="!read" class="fa fa-circle bfy-green ml-2"></span>
+            <span v-else class="fa fa-circle-thin bfy-green ml-2"></span>
         </div>
         <div class="col-sm-4 p-2 align-self-center">
             <strong class="col-sm-2 p-2">{{project.owner}} - {{project.title}} </strong>
@@ -16,7 +16,7 @@ const NotificationSummary = {
             {{dateString}}
         </div>
         <div class="p-2 ml-auto">
-        <button class="bfy-bg-card-button text-white rounded p-1 text-center border-0" :to="url" style="text-decoration: none" @click.prevent="readNotifications(project)">
+        <button class="bfy-bg-green text-white rounded p-1 text-center border-0" :to="url" style="text-decoration: none" @click.prevent="readNotifications(project)">
             Open board
         </button>
         </div>

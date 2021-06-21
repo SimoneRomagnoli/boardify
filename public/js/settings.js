@@ -1,7 +1,7 @@
 const SettingsField = {
     props: ['field', 'content', 'target'],
     template: `
-        <div class="row rounded-lg bfy-bg-table-cell m-2 p-2">
+        <div class="row rounded-lg bfy-bg-gray m-2 p-2">
             <div class="col-sm-2 p-2">
                 <strong class="col-sm-2 p-2">{{field}}: </strong>
             </div>    
@@ -9,7 +9,7 @@ const SettingsField = {
                 {{content}}
             </div>
             <!--<div class="col p-2">
-                <button class="rounded border-0 pull-right bfy-bg-card-button text-white font-weight-bold pull-right" data-toggle="modal" :data-target="target">Change {{field}}</button>
+                <button class="rounded border-0 pull-right bfy-bg-green text-white font-weight-bold pull-right" data-toggle="modal" :data-target="target">Change {{field}}</button>
             </div>-->
         </div>
     `
@@ -32,7 +32,7 @@ const Settings = {
         <div class="container">
             <h1 class="px-0">Settings</h1>
             <div class="bg-white shadow rounded-lg p-2">
-                <div class="row rounded-lg bfy-bg-table-cell m-2 p-2">
+                <div class="row rounded-lg bfy-bg-gray m-2 p-2">
                     <div class="col-sm-2 p-2">
                         <strong class="col-sm-2 p-2">Username: </strong>
                     </div>    
@@ -46,8 +46,8 @@ const Settings = {
                 <settings-field field="Password" content="********" target="#passwordModal"></settings-field>
                 <div class="row mt-2 p-2">
                     <div class="col-4 offset-8">
-                        <button class="rounded border-0 bfy-bg-card-button text-white font-weight-bold pull-right p-2" data-toggle="modal" data-target="#passwordModal">Change password</button>
-                        <button class="rounded border-0 bfy-bg-card-button text-white font-weight-bold pull-right p-2 mr-2" data-toggle="modal" data-target="#settingsModal">Change bio</button>
+                        <button class="rounded border-0 bfy-bg-green text-white font-weight-bold pull-right p-2" data-toggle="modal" data-target="#passwordModal">Change password</button>
+                        <button class="rounded border-0 bfy-bg-green text-white font-weight-bold pull-right p-2 mr-2" data-toggle="modal" data-target="#settingsModal">Change bio</button>
                     </div>
                 </div>
             </div>

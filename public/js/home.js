@@ -3,7 +3,7 @@ const ProjectHeader = {
     template: 
     `
     <a :href="route" class="text-dark" style="text-decoration: none">
-        <div class="card shadow-lg rounded-lg p-3 bfy-bg-hover">
+        <div class="card shadow-lg rounded-lg p-3 bfy-bg-gray-hover">
             <h5 class="card-title mb-2"><i class="fas fa-clipboard-list bfy-green mr-1"></i> {{title}}</h5>
             <p class="card-text my-0">Owner: {{owner}}</p>
             <span class="ml-auto">{{members}} <i class="fas fa-users bfy-green"></i> </span>

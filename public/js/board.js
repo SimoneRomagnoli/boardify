@@ -4,12 +4,12 @@ const TopicsRow = {
     `
     <div class="row mx-1 flex-row flex-nowrap">
         <div class="col-4 col-lg-2 font-weight-bold py-2 px-0 rounded-lg my-2">
-            <button v-if="currentUser === params.owner" class="rounded border-0 align-self-center bfy-bg-card-button text-white" data-toggle="modal" data-target="#newUserModal">Add Users</button>
-            <button v-if="currentUser === params.owner" class="rounded border-0 align-self-center bfy-bg-card-button text-white" data-toggle="modal" data-target="#newTopicModal">Add Topic</button>
+            <button v-if="currentUser === params.owner" class="rounded border-0 align-self-center bfy-bg-green text-white" data-toggle="modal" data-target="#newUserModal">Add Users</button>
+            <button v-if="currentUser === params.owner" class="rounded border-0 align-self-center bfy-bg-green text-white" data-toggle="modal" data-target="#newTopicModal">Add Topic</button>
         </div>
-        <div class="col-4 col-lg-2 text-center text-capitalize bfy-bg-table-cell rounded-lg py-2 m-2 font-weight-bold" v-for="topic in topics" :key="topic">
+        <div class="col-4 col-lg-2 text-center text-capitalize bfy-bg-gray rounded-lg py-2 m-2 font-weight-bold" v-for="topic in topics" :key="topic">
             {{topic}}
-            <button v-if="currentUser === params.owner" class="rounded border-0 align-self-center bfy-bg-card-button text-white font-weight-bold pull-right" data-toggle="modal" data-target="#newTaskModal" @click.prevent="setCurrentTopic(topic)">+</button>
+            <button v-if="currentUser === params.owner" class="rounded border-0 align-self-center bfy-bg-green text-white font-weight-bold pull-right" data-toggle="modal" data-target="#newTaskModal" @click.prevent="setCurrentTopic(topic)">+</button>
         </div>
     </div>
     `,
@@ -37,7 +37,7 @@ const TasksRow = {
     template: 
     `
     <div class="row mx-1 my-1 flex-row flex-nowrap">
-        <div class="col-4 col-lg-2  font-weight-bold py-2 rounded-lg my-2 bfy-bg-table-cell d-flex align-items-center">
+        <div class="col-4 col-lg-2  font-weight-bold py-2 rounded-lg my-2 bfy-bg-gray d-flex align-items-center">
             Available Tasks
         </div>
         <div class="col-4 col-lg-2  mx-2" v-for="topic in topics" :key="topic">
@@ -66,7 +66,7 @@ const Row = {
     template: 
     `
       <div class="row mx-1 my-1 flex-row flex-nowrap">
-          <div class="col-4 col-lg-2  py-2 rounded-lg my-2 bfy-bg-table-cell d-flex align-items-center" style="vertical-align: middle">
+          <div class="col-4 col-lg-2  py-2 rounded-lg my-2 bfy-bg-gray d-flex align-items-center" style="vertical-align: middle">
             {{member.firstname}} {{member.lastname}}
             <button v-if="currentUser === params.owner && member.username !== params.owner" class="rounded border-0 btn-danger text-white font-weight-bold ml-auto" @click.prevent="removeMember(member)">X</button>
           </div>
@@ -234,7 +234,7 @@ const Board = {
         <div class="modal fade" id="newUserModal" tabindex="-1" aria-labelledby="newUserModalLabel" aria-hidden="true">
           <new-user-modal :board="board"></new-user-modal>
         </div>
-        <div class="container-fluid bg-white shadow rounded-lg p-2 bfy-board">
+        <div class="container-fluid bg-white shadow rounded-lg p-2 bfy-board-scroll">
             <topics :topics="board.topics" :setCurrentTopic="setCurrentTopic"></topics>
             <tasks :tasks="board.tasks" :topics="board.topics" :setCurrentTask="setCurrentTask"></tasks>
             <row v-for="member in members" :key="member" :member="member" :tasks="board.tasks" :topics="board.topics" :setCurrentTask="setCurrentTask"></row>

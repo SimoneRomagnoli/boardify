@@ -1,37 +1,6 @@
-.bfy-red {
-    background-color: #e76f51;
-}
-
-.bfy-orange {
-    background-color: #f4a261;
-}
-
-.bfy-yellow {
-    background-color: #e9c46a;
-}
-
-.bfy-dark-green {
-    background-color: #264653;
-}
-
-.bfy-bg-light {
-    background-color: #caf0f8;
-}
-
-.bfy-bg-dark {
-    background-color: #001219;
-}
-
-.bfy-bg-card-button {
+/*-------------- COLORS --------------*/
+.bfy-bg-green {
     background-color: #499652;
-}
-
-.bfy-bg-success {
-    background-color: #499652;
-}
-
-.bfy-notification-color {
-    color: #499652;
 }
 
 .bfy-green {
@@ -42,31 +11,24 @@
     border: 2px solid #499652; 
 }
 
-.bfy-bg-danger {
-    background-color: #e76f51;
-}
-
-.bfy-bg-table-cell {
-    background-color: #ebebed;
-}
-
-.bfy-bg-hover:hover {
-    background-color: #ebebed;
-}
-
-.bfy-bg-body {
+.bfy-bg-light-gray {
     background-color: #f5f6f7;
 }
 
-.bfy-bg-sidebar {
+.bfy-bg-gray {
+    background-color: #ebebed;
+}
+
+.bfy-bg-gray-hover:hover {
+    background-color: #ebebed;
+}
+
+.bfy-bg-dark-gray {
     background-color: #414f57;
 }
 
-.bfy-bg-navbar {
-    background-color: #414f57;
-}
-
-.bfy-navbar-icon:hover {
+/*-------------- ICONS --------------*/
+.bfy-icon:hover {
     color: lightgray !important;
 }
 
@@ -78,17 +40,13 @@
     filter: invert(90%)
 }
 
-.brand {
-    transform: translateX(-50%);
-    left: 60%;
-    position: absolute;
-}
-
-.bfy-board {
+/*-------------- BOARD --------------*/
+.bfy-board-scroll {
     overflow-x: scroll;
     white-space: nowrap;
 }
 
+/*-------------- NOTIFICATIONS --------------*/
 .bfy-notification-badge {
     position: relative;
     right: 7px;
@@ -97,8 +55,4 @@
     width: 10px;
     border-radius: 50%;
     display: inline-block;
-}
-
-.bfy-bg-project {
-    background-color: #eaeeec;
 }

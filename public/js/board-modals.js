@@ -39,7 +39,7 @@ const NewUsersModal = {
             </div>
             <div class="modal-footer">
                 <button type="button" class="bfy-bg-button text-white rounded-lg border-0 p-2" data-dismiss="modal" @click.prevent="qr()">QR Code</button>
-                <button type="button" class="bfy-bg-card-button text-white rounded-lg border-0 p-2" data-dismiss="modal" @click.prevent="addMemberListToBoard()">Add</button>
+                <button type="button" class="bfy-bg-green text-white rounded-lg border-0 p-2" data-dismiss="modal" @click.prevent="addMemberListToBoard()">Add</button>
             </div>
         </div>
       </div>
@@ -155,7 +155,7 @@ const NewTopicModal = {
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="bfy-bg-card-button text-white rounded-lg border-0 p-2" data-dismiss="modal" @click.prevent="createTopic()">Create Topic</button>
+                <button type="button" class="bfy-bg-green text-white rounded-lg border-0 p-2" data-dismiss="modal" @click.prevent="createTopic()">Create Topic</button>
             </div>
         </div>
       </div>
@@ -209,7 +209,7 @@ const NewTaskModal = {
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="bfy-bg-card-button text-white rounded-lg border-0 p-2" data-dismiss="modal" @click.prevent="createTask()">Create Task</button>
+                <button type="button" class="bfy-bg-green text-white rounded-lg border-0 p-2" data-dismiss="modal" @click.prevent="createTask()">Create Task</button>
             </div>
         </div>
       </div>
