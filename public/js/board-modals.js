@@ -319,7 +319,7 @@ const TaskModal = {
           <button v-if="currentUser === task.user" type="button" class="btn btn-info" @click.prevent="removeTask(task)">Remove task</button>
           <button v-if="task.state === 'TODO' && task.user != null && task.user !== '' && currentUser === task.user" type="button" class="btn btn-warning" @click.prevent="changeState(task)">Start task</button>
           <button v-if="task.state === 'TODO' && (task.user == null || task.user === '')" type="button" class="btn btn-info" @click.prevent="assignTask(task)">Take task</button>
-          <button v-if="task.state === 'RUNNING' && currentUser === task.user" type="button" class="btn btn-success" @click.prevent="changeState(task)">Task finished</button>
+          <button v-if="task.state === 'RUNNING' && currentUser === task.user" type="button" class="btn btn-success" @click.prevent="changeState(task)">Complete task</button>
         </div>
       </div>
       </div>

@@ -108,7 +108,7 @@ exports.remove_task = (req, res) => {
 		name
 	} = req.body;
 
-	Board.updateOne({$and: [{owner: req.params.owner}, {title: req.params.title}, {"tasks.name":name}]}, {$set: {"tasks.$.user":null}}, (err, board) => {
+	Board.updateOne({$and: [{owner: req.params.owner}, {title: req.params.title}, {"tasks.name":name}]}, {$set: {"tasks.$.user":null, "tasks.$.state":'TODO'}}, (err, board) => {
 		if (err) { res.send(err); }
 		else { res.json(board); }
 	});
