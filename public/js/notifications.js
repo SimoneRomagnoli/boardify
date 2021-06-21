@@ -12,6 +12,9 @@ const NotificationSummary = {
         <div class="col-sm-4 p-2 align-self-center">
             {{message}}: {{object}}
         </div>
+        <div class="col-sm-2 p-2 align-self-center">
+            {{dateString}}
+        </div>
         <div class="p-2 ml-auto">
         <button class="bfy-bg-card-button text-white rounded p-1 text-center border-0" :to="url" style="text-decoration: none" @click.prevent="readNotifications(project)">
             Open board
@@ -20,9 +23,16 @@ const NotificationSummary = {
     </div>
     `,
     data: function() {
+        const date = new Date(this.date)
+        const hhMM = date.getHours() + ':' + date.getMinutes()
+        const dd = String(date.getDate()).padStart(2, '0')
+        const mm = String(date.getMonth() + 1).padStart(2, '0')
+        const yyyy = date.getFullYear()
+
         return {
             url: this.url,
-            read: this.receivers.filter(receiver => receiver.user === this.sessionUser.username)[0].read
+            read: this.receivers.filter(receiver => receiver.user === this.sessionUser.username)[0].read,
+            dateString: dd + '/' + mm + '/' + yyyy + ' ' + hhMM
         }
     },
     methods: {
