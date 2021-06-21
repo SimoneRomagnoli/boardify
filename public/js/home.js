@@ -18,21 +18,12 @@ const Dashboard = {
         'project-header': ProjectHeader
     },
     template: `
-    <div class="px-4">
-        <h2 class="mt-3">Welcome to Boardify, {{session_user.firstname}}!</h2>
-        <div class="container-fluid">
+    <div class="col-sm-7 col-12 px-0">
+        <h3 class="mt-5">Your boards</h3>
+        <div class="card-body p-0">
             <div class="row">
-                <div class="col-sm-7 col-12 px-0">
-                    <h3 class="mt-5">Your boards</h3>
-                    <div class="card-body p-0">
-                        <div class="row">
-                            <div class="col-md-6 col-12 p-1" v-for="project in projects" :key="project._id">
-                                <project-header :title="project.title" :owner="project.owner" :members="project.members.length" :route="'/board'+'/'+project.owner+'/'+project.title"></project-header>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-12">
+                <div class="col-md-6 col-12 p-1" v-for="project in projects" :key="project._id">
+                    <project-header :title="project.title" :owner="project.owner" :members="project.members.length" :route="'/board'+'/'+project.owner+'/'+project.title"></project-header>
                 </div>
             </div>
         </div>
@@ -40,26 +31,18 @@ const Dashboard = {
     `,
     data: function() {
         return {
-            projects: [],
-            session_user: {}
+            projects: []
         }
     },
     methods: {
         init() {
             this.getProjects();
-            this.getSessionUser()
-            .then( response => {
-                this.session_user = response.data;
-            });
         },
         getProjects() {
             axios.get(this.$host + "api/projects")
             .then(response => {
                 this.projects = response.data;
             })
-        },
-        replaceByDefault(e){
-            e.target.src = "https://icon-library.net//images/not-found-icon/not-found-icon-4.jpg"
         }
     },
     mounted: function(){
@@ -67,11 +50,43 @@ const Dashboard = {
     }
 }
 
+const HomeChart = {
+    template: `
+    <div class="col-sm-4 col-12">
+    </div>
+    `
+}
+
 const Home = {
     components: {
-        'dashboard': Dashboard
+        'dashboard': Dashboard,
+        'home-chart': HomeChart
     },
     template: `
-        <dashboard></dashboard>
-    `
+    <div class="px-4">
+        <h2 class="mt-3">Welcome to Boardify, {{session_user.firstname}}!</h2>
+        <div class="container-fluid">
+            <div class="row">
+                <dashboard></dashboard>
+                <home-chart></home-chart>
+            </div>
+        </div>
+    </div>
+    `,
+    data: function() {
+        return {
+            session_user: {}
+        }
+    },
+    methods: {
+        init() {
+            this.getSessionUser()
+            .then( response => {
+                this.session_user = response.data;
+            });
+        }
+    },
+    mounted: function(){
+        this.init();
+    }
  }
