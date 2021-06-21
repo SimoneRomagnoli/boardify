@@ -8,7 +8,7 @@ const Project = {
               <div class="text-center mb-4">
                 <h1 class="mb-1">Create a new project</h1>
               </div>
-              <div class="card-body border rounded-lg bfy-bg-project">
+              <div class="card-body border rounded-lg bfy-bg-table-cell">
                 <form method="POST">
                   <div class="form-group mb-0">
                     <input
