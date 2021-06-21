@@ -49,26 +49,5 @@ const Navbar = {
     </div>
     
   </nav>
-  `,
-  data: function() {
-    return {
-      session_user: {},
-      profile_path: ""
-    }
-  },
-  methods: {
-    init() {
-      this.getSessionUser();
-    },
-    getSessionUser() {
-      axios.get(this.$host + "session/user")
-          .then( response => {
-            this.session_user = response.data.username;
-            this.profile_path = "/profile/"+this.session_user;
-          })
-    }
-  },
-  mounted: function(){
-    this.init();
-  }
+  `
 }

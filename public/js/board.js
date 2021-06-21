@@ -21,8 +21,8 @@ const TopicsRow = {
     },
     methods: {
         init() {
-            axios.get(this.$host + "session/user")
-                .then(response => {
+            this.getSessionUser()
+            .then(response => {
                 this.currentUser = response.data.username;
             });
         }
@@ -96,8 +96,8 @@ const Row = {
     },
     methods: {
         init() {
-            axios.get(this.$host + "session/user")
-                .then(response => {
+            this.getSessionUser()
+            .then(response => {
                 this.currentUser = response.data.username;
             });
         },

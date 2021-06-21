@@ -200,13 +200,10 @@ const About = {
     },
     methods: {
         init() {
-            this.getSessionUser();
-        },
-        getSessionUser() {
-            axios.get(this.$host + "session/user")
+            this.getSessionUser()
             .then(response => {
                 this.session_user = response.data;
-            })
+            });
         }
     },
     mounted: function() {

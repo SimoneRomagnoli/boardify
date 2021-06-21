@@ -66,17 +66,14 @@ const Settings = {
     },
     methods: {
         init() {
-            this.getSessionUser();
-        },
-        getSessionUser() {
-            axios.get(this.$host + 'session/user')
+            this.getSessionUser()
             .then(response => {
                 const session_user = response.data;
                 this.user.username = session_user.username;
                 this.user.firstname = session_user.firstname;
                 this.user.lastname = session_user.lastname;
                 this.user.email = session_user.email;
-            }) 
+            });
         }
     },
     mounted: function() {

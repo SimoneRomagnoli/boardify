@@ -381,7 +381,7 @@ const TaskModal = {
         }
     },
     mounted: function() {
-        axios.get(this.$host + "session/user")
+        this.getSessionUser()
         .then(response => {
             this.currentUser = response.data.username;
         });

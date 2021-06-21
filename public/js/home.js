@@ -43,19 +43,16 @@ const Dashboard = {
     methods: {
         init() {
             this.getProjects();
-            this.getSessionUser();
+            this.getSessionUser()
+            .then( response => {
+                this.session_user = response.data;
+            });
         },
         getProjects() {
             axios.get(this.$host + "api/projects")
             .then(response => {
                 this.projects = response.data;
             })
-        },
-        getSessionUser() {
-            axios.get(this.$host + "session/user")
-                .then( response => {
-                    this.session_user = response.data;
-                })
         },
         replaceByDefault(e){
             e.target.src = "https://icon-library.net//images/not-found-icon/not-found-icon-4.jpg"
