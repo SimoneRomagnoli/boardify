@@ -51,10 +51,46 @@ const Dashboard = {
 }
 
 const HomeChart = {
+    props: ["user"],
     template: `
-    <div class="col-sm-4 col-12">
+    <div class="card rounded-lg col-sm-4 col-12 mx-lg-5 shadow-lg">
+      <h5>Your tasks progress</h5>
+      <div id="homeChart"></div>
     </div>
-    `
+    `,
+    data: function () {
+        return {
+            globals: []
+        }
+    },
+    methods: {
+        fillChart() {
+            let points = [];
+            this.globals.forEach(b => points.push({x: b.title, y: b.tasks.filter(t => t.user === this.user.username).length}));
+            JSC.Chart('homeChart', {
+                yAxis: {
+                    scale: { interval: 1},
+                },
+                type: 'horizontal column',
+                series: [
+                    {
+                        name: "Tasks",
+                        points: points
+                    }
+                ]
+            });
+        },
+        getUserTasks() {
+            axios.get(this.$host + "api/projects")
+                .then(response => {
+                    this.globals = response.data;
+                    this.fillChart();
+                });
+        }
+    },
+    mounted: function () {
+        this.getUserTasks();
+    }
 }
 
 const Home = {
@@ -68,7 +104,7 @@ const Home = {
         <div class="container-fluid">
             <div class="row">
                 <dashboard></dashboard>
-                <home-chart></home-chart>
+                <home-chart :user="this.session_user"></home-chart>
             </div>
         </div>
     </div>

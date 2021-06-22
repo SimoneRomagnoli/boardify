@@ -134,6 +134,9 @@ const ColumnChart = {
             this.members.forEach(m => done.push({x: m, y: this.tasks.filter(t => t.user === m && t.state === 'DONE').length}));
             JSC.Chart('columnChart', {
                 type: 'horizontal column',
+                yAxis: {
+                    scale: { interval: 1},
+                },
                 series: [
                     {
                         name: 'TODO',
