@@ -4,10 +4,21 @@ const NavButton = {
   `
   <div class="nav-item rounded d-inline-flex p-0">
     <router-link class="nav-link" :to="route">
-      <i :class="icon" class="text-white bfy-icon align-self-center p-0"></i><span v-if="badge" class="bfy-notification-badge bg-danger"></span>
+      <i :class="icon" class="text-white bfy-icon align-self-center p-0"></i><span v-if="notificationBadge" class="bfy-notification-badge bg-danger"></span>
     </router-link>
   </div>
-  `
+  `,
+  data() {
+    console.log(this.badge);
+    return {
+      notificationBadge: this.badge
+    }
+  },
+  watch: {
+    badge: function (newVal, oldVal) {
+        this.notificationBadge = newVal;
+    }
+  }
 }
 
 const Navbar = {
@@ -51,6 +62,12 @@ const Navbar = {
   data() {
     return {
       notifications: this.$notifications
+    }
+  },
+  watch: {
+    'this.$notifications': function(newVal, oldVal) {
+        console.log("vaffa");
+	this.notifications = newVal;
     }
   },
   methods: {
