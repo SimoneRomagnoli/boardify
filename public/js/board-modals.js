@@ -133,6 +133,7 @@ const NewUsersModal = {
 }
 
 const NewTopicModal = {
+    props: ['board'],
     template: `
       <div class="modal-dialog">
         <div class="modal-content">
@@ -170,11 +171,31 @@ const NewTopicModal = {
             const topic = {
                 name: document.getElementById("topic-name").value
             }
+
+            const notification = {
+                to: this.board.members.map(user => {
+                    return {
+                        user:user,
+                        read:false
+                    }
+                }),
+                project: {
+                    title: this.params.title,
+                    owner: this.params.owner
+                },
+                message: "A new topic was added to the board",
+                object: topic.name,
+                url: `/board/${this.params.owner}/${this.params.title}`,
+                date: new Date()
+            }
                 
             axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/newTopic", topic)
             .then(_ => {
                 this.$router.go();
             });
+
+            axios.post(this.$host + "api/notification", notification);
+            this.$socket.emit('notification', notification);
         }
     }
 }
@@ -348,6 +369,27 @@ const TaskModal = {
         },
         changeState(task) {
             this.task = task;
+
+            if (this.task.state === "RUNNING") {
+                const notification = {
+                    to: [{
+                        user: this.params.owner,
+                        read: false
+                    }],
+                    project: {
+                        title: this.params.title,
+                        owner: this.params.owner
+                    },
+                    message: `${this.task.user} completed a task`,
+                    object: this.task.name,
+                    url: `/board/${this.params.owner}/${this.params.title}`,
+                    date: new Date()
+                }
+
+                axios.post(this.$host + "api/notification", notification);
+                this.$socket.emit('notification', notification);
+            }
+
             axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/taskState", this.task)
             .then(_ => {
                 this.task = null;
