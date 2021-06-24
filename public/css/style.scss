@@ -1,0 +1,63 @@
+$green: #499652;
+$lightgray: #f5f6f7;
+$gray: #ebebed;
+$darkgray: #414f57;
+
+/*-------------- COLORS --------------*/
+.bfy-bg-green {
+    background-color: $green;
+}
+
+.bfy-green {
+    color: $green;
+}
+
+.bfy-border-green {
+    border: 2px solid $green; 
+}
+
+.bfy-bg-light-gray {
+    background-color: $lightgray;
+}
+
+.bfy-bg-gray {
+    background-color: $gray;
+}
+
+.bfy-bg-gray-hover:hover {
+    background-color: $gray;
+}
+
+.bfy-bg-dark-gray {
+    background-color: $darkgray;
+}
+
+/*-------------- ICONS --------------*/
+.bfy-icon:hover {
+    color: lightgray !important;
+}
+
+.logo:hover {
+    filter: brightness(0.75)
+}
+
+.signin-logo {
+    filter: invert(90%)
+}
+
+/*-------------- BOARD --------------*/
+.bfy-board-scroll {
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+
+/*-------------- NOTIFICATIONS --------------*/
+.bfy-notification-badge {
+    position: relative;
+    right: 7px;
+    top: -7px;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
