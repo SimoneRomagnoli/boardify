@@ -85,25 +85,20 @@
                 currentUser: null
 			}
 		},
-		methods: {
-			getSessionUser() {
-				axios.get(this.$host + "session/user")
-				.then(response => {
-					this.currentUser = response.data.username;
-				});
-			}
-		},
 		mounted() {
-		    this.getSessionUser();
-			setTimeout(
-				() => 
-					this.$socket.on('notification', notification => {
-						console.log("vaffa");
-						if(notification.to.map(readMap => readMap.user).includes(this.currentUser)) {
-							this.notifications.push(notification);
-							this.$notifications = true;
-						}
-					}), 2000);
+		    this.getSessionUser()
+			.then(response => {
+				this.currentUser = response.data.username;
+			});
+			this.$socket.on('notification', notification => {
+				this.getSessionUser()
+				.then(response => {
+					if(notification.to.map(readMap => readMap.user).includes(response.data.username)) {
+						this.notifications.push(notification);
+						this.$notifications = true;
+					}
+				})
+			});
 		}
 	  });
 </script>
