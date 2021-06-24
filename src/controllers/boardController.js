@@ -44,7 +44,8 @@ exports.get_task = (req, res) => {
 }
 
 exports.delete_task = (req, res) => {
-	Board.updateOne({$and: [{owner: req.params.owner}, {title: req.params.title}]}, {$pull: {tasks: {name: req.params.task}}}, (err, board) => {
+	const task = req.body.name;
+	Board.updateOne({$and: [{owner: req.params.owner}, {title: req.params.title}]}, {$pull: {tasks: {name: task}}}, (err, board) => {
 		if (err) {res.send(err); }
 		else { res.json(board); }
 	})
@@ -134,7 +135,8 @@ exports.create_topic = (req, res) => {
 
 exports.add_session_user = (req, res) => {
 	const user = req.session.user.username;
-	
+	console.log(user);
+	console.log("VAFFA");
 	Board.find({$and: [{owner:req.params.owner}, {title:req.params.title}]}, (err, boards) => {
 		if (err) { res.send(err); }
 		else { 

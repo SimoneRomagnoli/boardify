@@ -406,8 +406,7 @@ const TaskModal = {
         },
         deleteTask(task) {
             this.task = task;
-
-            axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/"+this.task.name)
+            axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/delete", {"name": this.task.name})
             .then(_ => {
                 this.task = null;
                 this.$router.go();
