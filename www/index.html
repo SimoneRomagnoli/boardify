@@ -90,17 +90,20 @@
 				axios.get(this.$host + "session/user")
 				.then(response => {
 					this.currentUser = response.data.username;
-					this.$socket.on('notification', notification => {
-						if(notification.to.map(readMap => readMap.user).includes(this.currentUser)) {
-							this.notifications.push(notification);
-							this.$notifications = true;
-						}
-           			});
 				});
 			}
 		},
 		mounted() {
 		    this.getSessionUser();
+			setTimeout(
+				() => 
+					this.$socket.on('notification', notification => {
+						console.log("vaffa");
+						if(notification.to.map(readMap => readMap.user).includes(this.currentUser)) {
+							this.notifications.push(notification);
+							this.$notifications = true;
+						}
+					}), 2000);
 		}
 	  });
 </script>
