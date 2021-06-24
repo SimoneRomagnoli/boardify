@@ -59,8 +59,8 @@
 <script src="/static/js/router.js"></script>
 
 <script>
-    //Vue.prototype.$host = "http://87.6.240.24/";
-    Vue.prototype.$host = "http://localhost:3000/";
+    Vue.prototype.$host = "http://79.46.240.140/";
+    //Vue.prototype.$host = "http://localhost:3000/";
     Vue.prototype.$socket = io();
 	Vue.prototype.$notifications = false;
 	Vue.mixin({
@@ -90,17 +90,17 @@
 				axios.get(this.$host + "session/user")
 				.then(response => {
 					this.currentUser = response.data.username;
+					this.$socket.on('notification', notification => {
+						if(notification.to.map(readMap => readMap.user).includes(this.currentUser)) {
+							this.notifications.push(notification);
+							this.$notifications = true;
+						}
+           			});
 				});
 			}
 		},
 		mounted() {
 		    this.getSessionUser();
-		    this.$socket.on('notification', notification => {
-		        if(notification.to.map(readMap => readMap.user).includes(this.currentUser)) {
-		           this.notifications.push(notification);
-				   this.$notifications = true;
-                }
-            });
 		}
 	  });
 </script>

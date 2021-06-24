@@ -1,6 +1,6 @@
 const Board = require('../config/database').Board
 const QRCode = require('qrcode');
-const host = "http://87.6.240.24/";
+const host = "http://79.46.240.140/";
 
 exports.show_index = (req, res) => {
 	res.sendFile(appRoot  + '/www/index.html');
