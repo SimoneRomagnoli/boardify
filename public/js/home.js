@@ -112,7 +112,8 @@ const Home = {
                 series: [
                     {
                         name: "Tasks",
-                        points: points
+                        points: points,
+			color: "#499652"
                     }
                 ]
             });
