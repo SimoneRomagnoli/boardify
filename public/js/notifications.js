@@ -24,7 +24,7 @@ const NotificationSummary = {
     `,
     data: function() {
         const date = new Date(this.date)
-        const hhMM = date.getHours() + ':' + date.getMinutes()
+        const hhMM = date.getHours() + ':' + (date.getMinutes() < 10 ? "0" : "") + date.getMinutes()
         const dd = String(date.getDate()).padStart(2, '0')
         const mm = String(date.getMonth() + 1).padStart(2, '0')
         const yyyy = date.getFullYear()
