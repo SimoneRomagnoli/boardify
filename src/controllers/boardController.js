@@ -97,10 +97,16 @@ exports.remove_user = (req, res) => {
 		username
 	} = req.body;
 
-	Board.updateOne({$and: [{owner: req.params.owner}, {title: req.params.title}]}, {$pull: {members:username}}, (err, board) => {
+	Board.updateMany({$and: [{owner: req.params.owner}, {title: req.params.title},  {"tasks.user":username}]}, {$set: {"tasks.$.user": null, "tasks.$.state":"TODO"}}, (err, _) => {
 		if (err) { res.send(err); }
-		else { res.json(board); }
+		else {
+			Board.updateOne({$and: [{owner: req.params.owner}, {title: req.params.title}]}, {$pull: {members:username}}, (err, board) => {
+				if (err) { res.send(err); }
+				else { res.json(board); }
+			});
+		}
 	});
+
 }
 
 exports.remove_task = (req, res) => {
