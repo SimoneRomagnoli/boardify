@@ -24,6 +24,7 @@
     "passport-local": "^1.0.0",
     "qrcode": "^1.4.4",
     "saslprep": "^1.0.3",
+    "sass": "^1.35.1",
     "socket.io": "^4.1.2",
     "vue": "^3.0.11",
     "vue-qrcode": "^0.4.0"

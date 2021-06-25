@@ -102,10 +102,28 @@ const Row = {
             });
         },
         removeMember(member) {
+            const notification = {
+                to: [{
+                    user: this.member.username,
+                    read: false
+                }],
+                project: {
+                    title: this.params.title,
+                    owner: this.params.owner
+                },
+                message: "You were removed from the board",
+                object: this.params.title,
+                url: `/board/${this.params.owner}/${this.params.title}`,
+                date: new Date()
+            }
+
             axios.put(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/removeUser", member)
             .then(_ => {
                 this.$router.go();
             })
+
+            axios.post(this.$host + "api/notification", notification);
+            this.$socket.emit('notification', notification);
         }
     },
     mounted: function() {
@@ -232,7 +250,7 @@ const Board = {
           <new-task-modal :topic_watch="currentTopic" :board="board"></new-task-modal>
         </div>
         <div class="modal fade" id="newTopicModal" tabindex="-1" aria-labelledby="newTopicModalLabel" aria-hidden="true">
-          <new-topic-modal></new-topic-modal>
+          <new-topic-modal :board="board"></new-topic-modal>
         </div>
         <div class="modal fade" id="newUserModal" tabindex="-1" aria-labelledby="newUserModalLabel" aria-hidden="true">
           <new-user-modal :board="board"></new-user-modal>

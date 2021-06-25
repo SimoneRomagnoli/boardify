@@ -23,7 +23,7 @@ module.exports = app => {
 		.put(boardsController.create_topic);
 
 	app.route('/api/board/:owner/:title/addSessionUser')	
-		.put(ensureAuthenticated, boardsController.add_session_user);
+		.get(ensureAuthenticated, boardsController.add_session_user);
 
 	app.route('/api/board/:owner/:title/newUsers')
 		.put(boardsController.add_users);
@@ -43,9 +43,11 @@ module.exports = app => {
 	app.route('/api/board/:owner/:title/comment')	
 		.put(boardsController.save_comment);
 
-	app.route('/api/board/:owner/:title/:task')	
-		.get(boardsController.get_task)
+	app.route('/api/board/:owner/:title/delete')
 		.put(boardsController.delete_task);
+
+	app.route('/api/board/:owner/:title/get/:task')
+		.get(boardsController.get_task);
 
 	app.route('/api/projects')
 		.get(boardsController.get_projects);

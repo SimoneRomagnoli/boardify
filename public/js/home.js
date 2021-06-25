@@ -18,7 +18,7 @@ const Dashboard = {
         'project-header': ProjectHeader
     },
     template: `
-    <div class="col-sm-7 col-12 px-0">
+    <div>
         <h3 class="mt-5">Your boards</h3>
         <div class="card-body p-0">
             <div class="row">
@@ -51,46 +51,14 @@ const Dashboard = {
 }
 
 const HomeChart = {
-    props: ["user"],
     template: `
-    <div class="card rounded-lg col-sm-4 col-12 mx-lg-5 shadow-lg">
-      <h5>Your tasks progress</h5>
-      <div id="homeChart"></div>
+    <div>
+      <h3 class="mt-5">Your tasks progress</h3>
+      <div class="rounded-lg border shadow p-0">
+        <div id="homeChart"></div>
+      </div>
     </div>
-    `,
-    data: function () {
-        return {
-            globals: []
-        }
-    },
-    methods: {
-        fillChart() {
-            let points = [];
-            this.globals.forEach(b => points.push({x: b.title, y: b.tasks.filter(t => t.user === this.user.username).length}));
-            JSC.Chart('homeChart', {
-                yAxis: {
-                    scale: { interval: 1},
-                },
-                type: 'horizontal column',
-                series: [
-                    {
-                        name: "Tasks",
-                        points: points
-                    }
-                ]
-            });
-        },
-        getUserTasks() {
-            axios.get(this.$host + "api/projects")
-                .then(response => {
-                    this.globals = response.data;
-                    this.fillChart();
-                });
-        }
-    },
-    mounted: function () {
-        this.getUserTasks();
-    }
+    `
 }
 
 const Home = {
@@ -103,22 +71,51 @@ const Home = {
         <h2 class="mt-3">Welcome to Boardify, {{session_user.firstname}}!</h2>
         <div class="container-fluid">
             <div class="row">
-                <dashboard></dashboard>
-                <home-chart :user="this.session_user"></home-chart>
+                <dashboard class="col-sm-7 col-12 px-0"></dashboard>
+                <home-chart class="col-sm-4 col-12 ml-auto"></home-chart>
             </div>
         </div>
     </div>
     `,
     data: function() {
         return {
-            session_user: {}
+            session_user: {},
+            global_data: []
         }
     },
     methods: {
         init() {
             this.getSessionUser()
-            .then( response => {
+            .then(response => {
                 this.session_user = response.data;
+                this.getUserTasks();
+            });
+        },
+        getUserTasks() {
+            axios.get(this.$host + "api/projects")
+                .then(response => {
+                    this.global_data = response.data;
+                    this.fillChart();
+                });
+        },
+        fillChart() {
+            let points = [];
+            this.global_data.forEach(b => points.push({
+                x: b.title,
+                y: b.tasks.filter(t => t.user === this.session_user.username).length
+            }));
+            JSC.Chart('homeChart', {
+                yAxis: {
+                    scale: {interval: 1},
+                },
+                type: 'horizontal column',
+                series: [
+                    {
+                        name: "Tasks",
+                        points: points,
+			color: "#499652"
+                    }
+                ]
             });
         }
     },
