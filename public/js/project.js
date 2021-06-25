@@ -134,7 +134,7 @@ const Project = {
             axios.post(this.$host + "api/project", this.board)
             .then(response => {
                 this.msg = response.data["message"];
-                if(this.msg == null) location.replace("http://localhost:3000/");
+                if(this.msg == null) location.replace(`${this.$host}`);
             });
         }
     }
