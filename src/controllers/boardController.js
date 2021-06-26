@@ -141,8 +141,6 @@ exports.create_topic = (req, res) => {
 
 exports.add_session_user = (req, res) => {
 	const user = req.session.user.username;
-	console.log(user);
-	console.log("VAFFA");
 	Board.find({$and: [{owner:req.params.owner}, {title:req.params.title}]}, (err, boards) => {
 		if (err) { res.send(err); }
 		else { 

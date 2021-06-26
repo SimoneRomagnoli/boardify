@@ -89,7 +89,6 @@ exports.change = (req, res) => {
 		email
 	} = req.body;
 
-	console.log(req.body)
 	User.updateOne({username:username}, {$set: {"firstname":firstname, "lastname":lastname, "email":email}}, (err, user) => {
 		if (err) { res.send(err); }
 		else { res.json(user); }

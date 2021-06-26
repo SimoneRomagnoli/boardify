@@ -9,7 +9,6 @@ const NavButton = {
   </div>
   `,
   data() {
-    console.log(this.badge);
     return {
       notificationBadge: this.badge
     }
@@ -23,7 +22,7 @@ const NavButton = {
 
 const Navbar = {
   components: {
-    'navbutton': NavButton
+    navbutton: NavButton,
   },
   template: `
   <nav class="navbar navbar-expand-lg navbar-light bfy-bg-dark-gray">
@@ -61,34 +60,35 @@ const Navbar = {
   `,
   data() {
     return {
-      notifications: this.$notifications
-    }
+      notifications: this.$notifications,
+    };
   },
   watch: {
-    'this.$notifications': function(newVal, oldVal) {
-        console.log("vaffa");
-	this.notifications = newVal;
-    }
+    "this.$notifications": function (newVal, oldVal) {
+      this.notifications = newVal;
+    },
   },
   methods: {
     init() {
-      this.getSessionUser()
-      .then(res => {
+      this.getSessionUser().then((res) => {
         const sessionUser = res.data.username;
-        axios.get(this.$host + "api/notification")
-        .then(response => {
-          this.notifications = 
+        axios.get(this.$host + "api/notification").then((response) => {
+          this.notifications =
             this.$notifications ||
             response.data
-              .map(not => not.to)
-              .map(receivers => { return receivers.filter(receiver => receiver.user === sessionUser)[0] })
-              .map(readMap => readMap.read)
-              .some(read => !read);
+              .map((not) => not.to)
+              .map((receivers) => {
+                return receivers.filter(
+                  (receiver) => receiver.user === sessionUser
+                )[0];
+              })
+              .map((readMap) => readMap.read)
+              .some((read) => !read);
         });
       });
-    }
+    },
   },
   mounted() {
     this.init();
-  }
-}
+  },
+};

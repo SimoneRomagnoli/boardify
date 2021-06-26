@@ -115,7 +115,6 @@ const NewUsersModal = {
 
             axios.get(this.$host + "api/board/"+this.params.owner+"/"+this.params.title+"/qr")
             .then(response => {
-                console.log(response.data);
                 const dataURL = response.data;
                 var a = document.createElement("a");
                 a.href = dataURL;

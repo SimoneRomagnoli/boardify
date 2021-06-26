@@ -48,7 +48,6 @@ app.use((req, res) => {
 });
 
 io.on('connection', socket => {
-    console.log(socket.id);
     socket.on('notification', notification => {
         io.emit('notification', notification);
     });
